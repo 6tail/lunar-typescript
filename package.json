@@ -1,0 +1,64 @@
+{
+  "name": "lunar-typescript",
+  "version": "1.0.0",
+  "description": "lunar is a calendar library for Solar and Chinese Lunar.",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc",
+    "test": "npm run build && mocha ./dist/test/*.js",
+    "release": "npm run test && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6tail/lunar-typescript.git"
+  },
+  "keywords": [
+    "calendar",
+    "lunar",
+    "solar",
+    "节假日",
+    "星座",
+    "儒略日",
+    "干支",
+    "生肖",
+    "节气",
+    "节日",
+    "彭祖百忌",
+    "每日宜忌",
+    "时辰宜忌",
+    "吉神宜趋",
+    "凶煞宜忌",
+    "喜神",
+    "福神",
+    "财神",
+    "阳贵神",
+    "阴贵神",
+    "胎神",
+    "冲煞",
+    "纳音",
+    "星宿",
+    "八字",
+    "五行",
+    "十神",
+    "建除十二值星",
+    "青龙名堂等十二神",
+    "黄道黑道日"
+  ],
+  "author": "6tail",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/6tail/lunar-typescript/issues"
+  },
+  "homepage": "https://github.com/6tail/lunar-typescript",
+  "devDependencies": {
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^14.14.9",
+    "mocha": "^8.2.1",
+    "mocha-typescript": "^1.1.17",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {}
+}
