@@ -1,6 +1,8 @@
+.git/
 .idea/
 dist/test/
 node_modules/
 src/
 .gitignore
+*.iml
 tsconfig.json
