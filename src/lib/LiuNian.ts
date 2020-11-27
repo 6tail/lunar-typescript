@@ -35,7 +35,7 @@ export class LiuNian {
     }
 
     getGanZhi(): string {
-        let offset = LunarUtil.getJiaZiIndex(this._lunar.getYearInGanZhiExact()) + this._index;
+        let offset = LunarUtil.getJiaZiIndex(this._lunar.getJieQiTable().get('立春').getLunar().getYearInGanZhiExact()) + this._index;
         if (this._daYun.getIndex() > 0) {
             offset += this._daYun.getStartAge() - 1;
         }
