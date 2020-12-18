@@ -19,6 +19,8 @@ export class EightChar {
         ['辛', 0],
         ['癸', 3]
     ]);
+
+    private _sect: number = 2;
     private _lunar: Lunar;
 
     static fromLunar(lunar: Lunar): EightChar {
@@ -27,6 +29,22 @@ export class EightChar {
 
     constructor(lunar: Lunar) {
         this._lunar = lunar;
+    }
+
+    getSect(): number {
+        return this._sect;
+    }
+
+    setSect(sect: number) {
+        this._sect = (1 == sect) ? 1 : 2;
+    }
+
+    getDayGanIndex(): number {
+        return 2 === this._sect ? this._lunar.getDayGanIndexExact2() : this._lunar.getDayGanIndexExact();
+    }
+
+    getDayZhiIndex(): number {
+        return 2 === this._sect ? this._lunar.getDayZhiIndexExact2() : this._lunar.getDayZhiIndexExact();
     }
 
     getYear(): string {
@@ -47,8 +65,8 @@ export class EightChar {
     }
 
     getYearWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this._lunar.getYearGanExact());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this._lunar.getYearZhiExact());
+        const gan = LunarUtil.WU_XING_GAN.get(this.getYearGan());
+        const zhi = LunarUtil.WU_XING_ZHI.get(this.getYearZhi());
         return gan && zhi ? gan + zhi : '';
     }
 
@@ -78,13 +96,12 @@ export class EightChar {
         return l;
     }
 
-    getYearDiShi(): string {
-        const zhiIndex = this._lunar.getYearZhiIndexExact();
+    getDiShi(zhiIndex: number): string {
         const offset = EightChar.CHANG_SHENG_OFFSET.get(this.getDayGan());
         if (offset == undefined) {
             return '';
         }
-        let index = offset + (this._lunar.getDayGanIndexExact() % 2 == 0 ? zhiIndex : -zhiIndex);
+        let index = offset + (this.getDayGanIndex() % 2 == 0 ? zhiIndex : -zhiIndex);
         if (index >= 12) {
             index -= 12;
         }
@@ -92,6 +109,10 @@ export class EightChar {
             index += 12;
         }
         return EightChar.CHANG_SHENG[index];
+    }
+
+    getYearDiShi(): string {
+        return this.getDiShi(this._lunar.getYearZhiIndexExact());
     }
 
     getYearXun(): string {
@@ -120,8 +141,8 @@ export class EightChar {
     }
 
     getMonthWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this._lunar.getMonthGanExact());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this._lunar.getMonthZhiExact());
+        const gan = LunarUtil.WU_XING_GAN.get(this.getMonthGan());
+        const zhi = LunarUtil.WU_XING_ZHI.get(this.getMonthZhi());
         return gan && zhi ? gan + zhi : '';
     }
 
@@ -152,19 +173,7 @@ export class EightChar {
     }
 
     getMonthDiShi(): string {
-        const zhiIndex = this._lunar.getMonthZhiIndexExact();
-        const offset = EightChar.CHANG_SHENG_OFFSET.get(this.getDayGan());
-        if (offset == undefined) {
-            return '';
-        }
-        let index = offset + (this._lunar.getDayGanIndexExact() % 2 == 0 ? zhiIndex : -zhiIndex);
-        if (index >= 12) {
-            index -= 12;
-        }
-        if (index < 0) {
-            index += 12;
-        }
-        return EightChar.CHANG_SHENG[index];
+        return this.getDiShi(this._lunar.getMonthZhiIndexExact());
     }
 
     getMonthXun(): string {
@@ -176,15 +185,15 @@ export class EightChar {
     }
 
     getDay(): string {
-        return this._lunar.getDayInGanZhiExact();
+        return 2 === this._sect ? this._lunar.getDayInGanZhiExact2() : this._lunar.getDayInGanZhiExact();
     }
 
     getDayGan(): string {
-        return this._lunar.getDayGanExact();
+        return 2 === this._sect ? this._lunar.getDayGanExact2() : this._lunar.getDayGanExact();
     }
 
     getDayZhi(): string {
-        return this._lunar.getDayZhiExact();
+        return 2 === this._sect ? this._lunar.getDayZhiExact2() : this._lunar.getDayZhiExact();
     }
 
     getDayHideGan(): string[] {
@@ -193,8 +202,8 @@ export class EightChar {
     }
 
     getDayWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this._lunar.getDayGanExact());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this._lunar.getDayZhiExact());
+        const gan = LunarUtil.WU_XING_GAN.get(this.getDayGan());
+        const zhi = LunarUtil.WU_XING_ZHI.get(this.getDayZhi());
         return gan && zhi ? gan + zhi : '';
     }
 
@@ -224,27 +233,15 @@ export class EightChar {
     }
 
     getDayDiShi(): string {
-        const zhiIndex = this._lunar.getDayZhiIndexExact();
-        const offset = EightChar.CHANG_SHENG_OFFSET.get(this.getDayGan());
-        if (offset == undefined) {
-            return '';
-        }
-        let index = offset + (this._lunar.getDayGanIndexExact() % 2 == 0 ? zhiIndex : -zhiIndex);
-        if (index >= 12) {
-            index -= 12;
-        }
-        if (index < 0) {
-            index += 12;
-        }
-        return EightChar.CHANG_SHENG[index];
+        return this.getDiShi(this.getDayZhiIndex());
     }
 
     getDayXun(): string {
-        return this._lunar.getDayXunExact()
+        return (2 === this._sect) ? this._lunar.getDayXunExact2() : this._lunar.getDayXunExact();
     }
 
     getDayXunKong(): string {
-        return this._lunar.getDayXunKongExact()
+        return (2 === this._sect) ? this._lunar.getDayXunKongExact2() : this._lunar.getDayXunKongExact();
     }
 
     getTime(): string {
@@ -401,10 +398,10 @@ export class EightChar {
     }
 
     getYun(gender: number) {
-        return new Yun(this._lunar,gender);
+        return new Yun(this._lunar, gender);
     }
 
-    toString():string {
+    toString(): string {
         return this.getYear() + ' ' + this.getMonth() + ' ' + this.getDay() + ' ' + this.getTime();
     }
 }

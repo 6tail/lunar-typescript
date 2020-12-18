@@ -14,6 +14,8 @@ interface LunarInfo {
     dayZhiIndex: number;
     dayGanIndexExact: number;
     dayZhiIndexExact: number;
+    dayGanIndexExact2: number;
+    dayZhiIndexExact2: number;
     monthGanIndex: number;
     monthZhiIndex: number;
     monthGanIndexExact: number;
@@ -60,6 +62,8 @@ export class Lunar {
     private _dayZhiIndex: number;
     private _dayGanIndexExact: number;
     private _dayZhiIndexExact: number;
+    private _dayGanIndexExact2: number;
+    private _dayZhiIndexExact2: number;
     private _monthGanIndex: number;
     private _monthZhiIndex: number;
     private _monthGanIndexExact: number;
@@ -476,6 +480,8 @@ export class Lunar {
         o.dayZhiIndex = dayZhiIndex;
         let dayGanExact = dayGanIndex;
         let dayZhiExact = dayZhiIndex;
+        o.dayGanIndexExact2 = dayGanExact;
+        o.dayZhiIndexExact2 = dayZhiExact;
         const hm = (hour < 10 ? '0' : '') + hour + ':' + (minute < 10 ? '0' : '') + minute;
         if (hm >= '23:00' && hm <= '23:59') {
             dayGanExact++;
@@ -511,6 +517,8 @@ export class Lunar {
             dayZhiIndex: 0,
             dayGanIndexExact: 0,
             dayZhiIndexExact: 0,
+            dayGanIndexExact2: 0,
+            dayZhiIndexExact2: 0,
             monthGanIndex: 0,
             monthZhiIndex: 0,
             monthGanIndexExact: 0,
@@ -570,6 +578,8 @@ export class Lunar {
         this._dayZhiIndex = info.dayZhiIndex;
         this._dayGanIndexExact = info.dayGanIndexExact;
         this._dayZhiIndexExact = info.dayZhiIndexExact;
+        this._dayGanIndexExact2 = info.dayGanIndexExact2;
+        this._dayZhiIndexExact2 = info.dayZhiIndexExact2;
         this._monthGanIndex = info.monthGanIndex;
         this._monthZhiIndex = info.monthZhiIndex;
         this._monthGanIndexExact = info.monthGanIndexExact;
@@ -625,6 +635,14 @@ export class Lunar {
 
     getDayZhiIndexExact(): number {
         return this._dayZhiIndexExact;
+    }
+
+    getDayGanIndexExact2(): number {
+        return this._dayGanIndexExact2;
+    }
+
+    getDayZhiIndexExact2(): number {
+        return this._dayZhiIndexExact2;
     }
 
     getMonthGanIndexExact(): number {
@@ -719,6 +737,10 @@ export class Lunar {
         return LunarUtil.GAN[this._dayGanIndexExact + 1];
     }
 
+    getDayGanExact2(): string {
+        return LunarUtil.GAN[this._dayGanIndexExact2 + 1];
+    }
+
     getDayZhi(): string {
         return LunarUtil.ZHI[this._dayZhiIndex + 1];
     }
@@ -727,12 +749,20 @@ export class Lunar {
         return LunarUtil.ZHI[this._dayZhiIndexExact + 1];
     }
 
+    getDayZhiExact2(): string {
+        return LunarUtil.ZHI[this._dayZhiIndexExact2 + 1];
+    }
+
     getDayInGanZhi(): string {
         return this.getDayGan() + this.getDayZhi();
     }
 
     getDayInGanZhiExact(): string {
         return this.getDayGanExact() + this.getDayZhiExact();
+    }
+
+    getDayInGanZhiExact2(): string {
+        return this.getDayGanExact2() + this.getDayZhiExact2();
     }
 
     getTimeGan(): string {
@@ -1616,6 +1646,10 @@ export class Lunar {
         return LunarUtil.getXun(this.getDayInGanZhiExact());
     }
 
+    getDayXunExact2(): string {
+        return LunarUtil.getXun(this.getDayInGanZhiExact2());
+    }
+
     getYearXunKong(): string {
         return LunarUtil.getXunKong(this.getYearInGanZhi());
     }
@@ -1646,6 +1680,10 @@ export class Lunar {
 
     getDayXunKongExact(): string {
         return LunarUtil.getXunKong(this.getDayInGanZhiExact());
+    }
+
+    getDayXunKongExact2(): string {
+        return LunarUtil.getXunKong(this.getDayInGanZhiExact2());
     }
 
     toString(): string {

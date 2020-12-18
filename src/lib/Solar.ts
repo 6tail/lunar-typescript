@@ -62,7 +62,8 @@ export class Solar {
         return Solar.fromYmdHms(year, month, day, hour, minute, second);
     }
 
-    static fromBaZi(yearGanZhi: string, monthGanZhi: string, dayGanZhi: string, timeGanZhi: string): Solar[] {
+    static fromBaZi(yearGanZhi: string, monthGanZhi: string, dayGanZhi: string, timeGanZhi: string, sect: number = 2): Solar[] {
+        sect = (1 == sect) ? 1 : 2;
         const l: Solar[] = [];
         const today = Solar.fromDate(new Date());
         let lunar = today.getLunar();
@@ -119,7 +120,8 @@ export class Solar {
                 solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
                 while (counter < 61) {
                     lunar = solar.getLunar();
-                    if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && lunar.getDayInGanZhiExact() === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
+                    const dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                    if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
                         l.push(solar);
                         break;
                     }
