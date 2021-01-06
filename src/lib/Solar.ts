@@ -212,25 +212,29 @@ export class Solar {
     }
 
     getXingzuo(): string {
-        let index = 11, m = this._month, d = this._day;
-        const y = m * 100 + d;
+        return this.getXingZuo();
+    }
+
+    getXingZuo(): string {
+        let index = 11;
+        const y = this._month * 100 + this._day;
         if (y >= 321 && y <= 419) {
             index = 0;
         } else if (y >= 420 && y <= 520) {
             index = 1;
-        } else if (y >= 521 && y <= 620) {
+        } else if (y >= 521 && y <= 621) {
             index = 2;
-        } else if (y >= 621 && y <= 722) {
+        } else if (y >= 622 && y <= 722) {
             index = 3;
         } else if (y >= 723 && y <= 822) {
             index = 4;
         } else if (y >= 823 && y <= 922) {
             index = 5;
-        } else if (y >= 923 && y <= 1022) {
+        } else if (y >= 923 && y <= 1023) {
             index = 6;
-        } else if (y >= 1023 && y <= 1121) {
+        } else if (y >= 1024 && y <= 1122) {
             index = 7;
-        } else if (y >= 1122 && y <= 1221) {
+        } else if (y >= 1123 && y <= 1221) {
             index = 8;
         } else if (y >= 1222 || y <= 119) {
             index = 9;
@@ -238,10 +242,6 @@ export class Solar {
             index = 10;
         }
         return SolarUtil.XINGZUO[index];
-    }
-
-    getXingZuo(): string {
-        return this.getXingzuo();
     }
 
     toYmd(): string {

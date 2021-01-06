@@ -12,6 +12,8 @@ import {LiuYue} from './LiuYue';
 import {Yun} from './Yun';
 import {EightChar} from './EightChar';
 import {NineStar} from './NineStar';
+import {ShuJiu} from './ShuJiu';
+import {Fu} from './Fu';
 
 import {SolarWeek} from './SolarWeek';
 import {SolarMonth} from './SolarMonth';
@@ -34,6 +36,8 @@ export {
     Yun,
     EightChar,
     NineStar,
+    ShuJiu,
+    Fu,
     SolarWeek,
     SolarMonth,
     SolarSeason,

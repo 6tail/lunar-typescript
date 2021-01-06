@@ -5,6 +5,8 @@ import {JieQi} from './JieQi';
 import {EightChar} from './EightChar';
 import {NineStar} from './NineStar';
 import {Dictionary} from './Dictionary';
+import {ShuJiu} from './ShuJiu';
+import {Fu} from './Fu';
 
 interface LunarInfo {
     timeGanIndex: number;
@@ -627,6 +629,39 @@ export class Lunar {
 
     getTimeZhiIndex(): number {
         return this._timeZhiIndex;
+    }
+
+    getDayGanIndex(): number {
+        return this._dayGanIndex;
+    }
+
+    getDayZhiIndex(): number {
+        return this._dayZhiIndex;
+    }
+
+
+    getMonthGanIndex(): number {
+        return this._monthGanIndex;
+    }
+
+    getMonthZhiIndex(): number {
+        return this._monthZhiIndex;
+    }
+
+    getYearGanIndex(): number {
+        return this._yearGanIndex;
+    }
+
+    getYearZhiIndex(): number {
+        return this._yearZhiIndex;
+    }
+
+    getYearGanIndexByLiChun(): number {
+        return this._yearGanIndexByLiChun;
+    }
+
+    getYearZhiIndexByLiChun(): number {
+        return this._yearZhiIndexByLiChun;
     }
 
     getDayGanIndexExact(): number {
@@ -1373,7 +1408,7 @@ export class Lunar {
         return LunarUtil.YUE_XIANG[this._day];
     }
 
-    getYearNineStar() {
+    getYearNineStar(): NineStar {
         let index = LunarUtil.BASE_YEAR_JIU_XING_INDEX - (this._year - LunarUtil.BASE_YEAR) % 9;
         if (index < 0) {
             index += 9;
@@ -1381,7 +1416,7 @@ export class Lunar {
         return NineStar.fromIndex(index);
     }
 
-    getMonthNineStar() {
+    getMonthNineStar(): NineStar {
         let start = 2;
         let yearZhi = this.getYearZhi();
         if ('子午卯酉'.indexOf(yearZhi) > -1) {
@@ -1405,7 +1440,7 @@ export class Lunar {
         return this._jieQi.get(name);
     }
 
-    getDayNineStar() {
+    getDayNineStar(): NineStar {
         const solarYmd = this._solar.toYmd();
         const yuShui = this.getJieQiSolar('雨水').toYmd();
         const guYu = this.getJieQiSolar('谷雨').toYmd();
@@ -1440,7 +1475,7 @@ export class Lunar {
         return NineStar.fromIndex(index);
     }
 
-    getTimeNineStar() {
+    getTimeNineStar(): NineStar {
         const solarYmd = this._solar.toYmd();
         let asc = false;
         if (solarYmd >= this.getJieQiSolar('冬至').toYmd() && solarYmd < this.getJieQiSolar('夏至').toYmd()) {
@@ -1475,27 +1510,27 @@ export class Lunar {
         return this._jieQiList;
     }
 
-    getNextJie() {
+    getNextJie(): JieQi {
         return this.getNearJieQi(true, LunarUtil.JIE);
     }
 
-    getPrevJie() {
+    getPrevJie(): JieQi {
         return this.getNearJieQi(false, LunarUtil.JIE);
     }
 
-    getNextQi() {
+    getNextQi(): JieQi {
         return this.getNearJieQi(true, LunarUtil.QI);
     }
 
-    getPrevQi() {
+    getPrevQi(): JieQi {
         return this.getNearJieQi(false, LunarUtil.QI);
     }
 
-    getNextJieQi() {
+    getNextJieQi(): JieQi {
         return this.getNearJieQi(true);
     }
 
-    getPrevJieQi() {
+    getPrevJieQi(): JieQi {
         return this.getNearJieQi(false);
     }
 
@@ -1566,7 +1601,7 @@ export class Lunar {
         return name.length > 0 ? new JieQi(name, this._solar) : null;
     }
 
-    getEightChar() {
+    getEightChar(): EightChar {
         return this._eightChar;
     }
 
@@ -1719,5 +1754,81 @@ export class Lunar {
         s += ' 冲[' + this.getDayChongDesc() + ']';
         s += ' 煞[' + this.getDaySha() + ']';
         return s;
+    }
+
+    getShuJiu(): ShuJiu | null {
+        const currentCalendar = new Date(this._solar.getYear() + '/' + this._solar.getMonth() + '/' + this._solar.getDay() + ' 0:0:0');
+        let start = this._jieQi.get(Lunar.JIE_QI_APPEND);
+        let startCalendar = new Date(start.getYear() + '/' + start.getMonth() + '/' + start.getDay() + ' 0:0:0');
+        if (currentCalendar < startCalendar) {
+            start = this._jieQi.get(Lunar.JIE_QI_FIRST);
+            startCalendar = new Date(start.getYear() + '/' + start.getMonth() + '/' + start.getDay() + ' 0:0:0');
+        }
+        const endCalendar = new Date(start.getYear() + '/' + start.getMonth() + '/' + start.getDay() + ' 0:0:0');
+        endCalendar.setDate(endCalendar.getDate() + 81);
+        if (currentCalendar < startCalendar || currentCalendar >= endCalendar) {
+            return null;
+        }
+        const days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / (1000 * 60 * 60 * 24));
+        return new ShuJiu(LunarUtil.NUMBER[Math.floor(days / 9) + 1] + "九", days % 9 + 1);
+    }
+
+    getFu(): Fu | null {
+        const currentCalendar = new Date(this._solar.getYear() + '/' + this._solar.getMonth() + '/' + this._solar.getDay() + ' 0:0:0');
+        const xiaZhi = this._jieQi.get('夏至');
+        const liQiu = this._jieQi.get('立秋');
+        let startCalendar = new Date(xiaZhi.getYear() + '/' + xiaZhi.getMonth() + '/' + xiaZhi.getDay() + ' 0:0:0');
+
+        // 第1个庚日
+        let add = 6 - xiaZhi.getLunar().getDayGanIndex();
+        if (add < 0) {
+            add += 10;
+        }
+        // 第3个庚日，即初伏第1天
+        add += 20;
+        startCalendar.setDate(startCalendar.getDate() + add);
+
+        // 初伏以前
+        if (currentCalendar < startCalendar) {
+            return null;
+        }
+
+        let days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / (1000 * 60 * 60 * 24));
+        if (days < 10) {
+            return new Fu('初伏', days + 1);
+        }
+
+        // 第4个庚日，中伏第1天
+        startCalendar.setDate(startCalendar.getDate() + 10);
+
+        days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / (1000 * 60 * 60 * 24));
+        if (days < 10) {
+            return new Fu('中伏', days + 1);
+        }
+
+        // 第5个庚日，中伏第11天或末伏第1天
+        startCalendar.setDate(startCalendar.getDate() + 10);
+
+        const liQiuCalendar = new Date(liQiu.getYear() + '/' + liQiu.getMonth() + '/' + liQiu.getDay() + ' 0:0:0');
+
+        days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / (1000 * 60 * 60 * 24));
+        // 末伏
+        if (liQiuCalendar <= startCalendar) {
+            if (days < 10) {
+                return new Fu('末伏', days + 1);
+            }
+        } else {
+            // 中伏
+            if (days < 10) {
+                return new Fu('中伏', days + 11);
+            }
+            // 末伏第1天
+            startCalendar.setDate(startCalendar.getDate() + 10);
+            days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / (1000 * 60 * 60 * 24));
+            if (days < 10) {
+                return new Fu('末伏', days + 1);
+            }
+        }
+        return null;
     }
 }
