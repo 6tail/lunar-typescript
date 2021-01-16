@@ -28,6 +28,6 @@ export class Fu {
     }
 
     toFullString(): string {
-        return this.getName() + "第" + this.getIndex() + "天";
+        return this.getName() + '第' + this.getIndex() + '天';
     }
 }
