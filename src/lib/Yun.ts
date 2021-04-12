@@ -23,7 +23,10 @@ export class Yun {
         const current = lunar.getSolar();
         const start = forward ? current : prev.getSolar();
         const end = forward ? next.getSolar() : current;
-        let hourDiff = LunarUtil.getTimeZhiIndex(end.toYmdHms().substr(11, 5)) - LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
+        const endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substr(11, 5));
+        const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
+        // 时辰差
+        let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
         const endCalendar = new Date(end.getYear(), end.getMonth() - 1, end.getDay());
         const startCalendar = new Date(start.getYear(), start.getMonth() - 1, start.getDay());
         // 天数差

@@ -1,9 +1,6 @@
 import {Dictionary} from './Dictionary';
 
 export class SolarUtil {
-    static BASE_YEAR: number = 1901;
-    static BASE_MONTH: number = 1;
-    static BASE_DAY: number = 1;
     static WEEK: string[] = ['日', '一', '二', '三', '四', '五', '六'];
     static DAYS_OF_MONTH: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     static XINGZUO: string[] = ['白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯', '水瓶', '双鱼'];
@@ -100,17 +97,7 @@ export class SolarUtil {
     ]);
 
     static isLeapYear(year: number) {
-        let leap = false;
-        if (year % 4 === 0) {
-            leap = true;
-        }
-        if (year % 100 === 0) {
-            leap = false;
-        }
-        if (year % 400 === 0) {
-            leap = true;
-        }
-        return leap;
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
     static getDaysOfMonth(year: number, month: number) {

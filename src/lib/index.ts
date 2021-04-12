@@ -3,6 +3,7 @@ import {JieQi} from './JieQi';
 import {Lunar} from './Lunar';
 import {SolarUtil} from './SolarUtil';
 import {LunarUtil} from './LunarUtil';
+import {ShouXingUtil} from './ShouXingUtil';
 import {Holiday} from './Holiday';
 import {HolidayUtil} from './HolidayUtil';
 import {DaYun} from './DaYun';
@@ -21,12 +22,16 @@ import {SolarSeason} from './SolarSeason';
 import {SolarHalfYear} from './SolarHalfYear';
 import {SolarYear} from './SolarYear';
 
+import {LunarMonth} from './LunarMonth';
+import {LunarYear} from './LunarYear';
+
 export {
     Solar,
     JieQi,
     Lunar,
     SolarUtil,
     LunarUtil,
+    ShouXingUtil,
     Holiday,
     HolidayUtil,
     DaYun,
@@ -42,7 +47,9 @@ export {
     SolarMonth,
     SolarSeason,
     SolarHalfYear,
-    SolarYear
+    SolarYear,
+    LunarMonth,
+    LunarYear
 };
 
 

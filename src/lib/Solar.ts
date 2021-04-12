@@ -62,7 +62,7 @@ export class Solar {
         return Solar.fromYmdHms(year, month, day, hour, minute, second);
     }
 
-    static fromBaZi(yearGanZhi: string, monthGanZhi: string, dayGanZhi: string, timeGanZhi: string, sect: number = 2): Solar[] {
+    static fromBaZi(yearGanZhi: string, monthGanZhi: string, dayGanZhi: string, timeGanZhi: string, sect: number = 2, baseYear = 1900): Solar[] {
         sect = (1 == sect) ? 1 : 2;
         const l: Solar[] = [];
         const today = Solar.fromDate(new Date());
@@ -79,7 +79,7 @@ export class Solar {
                 hour = (i - 1) * 2;
             }
         }
-        while (startYear >= SolarUtil.BASE_YEAR - 1) {
+        while (startYear >= baseYear) {
             let year = startYear - 1;
             let counter = 0;
             let month = 12;
@@ -87,11 +87,8 @@ export class Solar {
             let solar;
             let found = false;
             while (counter < 15) {
-                if (year >= SolarUtil.BASE_YEAR) {
+                if (year >= baseYear) {
                     day = 1;
-                    if (year == SolarUtil.BASE_YEAR && month == SolarUtil.BASE_MONTH) {
-                        day = SolarUtil.BASE_DAY;
-                    }
                     solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
                     lunar = solar.getLunar();
                     if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi) {
@@ -114,9 +111,6 @@ export class Solar {
                     year--;
                 }
                 day = 1;
-                if (year === SolarUtil.BASE_YEAR && month === SolarUtil.BASE_MONTH) {
-                    day = SolarUtil.BASE_DAY;
-                }
                 solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
                 while (counter < 61) {
                     lunar = solar.getLunar();
@@ -141,7 +135,9 @@ export class Solar {
         this._hour = hour;
         this._minute = minute;
         this._second = second;
-        this._calendar = new Date(year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second);
+        const calendar = new Date(year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second);
+        calendar.setMilliseconds(0);
+        this._calendar = calendar;
     }
 
 
@@ -321,5 +317,9 @@ export class Solar {
             n = 2 - n + Math.floor(n / 4);
         }
         return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + n - 1524.5;
+    }
+
+    getCalendar(): Date {
+        return this._calendar;
     }
 }
