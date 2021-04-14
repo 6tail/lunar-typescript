@@ -3,6 +3,7 @@ import {SolarWeek} from './SolarWeek';
 import {LunarUtil} from './LunarUtil';
 import {HolidayUtil} from './HolidayUtil';
 import {Lunar} from './Lunar';
+import {ExactDate} from './ExactDate';
 
 export class Solar {
     static J2000: number = 2451545;
@@ -135,9 +136,7 @@ export class Solar {
         this._hour = hour;
         this._minute = minute;
         this._second = second;
-        const calendar = new Date(year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second);
-        calendar.setMilliseconds(0);
-        this._calendar = calendar;
+        this._calendar = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
     }
 
 
@@ -267,7 +266,7 @@ export class Solar {
     }
 
     next(days: number, onlyWorkday: boolean = false): Solar {
-        let date = new Date(this._year + '/' + this._month + '/' + this._day + ' ' + this._hour + ':' + this._minute + ':' + this._second);
+        let date = ExactDate.fromYmdHms(this._year, this._month, this._day, this._hour, this._minute, this._second);
         if (0 != days) {
             if (!onlyWorkday) {
                 date.setDate(date.getDate() + days);

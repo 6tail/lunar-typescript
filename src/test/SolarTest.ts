@@ -72,4 +72,24 @@ describe('Solar', () => {
         const solar = Solar.fromJulianDay(2459045.5);
         assert.strictEqual(solar.toYmdHms(), '2020-07-15 00:00:00');
     });
+
+    it('1', () => {
+        const solar = Solar.fromYmdHms(2020, 5, 24, 13, 0, 0);
+        assert.strictEqual(solar.getLunar().toString(), '二〇二〇年闰四月初二');
+    });
+
+    it('6', () => {
+        const solar = Solar.fromYmd(11, 1, 1);
+        assert.strictEqual(solar.getLunar().toString(), '一〇年腊月初八');
+    });
+
+    it('7', () => {
+        const solar = Solar.fromYmd(11, 3, 1);
+        assert.strictEqual(solar.getLunar().toString(), '一一年二月初八');
+    });
+
+    it('9', () => {
+        const solar = Solar.fromYmd(26, 4, 13);
+        assert.strictEqual(solar.getLunar().toString(), '二六年三月初八');
+    });
 });

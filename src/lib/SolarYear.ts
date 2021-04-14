@@ -1,4 +1,5 @@
 import {SolarMonth} from './SolarMonth';
+import {ExactDate} from './ExactDate';
 
 export class SolarYear {
 
@@ -15,7 +16,7 @@ export class SolarYear {
 
     constructor(year: number) {
         this._year = year;
-        this._calendar = new Date(`${year}/1/1`);
+        this._calendar = ExactDate.fromYmd(year, 1, 1);
     }
 
     getYear(): number {
@@ -26,7 +27,7 @@ export class SolarYear {
         if (0 === years) {
             return SolarYear.fromYear(this._year);
         }
-        const date = new Date(`${this._year}/1/1`);
+        const date = ExactDate.fromYmd(this._year, 1, 1);
         date.setFullYear(date.getFullYear() + years);
         return SolarYear.fromDate(date);
     }

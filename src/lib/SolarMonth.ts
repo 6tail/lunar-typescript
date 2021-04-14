@@ -1,6 +1,7 @@
 import {SolarUtil} from './SolarUtil';
 import {Solar} from './Solar';
 import {SolarWeek} from './SolarWeek';
+import {ExactDate} from './ExactDate';
 
 export class SolarMonth {
 
@@ -19,7 +20,7 @@ export class SolarMonth {
     constructor(year: number, month: number) {
         this._year = year;
         this._month = month;
-        this._calendar = new Date(`${year}/${month}/1`);
+        this._calendar = ExactDate.fromYmd(year, month, 1);
     }
 
     getYear(): number {
@@ -31,7 +32,7 @@ export class SolarMonth {
     }
 
     next(months: number): SolarMonth {
-        const date = new Date(this._year + '/' + this._month + '/1');
+        const date = ExactDate.fromYmd(this._year, this._month, 1);
         date.setMonth(date.getMonth() + months);
         return SolarMonth.fromDate(date);
     }

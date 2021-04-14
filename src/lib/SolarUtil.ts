@@ -1,4 +1,5 @@
 import {Dictionary} from './Dictionary';
+import {ExactDate} from './ExactDate';
 
 export class SolarUtil {
     static WEEK: string[] = ['日', '一', '二', '三', '四', '五', '六'];
@@ -111,7 +112,7 @@ export class SolarUtil {
 
     static getWeeksOfMonth(year: number, month: number, start: number) {
         const days = SolarUtil.getDaysOfMonth(year, month);
-        const firstDate = new Date(year + '/' + month + '/1');
+        const firstDate = ExactDate.fromYmd(year,month,1);
         const firstDayWeek = firstDate.getDay();
         return Math.ceil((days + firstDayWeek - start) / 7);
     }

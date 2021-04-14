@@ -2,6 +2,7 @@ import {Lunar} from './Lunar';
 import {Solar} from './Solar';
 import {LunarUtil} from './LunarUtil';
 import {DaYun} from './DaYun';
+import {ExactDate} from './ExactDate';
 
 export class Yun {
     private _gender: number;
@@ -27,8 +28,8 @@ export class Yun {
         const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
         // 时辰差
         let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-        const endCalendar = new Date(end.getYear(), end.getMonth() - 1, end.getDay());
-        const startCalendar = new Date(start.getYear(), start.getMonth() - 1, start.getDay());
+        const endCalendar = ExactDate.fromYmd(end.getYear(), end.getMonth(), end.getDay());
+        const startCalendar = ExactDate.fromYmd(start.getYear(), start.getMonth(), start.getDay());
         // 天数差
         let dayDiff = Math.floor((endCalendar.getTime() - startCalendar.getTime()) / (1000 * 3600 * 24));
         if (hourDiff < 0) {
@@ -71,7 +72,11 @@ export class Yun {
 
     getStartSolar(): Solar {
         const birth = this._lunar.getSolar();
-        return Solar.fromDate(new Date(birth.getYear() + this._startYear, birth.getMonth() - 1 + this._startMonth, birth.getDay() + this._startDay));
+        const c = birth.getCalendar();
+        c.setFullYear(birth.getYear() + this._startYear);
+        c.setMonth(birth.getMonth() - 1 + this._startMonth);
+        c.setDate(birth.getDay() + this._startDay);
+        return Solar.fromDate(c);
     }
 
     getDaYun(): DaYun[] {
