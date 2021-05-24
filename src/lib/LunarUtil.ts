@@ -785,7 +785,7 @@ export class LunarUtil {
             }
             if (matched) {
                 let ys = left.substr(left.indexOf(':') + 1);
-                ys = ys.substr(0, left.indexOf(','));
+                ys = ys.substr(0, ys.indexOf(','));
                 for (i = 0, j = ys.length; i < j; i += 2) {
                     m = ys.substr(i, 2);
                     l.push(LunarUtil.YI_JI[parseInt(m, 16)]);
