@@ -1,4 +1,4 @@
-import {Solar} from '../lib';
+import {Solar, Lunar} from '../lib';
 
 const assert = require('assert');
 
@@ -54,6 +54,15 @@ describe('EightChar', () => {
         assert.strictEqual(eightChar.getMonth(), '癸丑');
         assert.strictEqual(eightChar.getDay(), '丁亥');
         assert.strictEqual(eightChar.getTime(), '辛亥');
+    });
+
+    it('test5', () => {
+        const lunar = Lunar.fromYmdHms(2019,12,12,11,22,0);
+        const eightChar = lunar.getEightChar();
+        assert.strictEqual(eightChar.getYear(), '己亥');
+        assert.strictEqual(eightChar.getMonth(), '丁丑');
+        assert.strictEqual(eightChar.getDay(), '戊申');
+        assert.strictEqual(eightChar.getTime(), '戊午');
     });
 
     it('地支藏干', () => {

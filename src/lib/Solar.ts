@@ -130,6 +130,11 @@ export class Solar {
     }
 
     constructor(year: number, month: number, day: number, hour: number, minute: number, second: number) {
+        if (year === 1582 && month == 10) {
+            if (day >= 15) {
+                day -= 10;
+            }
+        }
         this._year = year;
         this._month = month;
         this._day = day;
@@ -240,7 +245,13 @@ export class Solar {
     }
 
     toYmd(): string {
-        return [this._year, (this._month < 10 ? '0' : '') + this._month, (this._day < 10 ? '0' : '') + this._day].join('-');
+        let d = this._day;
+        if (this._year === 1582 && this._month == 10) {
+            if (d >= 5) {
+                d += 10;
+            }
+        }
+        return [this._year, (this._month < 10 ? '0' : '') + this._month, (d < 10 ? '0' : '') + d].join('-');
     }
 
     toYmdHms(): string {

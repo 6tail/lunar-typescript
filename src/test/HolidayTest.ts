@@ -42,4 +42,12 @@ describe('节假日', () => {
         assert.strictEqual(HolidayUtil.getHoliday('2021-12-01') + '', '2021-12-01 她的生日 2021-12-01');
     });
 
+    it('test2', () => {
+        const holiday = HolidayUtil.getHoliday('2016-10-04');
+        if(null==holiday){
+            throw '2016-10-04';
+        }
+        assert.strictEqual(holiday.getTarget(), '2016-10-01');
+    });
+
 });

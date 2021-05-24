@@ -1,5 +1,5 @@
 import {Solar} from './Solar';
-import {LunarUtil} from './LunarUtil';
+import {Lunar} from './Lunar';
 
 export class JieQi {
     private _name: string;
@@ -9,18 +9,14 @@ export class JieQi {
 
     constructor(name: string, solar: Solar) {
         let jie = false, qi = false, i, j;
-        for (i = 0, j = LunarUtil.JIE.length; i < j; i++) {
-            if (LunarUtil.JIE[i] === name) {
-                jie = true;
-                break;
-            }
-        }
-        if (!jie) {
-            for (i = 0, j = LunarUtil.QI.length; i < j; i++) {
-                if (LunarUtil.QI[i] === name) {
+        for (i = 0, j = Lunar.JIE_QI.length; i < j; i++) {
+            if(Lunar.JIE_QI[i]===name){
+                if(i%2==0){
                     qi = true;
-                    break;
+                }else{
+                    jie = true;
                 }
+                break;
             }
         }
         this._name = name;

@@ -23,9 +23,9 @@ export class LunarYear {
     private compute(): void {
         // 节气(中午12点)，长度25
         let jq: number[] = [];
-        // 合朔，即每月初一(中午12点)，长度15
+        // 合朔，即每月初一(中午12点)，长度16
         let hs: number[] = [];
-        // 每月天数，长度14
+        // 每月天数，长度15
         let dayCounts: number[] = [];
 
         let year = this._year - 2000;
@@ -47,12 +47,12 @@ export class LunarYear {
             w -= 29.5306;
         }
         // 递推每月初一
-        for (let i = 0; i < 15; i++) {
-            hs[i] = ShouXingUtil.calcShuo(w + 29.5306 * i);
+        for (let i = 0; i < 16; i++) {
+            hs.push(ShouXingUtil.calcShuo(w + 29.5306 * i));
         }
         // 每月天数
-        for (let i = 0; i < 14; i++) {
-            dayCounts[i] = Math.floor(hs[i + 1] - hs[i]);
+        for (let i = 0; i < 15; i++) {
+            dayCounts.push(Math.floor(hs[i + 1] - hs[i]));
         }
 
         let leap = -1;
@@ -66,7 +66,7 @@ export class LunarYear {
 
         let y = this._year - 1;
         let m = 11;
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0, j = dayCounts.length; i < j; i++) {
             let isLeap = false;
             if (i == leap) {
                 isLeap = true;
