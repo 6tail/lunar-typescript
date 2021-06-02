@@ -365,4 +365,25 @@ describe('Lunar', () => {
         assert.strictEqual(lunar.getDayInGanZhi(), '丙寅');
     });
 
+    it('test35', () => {
+        const lunar = Lunar.fromYmd(2021, 12, 29);
+        assert.strictEqual(lunar.getFestivals()[0], '除夕');
+    });
+
+    it('test36', () => {
+        const lunar = Lunar.fromYmd(2020, 12, 30);
+        assert.strictEqual(lunar.getFestivals()[0], '除夕');
+    });
+
+    it('test37', () => {
+        const lunar = Lunar.fromYmd(2020, 12, 29);
+        assert.strictEqual(lunar.getFestivals().length, 0);
+    });
+
+    it('test38', () => {
+        const solar = Solar.fromYmd(2022, 1, 31);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getFestivals()[0], '除夕');
+    });
+
 });

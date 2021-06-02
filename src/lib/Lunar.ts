@@ -186,15 +186,15 @@ export class Lunar {
     }
 
     private static _computeMonth(o: LunarInfo, solar: Solar) {
-        let start = null, i, j;
+        let start = null, i;
         let end;
-
         const ymd = solar.toYmd();
         const time = solar.toYmdHms();
+        const size = Lunar.JIE_QI_IN_USE.length;
 
         //序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
         let index = -3;
-        for (i = 0, j = Lunar.JIE_QI_IN_USE.length; i < j; i += 2) {
+        for (i = 0; i < size; i += 2) {
             end = o.jieQi.get(Lunar.JIE_QI_IN_USE[i]);
             let symd = null == start ? ymd : start.toYmd();
             if (ymd >= symd && ymd < end.toYmd()) {
@@ -203,24 +203,24 @@ export class Lunar {
             start = end;
             index++;
         }
-        const gOffset = (((o.yearGanIndexByLiChun + (index < 0 ? 1 : 0)) % 5 + 1) * 2) % 10;
-        o.monthGanIndex = ((index < 0 ? index + 10 : index) + gOffset) % 10;
+        let offset = (((o.yearGanIndexByLiChun + (index < 0 ? 1 : 0)) % 5 + 1) * 2) % 10;
+        o.monthGanIndex = ((index < 0 ? index + 10 : index) + offset) % 10;
         o.monthZhiIndex = ((index < 0 ? index + 12 : index) + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
 
-        let indexExact = -3;
         start = null;
-        for (i = 0, j = Lunar.JIE_QI_IN_USE.length; i < j; i += 2) {
+        index = -3;
+        for (i = 0; i < size; i += 2) {
             end = o.jieQi.get(Lunar.JIE_QI_IN_USE[i]);
             let stime = null == start ? time : start.toYmdHms();
             if (time >= stime && time < end.toYmdHms()) {
                 break;
             }
             start = end;
-            indexExact++;
+            index++;
         }
-        const gOffsetExact = (((o.yearGanIndexExact + (indexExact < 0 ? 1 : 0)) % 5 + 1) * 2) % 10;
-        o.monthGanIndexExact = ((indexExact < 0 ? indexExact + 10 : indexExact) + gOffsetExact) % 10;
-        o.monthZhiIndexExact = ((indexExact < 0 ? indexExact + 12 : indexExact) + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
+        offset = (((o.yearGanIndexExact + (index < 0 ? 1 : 0)) % 5 + 1) * 2) % 10;
+        o.monthGanIndexExact = ((index < 0 ? index + 10 : index) + offset) % 10;
+        o.monthZhiIndexExact = ((index < 0 ? index + 12 : index) + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
     }
 
     private static _computeDay(o: LunarInfo, solar: Solar, hour: number, minute: number) {
@@ -946,6 +946,9 @@ export class Lunar {
         const f = LunarUtil.FESTIVAL.get(this._month + '-' + this._day);
         if (f) {
             l.push(f);
+        }
+        if (Math.abs(this._month) == 12 && this._day >= 29 && this._year != this.next(1).getYear()) {
+            l.push('除夕');
         }
         return l;
     }
