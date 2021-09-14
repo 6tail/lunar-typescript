@@ -51,4 +51,10 @@ describe('物候', () => {
         assert.strictEqual(lunar.getWuHou(), '鹖鴠不鸣');
     });
 
+    it('test9()', () => {
+        const solar = Solar.fromYmd(1982,12,22);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getWuHou(), '蚯蚓结');
+    });
+
 });

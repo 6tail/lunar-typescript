@@ -86,8 +86,7 @@ export class DaYun {
         return LunarUtil.getXunKong(this.getGanZhi());
     }
 
-    getLiuNian(): LiuNian[] {
-        let n = 10;
+    getLiuNian(n : number = 10): LiuNian[] {
         if (this._index < 1) {
             n = this._endYear - this._startYear + 1;
         }
@@ -98,8 +97,7 @@ export class DaYun {
         return l;
     }
 
-    getXiaoYun(): XiaoYun[] {
-        let n = 10;
+    getXiaoYun(n : number = 10): XiaoYun[] {
         if (this._index < 1) {
             n = this._endYear - this._startYear + 1;
         }

@@ -251,7 +251,11 @@ export class Solar {
                 d += 10;
             }
         }
-        return [this._year, (this._month < 10 ? '0' : '') + this._month, (d < 10 ? '0' : '') + d].join('-');
+        let y = this._year + '';
+        while (y.length < 4) {
+            y = '0' + y;
+        }
+        return [y, (this._month < 10 ? '0' : '') + this._month, (d < 10 ? '0' : '') + d].join('-');
     }
 
     toYmdHms(): string {

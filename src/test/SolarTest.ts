@@ -1,4 +1,4 @@
-import {Solar} from '../lib';
+import {Solar, SolarUtil} from '../lib';
 
 const assert = require('assert');
 
@@ -91,5 +91,9 @@ describe('Solar', () => {
     it('9', () => {
         const solar = Solar.fromYmd(26, 4, 13);
         assert.strictEqual(solar.getLunar().toString(), '二六年三月初八');
+    });
+
+    it('10', () => {
+        assert.strictEqual(SolarUtil.isLeapYear(1500), false);
     });
 });

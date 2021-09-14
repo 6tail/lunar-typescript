@@ -386,4 +386,132 @@ describe('Lunar', () => {
         assert.strictEqual(lunar.getFestivals()[0], '除夕');
     });
 
+    it('test39', () => {
+        const lunar = Lunar.fromYmd(2033, -11, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '2033-12-22');
+    });
+
+    it('test40', () => {
+        const solar = Solar.fromYmdHms(1, 1, 1, 12, 0, 0);
+        assert.strictEqual(solar.getLunar().toString(), '〇年冬月十八');
+    });
+
+    it('test41', () => {
+        const solar = Solar.fromYmdHms(9999, 12, 31, 12, 0, 0);
+        assert.strictEqual(solar.getLunar().toString(), '九九九九年腊月初二');
+    });
+
+    it('test42', () => {
+        const lunar = Lunar.fromYmdHms(0, 11, 18, 12, 0, 0);
+        assert.strictEqual(lunar.getSolar().toString(), '0001-01-01');
+    });
+
+    it('test43', () => {
+        const lunar = Lunar.fromYmdHms(9999, 12, 2, 12, 0, 0);
+        assert.strictEqual(lunar.getSolar().toString(), '9999-12-31');
+    });
+
+    it('test022', () => {
+        const lunar = Lunar.fromYmd(2033, -11, 1);
+        assert.strictEqual(lunar.getSolar().toString(), '2033-12-22');
+    });
+
+    it('test023', () => {
+        const lunar = Lunar.fromYmd(2022, 1, 1);
+        assert.strictEqual(lunar.getYearNineStar().toString(), '五黄土玉衡');
+    });
+
+    it('test024', () => {
+        const lunar = Lunar.fromYmd(2033, 1, 1);
+        assert.strictEqual(lunar.getYearNineStar().toString(), '三碧木天玑');
+    });
+
+    it('test025', () => {
+        const solar = Solar.fromYmdHms(2021, 6, 7, 21, 18, 0);
+        assert.strictEqual(solar.getLunar().toString(), '二〇二一年四月廿七');
+    });
+
+    it('test026', () => {
+        const lunar = Lunar.fromYmdHms(2021, 6, 7, 21, 18, 0);
+        assert.strictEqual(lunar.getSolar().toString(), '2021-07-16');
+    });
+
+    it('test027', () => {
+        const solar = Solar.fromYmd(1989, 4, 28);
+        assert.strictEqual(solar.getLunar().getDay(), 23);
+    });
+
+    it('test028', () => {
+        const solar = Solar.fromYmd(1990, 10, 8);
+        assert.strictEqual(solar.getLunar().getMonthInGanZhiExact(), '乙酉');
+    });
+
+    it('test029', () => {
+        const solar = Solar.fromYmd(1990, 10, 9);
+        assert.strictEqual(solar.getLunar().getMonthInGanZhiExact(), '丙戌');
+    });
+
+    it('test030', () => {
+        const solar = Solar.fromYmd(1990, 10, 8);
+        assert.strictEqual(solar.getLunar().getMonthInGanZhi(), '丙戌');
+    });
+
+    it('test031', () => {
+        const solar = Solar.fromYmdHms(1987, 4, 17, 9, 0, 0);
+        assert.strictEqual(solar.getLunar().toString(), '一九八七年三月二十');
+    });
+
+    it('test032', () => {
+        const lunar = Lunar.fromYmd(2034, 1, 1);
+        assert.strictEqual(lunar.getSolar().toString(), '2034-02-19');
+    });
+
+    it('test033', () => {
+        const lunar = Lunar.fromYmd(2033, 12, 1);
+        assert.strictEqual(lunar.getSolar().toString(), '2034-01-20');
+    });
+
+    it('test034', () => {
+        const lunar = Lunar.fromYmd(37, -12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰腊');
+    });
+
+    it('test035', () => {
+        let lunar = Lunar.fromYmd(56, -12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰腊');
+
+        lunar = Lunar.fromYmd(75, -11, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰冬');
+
+        lunar = Lunar.fromYmd(94, -11, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰冬');
+
+        lunar = Lunar.fromYmd(94, 12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '腊');
+
+        lunar = Lunar.fromYmd(113, 12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '腊');
+
+        lunar = Lunar.fromYmd(113, -12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰腊');
+
+        lunar = Lunar.fromYmd(5552, -12, 1);
+        assert.strictEqual(lunar.getMonthInChinese(), '闰腊');
+    });
+
+    it('test036', () => {
+        const solar = Solar.fromYmd(5553, 1, 22);
+        assert.strictEqual(solar.getLunar().toString(), '五五五二年闰腊月初二');
+    });
+
+    it('test037', () => {
+        const solar = Solar.fromYmd(7013, 12, 24);
+        assert.strictEqual(solar.getLunar().toString(), '七〇一三年闰冬月初四');
+    });
+
+    it('test038', () => {
+        const lunar = Lunar.fromYmd(7013, -11, 4);
+        assert.strictEqual(lunar.getSolar().toString(), '7013-12-24');
+    });
+
 });

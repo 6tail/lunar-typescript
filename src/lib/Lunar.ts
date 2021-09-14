@@ -1527,6 +1527,6 @@ export class Lunar {
         const startSolar = jieQi.getSolar();
         const startCalendar = ExactDate.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());
         const days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
-        return LunarUtil.WU_HOU[offset * 3 + Math.floor(days / 5)];
+        return LunarUtil.WU_HOU[(offset * 3 + Math.floor(days / 5)) % LunarUtil.WU_HOU.length];
     }
 }

@@ -79,9 +79,9 @@ export class Yun {
         return Solar.fromDate(c);
     }
 
-    getDaYun(): DaYun[] {
+    getDaYun(n : number = 10): DaYun[] {
         const l: DaYun[] = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < n; i++) {
             l.push(new DaYun(this, i));
         }
         return l;
