@@ -514,4 +514,29 @@ describe('Lunar', () => {
         assert.strictEqual(lunar.getSolar().toString(), '7013-12-24');
     });
 
+    it('test038', () => {
+        const lunar = Lunar.fromYmd(7013, -11, 4);
+        assert.strictEqual(lunar.getSolar().toString(), '7013-12-24');
+    });
+
+    it('test041', () => {
+        const solar = Solar.fromYmd(4, 2, 10);
+        assert.strictEqual(solar.getLunar().getYearShengXiao(),'鼠');
+    });
+
+    it('test042', () => {
+        const solar = Solar.fromYmd(4, 2, 9);
+        assert.strictEqual(solar.getLunar().getYearShengXiao(),'猪');
+    });
+
+    it('test043', () => {
+        const solar = Solar.fromYmd(1, 2, 12);
+        assert.strictEqual(solar.getLunar().getYearShengXiao(),'鸡');
+    });
+
+    it('test044', () => {
+        const solar = Solar.fromYmd(1, 1, 1);
+        assert.strictEqual(solar.getLunar().getYearShengXiao(),'猴');
+    });
+
 });
