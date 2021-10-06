@@ -40,6 +40,6 @@ export class LunarMonth {
     }
 
     toString(): string {
-        return `${this.getYear()}年${LunarUtil.MONTH[Math.abs(this.getMonth())]}月(${this.getDayCount()})天`;
+        return `${this.getYear()}年${this.isLeap()?'闰':''}${LunarUtil.MONTH[Math.abs(this.getMonth())]}月(${this.getDayCount()})天`;
     }
 }

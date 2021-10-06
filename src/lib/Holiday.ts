@@ -16,7 +16,6 @@ export class Holiday {
         return s.indexOf('-') < 0 ? (s.substr(0, 4) + '-' + s.substr(4, 2) + '-' + s.substr(6)) : s;
     }
 
-
     getDay(): string {
         return this._day;
     }

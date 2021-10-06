@@ -14,11 +14,11 @@ export class ExactDate {
     }
 
     static fromYmd(year: number, month: number, day: number): Date {
-        return ExactDate._(new Date(year + '/' + month + '/' + day + ' 0:0:0 GMT+0800'), year, month, day);
+        return ExactDate.fromYmdHms(year, month, day,0,0,0);
     }
 
     static fromYmdHms(year: number, month: number, day: number, hour: number, minute: number, second: number): Date {
-        return ExactDate._(new Date(year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second + ' GMT+0800'), year, month, day);
+        return ExactDate._(new Date(year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second), year, month, day);
     }
 
 }

@@ -35,7 +35,6 @@ interface LunarInfo {
 }
 
 export class Lunar {
-    private static MS_PER_DAY: number = 86400000;
     static JIE_QI: string[] = ['冬至', '小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪'];
     static JIE_QI_IN_USE: string[] = ['DA_XUE', '冬至', '小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', 'DONG_ZHI', 'XIAO_HAN', 'DA_HAN', 'LI_CHUN', 'YU_SHUI', 'JING_ZHE'];
 
@@ -93,7 +92,6 @@ export class Lunar {
 
     static fromDate(date: Date): Lunar {
         const c = ExactDate.fromYmd(date.getFullYear(), date.getMonth() + 1, date.getDate());
-        const solarTime = c.getTime();
         let lunarYear = 0;
         let lunarMonth = 0;
         let lunarDay = 0;
@@ -108,7 +106,7 @@ export class Lunar {
             firstDay.setMinutes(0);
             firstDay.setSeconds(0);
             firstDay.setMilliseconds(0);
-            const days = Math.floor((solarTime - firstDay.getTime()) / Lunar.MS_PER_DAY);
+            const days = Lunar._diff(c, firstDay);
             if (days < m.getDayCount()) {
                 lunarYear = m.getYear();
                 lunarMonth = m.getMonth();
@@ -118,6 +116,16 @@ export class Lunar {
         }
         return new Lunar(lunarYear, lunarMonth, lunarDay, date.getHours(), date.getMinutes(), date.getSeconds(), Solar.fromDate(date), ly);
     }
+
+    private static _diff(after: Date, before: Date) {
+        const current = ExactDate.fromYmdHms(before.getFullYear(), before.getMonth()+1, before.getDate(), before.getHours(), before.getMinutes(), before.getSeconds());
+        let n = 0;
+        while(current<after){
+            n++;
+            current.setDate(current.getDate()+1);
+        }
+        return n;
+    };
 
     private static _computeJieQi(o: LunarInfo, ly: LunarYear) {
         const julianDays = ly.getJieQiJulianDays();
@@ -853,7 +861,7 @@ export class Lunar {
         return LunarUtil.SEASON[Math.abs(this._month)];
     }
 
-    _convertJieQi(name: string): string {
+    private static _convertJieQi(name: string): string {
         let jq = name;
         if ('DONG_ZHI' === jq) {
             jq = '冬至';
@@ -883,7 +891,7 @@ export class Lunar {
                 break;
             }
         }
-        return this._convertJieQi(jie);
+        return Lunar._convertJieQi(jie);
     }
 
     getQi(): string {
@@ -896,7 +904,7 @@ export class Lunar {
                 break;
             }
         }
-        return this._convertJieQi(qi);
+        return Lunar._convertJieQi(qi);
     }
 
     getJieQi(): string {
@@ -907,7 +915,7 @@ export class Lunar {
                 return false;
             }
         });
-        return this._convertJieQi(name);
+        return Lunar._convertJieQi(name);
     }
 
     getWeek(): number {
@@ -1287,7 +1295,7 @@ export class Lunar {
         }
         const today = this._solar.toYmdHms();
         this._jieQi.forEach((key, solar) => {
-            const jq = this._convertJieQi(key);
+            const jq = Lunar._convertJieQi(key);
             if (filter) {
                 if (!filters.containsKey(jq)) {
                     return;
@@ -1458,7 +1466,7 @@ export class Lunar {
         if (currentCalendar < startCalendar || currentCalendar >= endCalendar) {
             return null;
         }
-        const days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+        const days = Lunar._diff(currentCalendar, startCalendar);
         return new ShuJiu(LunarUtil.NUMBER[Math.floor(days / 9) + 1] + '九', days % 9 + 1);
     }
 
@@ -1482,7 +1490,7 @@ export class Lunar {
             return null;
         }
 
-        let days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+        let days = Lunar._diff(currentCalendar, startCalendar);
         if (days < 10) {
             return new Fu('初伏', days + 1);
         }
@@ -1490,7 +1498,7 @@ export class Lunar {
         // 第4个庚日，中伏第1天
         startCalendar.setDate(startCalendar.getDate() + 10);
 
-        days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+        days = Lunar._diff(currentCalendar, startCalendar);
         if (days < 10) {
             return new Fu('中伏', days + 1);
         }
@@ -1500,7 +1508,7 @@ export class Lunar {
 
         const liQiuCalendar = ExactDate.fromYmd(liQiu.getYear(), liQiu.getMonth(), liQiu.getDay());
 
-        days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+        days = Lunar._diff(currentCalendar, startCalendar);
         // 末伏
         if (liQiuCalendar <= startCalendar) {
             if (days < 10) {
@@ -1513,7 +1521,7 @@ export class Lunar {
             }
             // 末伏第1天
             startCalendar.setDate(startCalendar.getDate() + 10);
-            days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+            days = Lunar._diff(currentCalendar, startCalendar);
             if (days < 10) {
                 return new Fu('末伏', days + 1);
             }
@@ -1538,7 +1546,7 @@ export class Lunar {
         const currentCalendar = ExactDate.fromYmd(this._solar.getYear(), this._solar.getMonth(), this._solar.getDay());
         const startSolar = jieQi.getSolar();
         const startCalendar = ExactDate.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());
-        const days = Math.floor((currentCalendar.getTime() - startCalendar.getTime()) / Lunar.MS_PER_DAY);
+        const days = Lunar._diff(currentCalendar, startCalendar);
         return LunarUtil.WU_HOU[(offset * 3 + Math.floor(days / 5)) % LunarUtil.WU_HOU.length];
     }
 }

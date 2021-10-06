@@ -130,7 +130,7 @@ export class Solar {
     }
 
     constructor(year: number, month: number, day: number, hour: number, minute: number, second: number) {
-        if (year === 1582 && month == 10) {
+        if (year === 1582 && month === 10) {
             if (day >= 15) {
                 day -= 10;
             }

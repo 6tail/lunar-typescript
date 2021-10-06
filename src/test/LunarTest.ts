@@ -1,4 +1,4 @@
-import {Solar, Lunar} from '../lib';
+import {Solar, Lunar, LunarYear} from '../lib';
 
 const assert = require('assert');
 
@@ -537,6 +537,14 @@ describe('Lunar', () => {
     it('test044', () => {
         const solar = Solar.fromYmd(1, 1, 1);
         assert.strictEqual(solar.getLunar().getYearShengXiao(),'猴');
+    });
+
+    it('test045', () => {
+        const lunarMonth = LunarYear.fromYear(2020).getMonth(-4);
+        assert.notStrictEqual(lunarMonth, null);
+        if (null != lunarMonth) {
+            assert.strictEqual(lunarMonth.toString(), '2020年闰四月(29)天');
+        }
     });
 
 });
