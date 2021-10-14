@@ -9,6 +9,7 @@ import {ShuJiu} from './ShuJiu';
 import {Fu} from './Fu';
 import {LunarYear} from './LunarYear';
 import {ExactDate} from './ExactDate';
+import {LunarTime} from "./LunarTime";
 
 interface LunarInfo {
     timeGanIndex: number;
@@ -1548,5 +1549,24 @@ export class Lunar {
         const startCalendar = ExactDate.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());
         const days = Lunar._diff(currentCalendar, startCalendar);
         return LunarUtil.WU_HOU[(offset * 3 + Math.floor(days / 5)) % LunarUtil.WU_HOU.length];
+    }
+
+    getDayLu(): string{
+        const gan = LunarUtil.LU.get(this.getDayGan());
+        const zhi = LunarUtil.LU.get(this.getDayZhi());
+        let lu = gan + '命互禄';
+        if (zhi) {
+            lu += ' ' + zhi + '命进禄';
+        }
+        return lu;
+    }
+
+    getTimes(): LunarTime[]{
+        const l = [];
+        l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, 0, 0, 0));
+        for(let i = 0; i < 12; i++){
+            l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, (i+1)*2-1, 0, 0));
+        }
+        return l;
     }
 }

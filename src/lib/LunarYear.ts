@@ -3,6 +3,7 @@ import {Lunar} from './Lunar';
 import {ShouXingUtil} from './ShouXingUtil';
 import {Solar} from './Solar';
 import {Dictionary} from "./Dictionary";
+import {LunarUtil} from "./LunarUtil";
 
 export class LunarYear {
 
@@ -160,5 +161,53 @@ export class LunarYear {
 
     toFullString(): string {
         return `${this.getYear()}年`;
+    }
+
+    getZhiShui(): string {
+        const month = this.getMonth(1);
+        if (month) {
+            let offset = 4 - Solar.fromJulianDay(month.getFirstJulianDay()).getLunar().getDayZhiIndex();
+            if (offset < 0) {
+                offset += 12;
+            }
+            return LunarUtil.NUMBER[offset + 1] + '龙治水';
+        }
+        return '';
+    }
+
+    getFenBing(): string {
+        const month = this.getMonth(1);
+        if (month) {
+            let offset = 2 - Solar.fromJulianDay(month.getFirstJulianDay()).getLunar().getDayGanIndex();
+            if (offset < 0) {
+                offset += 10;
+            }
+            return LunarUtil.NUMBER[offset + 1] + '人分饼';
+        }
+        return '';
+    }
+
+    getGengTian(): string {
+        const month = this.getMonth(1);
+        if (month) {
+            let offset = 1 - Solar.fromJulianDay(month.getFirstJulianDay()).getLunar().getDayZhiIndex();
+            if (offset < 0) {
+                offset += 12;
+            }
+            return LunarUtil.NUMBER[offset + 1] + '牛耕田';
+        }
+        return '';
+    }
+
+    getDeJin(): string {
+        const month = this.getMonth(1);
+        if (month) {
+            let offset = 7 - Solar.fromJulianDay(month.getFirstJulianDay()).getLunar().getDayGanIndex();
+            if (offset < 0) {
+                offset += 10;
+            }
+            return LunarUtil.NUMBER[offset + 1] + '日得金';
+        }
+        return '';
     }
 }

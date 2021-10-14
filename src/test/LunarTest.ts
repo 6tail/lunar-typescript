@@ -547,4 +547,9 @@ describe('Lunar', () => {
         }
     });
 
+    it('test046', () => {
+        const solar = Solar.fromYmd(2017, 2, 15);
+        assert.strictEqual(solar.getLunar().getDayLu(),'子命互禄 辛命进禄');
+    });
+
 });
