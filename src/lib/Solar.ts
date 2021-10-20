@@ -60,6 +60,14 @@ export class Solar {
         f -= minute;
         f *= 60;
         let second = Math.round(f);
+        if (second > 59) {
+            second -= 60;
+            minute++;
+        }
+        if (minute > 59) {
+            minute -= 60;
+            hour++;
+        }
         return Solar.fromYmdHms(year, month, day, hour, minute, second);
     }
 

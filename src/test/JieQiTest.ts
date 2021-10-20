@@ -1,4 +1,4 @@
-import {Solar} from '../lib';
+import {Solar, Lunar} from '../lib';
 
 const assert = require('assert');
 
@@ -87,6 +87,16 @@ describe('节气', () => {
         assert.strictEqual(lunar.getPrevJie().getName(), '大雪');
         assert.strictEqual(lunar.getPrevQi().getName(), '冬至');
         assert.strictEqual(lunar.getPrevJieQi().getName(), '冬至');
+    });
+
+    it('test7', () => {
+        const lunar = Lunar.fromYmd(2012, 9, 1);
+        assert.strictEqual(lunar.getJieQiTable().get('白露').toYmdHms(), '2012-09-07 13:29:00');
+    });
+
+    it('test8', () => {
+        const lunar = Lunar.fromYmd(2050, 12, 1);
+        assert.strictEqual(lunar.getJieQiTable().get('大雪').toYmdHms(), '2050-12-07 06:41:00');
     });
 
 });
