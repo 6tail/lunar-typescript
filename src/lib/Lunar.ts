@@ -9,7 +9,8 @@ import {ShuJiu} from './ShuJiu';
 import {Fu} from './Fu';
 import {LunarYear} from './LunarYear';
 import {ExactDate} from './ExactDate';
-import {LunarTime} from "./LunarTime";
+import {LunarTime} from './LunarTime';
+import {Foto} from './Foto';
 
 interface LunarInfo {
     timeGanIndex: number;
@@ -590,7 +591,7 @@ export class Lunar {
     }
 
     getYearInChinese(): string {
-        const y = (this._year + '');
+        const y = this._year + '';
         let s = '';
         const zero: number = '0'.charCodeAt(0);
         for (let i = 0, j = y.length; i < j; i++) {
@@ -981,6 +982,9 @@ export class Lunar {
             fs.forEach(f => {
                 l.push(f);
             });
+        }
+        if(this._solar.toYmd()===this._jieQi.get('清明').next(-1).toYmd()){
+            l.push('寒食节');
         }
         return l;
     }
@@ -1551,7 +1555,7 @@ export class Lunar {
         return LunarUtil.WU_HOU[(offset * 3 + Math.floor(days / 5)) % LunarUtil.WU_HOU.length];
     }
 
-    getDayLu(): string{
+    getDayLu(): string {
         const gan = LunarUtil.LU.get(this.getDayGan());
         const zhi = LunarUtil.LU.get(this.getDayZhi());
         let lu = gan + '命互禄';
@@ -1561,12 +1565,16 @@ export class Lunar {
         return lu;
     }
 
-    getTimes(): LunarTime[]{
+    getTimes(): LunarTime[] {
         const l = [];
         l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, 0, 0, 0));
         for(let i = 0; i < 12; i++){
             l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, (i+1)*2-1, 0, 0));
         }
         return l;
+    }
+
+    getFoto(): Foto {
+        return Foto.fromLunar(this);
     }
 }

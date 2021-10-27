@@ -1,8 +1,10 @@
 import {Solar} from './Solar';
 import {JieQi} from './JieQi';
 import {Lunar} from './Lunar';
+import {Foto} from './Foto';
 import {SolarUtil} from './SolarUtil';
 import {LunarUtil} from './LunarUtil';
+import {FotoUtil} from './FotoUtil';
 import {ShouXingUtil} from './ShouXingUtil';
 import {Holiday} from './Holiday';
 import {HolidayUtil} from './HolidayUtil';
@@ -29,8 +31,10 @@ export {
     Solar,
     JieQi,
     Lunar,
+    Foto,
     SolarUtil,
     LunarUtil,
+    FotoUtil,
     ShouXingUtil,
     Holiday,
     HolidayUtil,
