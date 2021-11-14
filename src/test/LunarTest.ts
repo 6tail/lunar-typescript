@@ -552,4 +552,29 @@ describe('Lunar', () => {
         assert.strictEqual(solar.getLunar().getDayLu(),'子命互禄 辛命进禄');
     });
 
+    it('test048', () => {
+        const solar = Solar.fromYmd(2021, 11, 13);
+        assert.strictEqual(solar.getLunar().getDayPositionTai(),'碓磨厕 外东南');
+    });
+
+    it('test049', () => {
+        const solar = Solar.fromYmd(2021, 11, 12);
+        assert.strictEqual(solar.getLunar().getDayPositionTai(),'占门碓 外东南');
+    });
+
+    it('test050', () => {
+        const solar = Solar.fromYmd(2021, 11, 13);
+        assert.strictEqual(solar.getLunar().getDayPositionFuDesc(),'西南');
+    });
+
+    it('test051', () => {
+        const solar = Solar.fromYmd(2021, 11, 12);
+        assert.strictEqual(solar.getLunar().getDayPositionFuDesc(),'正北');
+    });
+
+    it('test052', () => {
+        const solar = Solar.fromYmd(2011, 11, 12);
+        assert.strictEqual(solar.getLunar().getDayPositionTai(),'厕灶厨 外西南');
+    });
+
 });

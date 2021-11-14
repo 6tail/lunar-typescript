@@ -120,11 +120,11 @@ export class Lunar {
     }
 
     private static _diff(after: Date, before: Date) {
-        const current = ExactDate.fromYmdHms(before.getFullYear(), before.getMonth()+1, before.getDate(), before.getHours(), before.getMinutes(), before.getSeconds());
+        const current = ExactDate.fromYmdHms(before.getFullYear(), before.getMonth() + 1, before.getDate(), before.getHours(), before.getMinutes(), before.getSeconds());
         let n = 0;
-        while(current<after){
+        while (current < after) {
             n++;
-            current.setDate(current.getDate()+1);
+            current.setDate(current.getDate() + 1);
         }
         return n;
     };
@@ -684,12 +684,12 @@ export class Lunar {
         return v ? v : '';
     }
 
-    getDayPositionFu(): string {
-        return LunarUtil.POSITION_FU[this._dayGanIndex + 1];
+    getDayPositionFu(sect: number = 2): string {
+        return (1 === sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[this._dayGanIndex + 1];
     }
 
-    getDayPositionFuDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionFu());
+    getDayPositionFuDesc(sect: number = 2): string {
+        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionFu(sect));
         return v ? v : '';
     }
 
@@ -875,10 +875,10 @@ export class Lunar {
             jq = '立春';
         } else if ('DA_XUE' === jq) {
             jq = '大雪';
-        } else if('YU_SHUI' === jq){
-            jq = "雨水";
-        } else if('JING_ZHE' === jq){
-            jq = "惊蛰";
+        } else if ('YU_SHUI' === jq) {
+            jq = '雨水';
+        } else if ('JING_ZHE' === jq) {
+            jq = '惊蛰';
         }
         return jq;
     }
@@ -983,7 +983,7 @@ export class Lunar {
                 l.push(f);
             });
         }
-        if(this._solar.toYmd()===this._jieQi.get('清明').next(-1).toYmd()){
+        if (this._solar.toYmd() === this._jieQi.get('清明').next(-1).toYmd()) {
             l.push('寒食节');
         }
         return l;
@@ -1102,11 +1102,7 @@ export class Lunar {
     }
 
     getDayPositionTai(): string {
-        let offset = this._dayGanIndex - this._dayZhiIndex;
-        if (offset < 0) {
-            offset += 12;
-        }
-        return LunarUtil.POSITION_TAI_DAY[offset * 5 + this._dayGanIndex];
+        return LunarUtil.POSITION_TAI_DAY[LunarUtil.getJiaZiIndex(this.getDayInGanZhi())];
     }
 
     getMonthPositionTai(): string {
@@ -1568,8 +1564,8 @@ export class Lunar {
     getTimes(): LunarTime[] {
         const l = [];
         l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, 0, 0, 0));
-        for(let i = 0; i < 12; i++){
-            l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, (i+1)*2-1, 0, 0));
+        for (let i = 0; i < 12; i++) {
+            l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, (i + 1) * 2 - 1, 0, 0));
         }
         return l;
     }

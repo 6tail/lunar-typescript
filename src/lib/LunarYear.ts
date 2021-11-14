@@ -2,8 +2,8 @@ import {LunarMonth} from './LunarMonth';
 import {Lunar} from './Lunar';
 import {ShouXingUtil} from './ShouXingUtil';
 import {Solar} from './Solar';
-import {Dictionary} from "./Dictionary";
-import {LunarUtil} from "./LunarUtil";
+import {Dictionary} from './Dictionary';
+import {LunarUtil} from './LunarUtil';
 
 export class LunarYear {
 
