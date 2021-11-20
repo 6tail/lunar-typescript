@@ -729,12 +729,12 @@ export class Lunar {
         return v ? v : '';
     }
 
-    getTimePositionFu(): string {
-        return LunarUtil.POSITION_FU[this._timeGanIndex + 1];
+    getTimePositionFu(sect: number = 2): string {
+        return (1 === sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[this._timeGanIndex + 1];
     }
 
-    getTimePositionFuDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionFu());
+    getTimePositionFuDesc(sect: number = 2): string {
+        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionFu(sect));
         return v ? v : '';
     }
 
