@@ -28,6 +28,10 @@ export class FotoFestival {
     }
 
     toString(): string {
+        return this._name;
+    }
+
+    toFullString(): string {
         const l = [this._name];
         if (this._result) {
             l.push(this._result);

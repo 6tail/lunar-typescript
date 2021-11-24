@@ -11,6 +11,7 @@ import {LunarYear} from './LunarYear';
 import {ExactDate} from './ExactDate';
 import {LunarTime} from './LunarTime';
 import {Foto} from './Foto';
+import {Tao} from './Tao';
 
 interface LunarInfo {
     timeGanIndex: number;
@@ -1572,5 +1573,9 @@ export class Lunar {
 
     getFoto(): Foto {
         return Foto.fromLunar(this);
+    }
+
+    getTao(): Tao {
+        return Tao.fromLunar(this);
     }
 }
