@@ -886,8 +886,8 @@ export class Lunar {
 
     getJie(): string {
         let d, jie = '';
-        for (let i = 1, j = Lunar.JIE_QI.length; i < j; i += 2) {
-            const key = Lunar.JIE_QI[i];
+        for (let i = 0, j = Lunar.JIE_QI_IN_USE.length; i < j; i += 2) {
+            const key = Lunar.JIE_QI_IN_USE[i];
             d = this._jieQi.get(key);
             if (d && d.getYear() === this._solar.getYear() && d.getMonth() === this._solar.getMonth() && d.getDay() === this._solar.getDay()) {
                 jie = key;
@@ -899,8 +899,8 @@ export class Lunar {
 
     getQi(): string {
         let d, qi = '';
-        for (let i = 0, j = Lunar.JIE_QI.length; i < j; i += 2) {
-            const key = Lunar.JIE_QI[i];
+        for (let i = 1, j = Lunar.JIE_QI_IN_USE.length; i < j; i += 2) {
+            const key = Lunar.JIE_QI_IN_USE[i];
             d = this._jieQi.get(key);
             if (d && d.getYear() === this._solar.getYear() && d.getMonth() === this._solar.getMonth() && d.getDay() === this._solar.getDay()) {
                 qi = key;

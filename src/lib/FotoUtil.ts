@@ -1,9 +1,11 @@
 import {Dictionary} from './Dictionary';
 import {FotoFestival} from './FotoFestival';
+import {LunarUtil} from "./LunarUtil";
 
 export class FotoUtil {
     static DAY_ZHAI_GUAN_YIN: string[] = ['1-8', '2-7', '2-9', '2-19', '3-3', '3-6', '3-13', '4-22', '5-3', '5-17', '6-16', '6-18', '6-19', '6-23', '7-13', '8-16', '9-19', '9-23', '10-2', '11-19', '11-24', '12-25'];
-
+    static XIU_27: string[] = ['角','亢','氐','房','心','尾','箕','斗','女','虚','危','室','壁','奎','娄','胃','昴','毕','觜','参','井','鬼','柳','星','张','翼','轸'];
+    private static XIU_OFFSET: number[] = [11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9];
     static _DJ = '犯者夺纪';
     static _JS = '犯者减寿';
     static _SS = '犯者损寿';
@@ -243,4 +245,8 @@ export class FotoUtil {
         ['12-29', [new FotoFestival('华严菩萨诞'), FotoUtil._T]],
         ['12-30', [new FotoFestival('诸神下降，察访善恶', '犯者男女俱亡')]]
     ]);
+
+    static getXiu(month: number, day: number): string {
+        return FotoUtil.XIU_27[(FotoUtil.XIU_OFFSET[Math.abs(month)-1] + day - 1) % FotoUtil.XIU_27.length];
+    }
 }

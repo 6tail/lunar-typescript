@@ -99,4 +99,12 @@ describe('节气', () => {
         assert.strictEqual(lunar.getJieQiTable().get('大雪').toYmdHms(), '2050-12-07 06:41:00');
     });
 
+    it('test9', () => {
+        const solar = Solar.fromYmd(2021, 12, 21);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getJieQi(), '冬至');
+        assert.strictEqual(lunar.getJie(), '');
+        assert.strictEqual(lunar.getQi(), '冬至');
+    });
+
 });

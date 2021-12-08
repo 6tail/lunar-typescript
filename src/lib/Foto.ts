@@ -117,6 +117,34 @@ export class Foto {
         return false;
     }
 
+    getXiu(): string {
+        return FotoUtil.getXiu(this.getMonth(), this.getDay());
+    }
+
+    getXiuLuck(): string {
+        return LunarUtil.XIU_LUCK.get(this.getXiu());
+    }
+
+    getXiuSong(): string {
+        return LunarUtil.XIU_SONG.get(this.getXiu());
+    }
+
+    getZheng(): string {
+        return LunarUtil.ZHENG.get(this.getXiu());
+    }
+
+    getAnimal(): string {
+        return LunarUtil.ANIMAL.get(this.getXiu());
+    }
+
+    getGong(): string {
+        return LunarUtil.GONG.get(this.getXiu());
+    }
+
+    getShou(): string {
+        return LunarUtil.SHOU.get(this.getGong());
+    }
+
     toString(): string {
         return this.getYearInChinese() + '年' + this.getMonthInChinese() + '月' + this.getDayInChinese();
     }
