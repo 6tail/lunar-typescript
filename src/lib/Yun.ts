@@ -28,10 +28,8 @@ export class Yun {
         const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
         // 时辰差
         let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-        const endCalendar = ExactDate.fromYmd(end.getYear(), end.getMonth(), end.getDay());
-        const startCalendar = ExactDate.fromYmd(start.getYear(), start.getMonth(), start.getDay());
         // 天数差
-        let dayDiff = Math.floor((endCalendar.getTime() - startCalendar.getTime()) / (1000 * 3600 * 24));
+        let dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
         if (hourDiff < 0) {
             hourDiff += 12;
             dayDiff--;

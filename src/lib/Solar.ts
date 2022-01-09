@@ -80,7 +80,7 @@ export class Solar {
         if (offsetYear < 0) {
             offsetYear = offsetYear + 60;
         }
-        let startYear = today.getYear() - offsetYear;
+        let startYear = lunar.getYear() - offsetYear;
         let hour = 0;
         let timeZhi = timeGanZhi.substr(1);
         for (let i = 0, j = LunarUtil.ZHI.length; i < j; i++) {

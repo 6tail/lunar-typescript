@@ -418,12 +418,12 @@ describe('Lunar', () => {
 
     it('test023', () => {
         const lunar = Lunar.fromYmd(2022, 1, 1);
-        assert.strictEqual(lunar.getYearNineStar().toString(), '五黄土玉衡');
+        assert.strictEqual(lunar.getYearNineStar().toString(), '六白金开阳');
     });
 
     it('test024', () => {
         const lunar = Lunar.fromYmd(2033, 1, 1);
-        assert.strictEqual(lunar.getYearNineStar().toString(), '三碧木天玑');
+        assert.strictEqual(lunar.getYearNineStar().toString(), '四绿木天权');
     });
 
     it('test025', () => {

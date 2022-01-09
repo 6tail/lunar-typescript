@@ -1,6 +1,5 @@
 import {Dictionary} from './Dictionary';
 import {FotoFestival} from './FotoFestival';
-import {LunarUtil} from "./LunarUtil";
 
 export class FotoUtil {
     static DAY_ZHAI_GUAN_YIN: string[] = ['1-8', '2-7', '2-9', '2-19', '3-3', '3-6', '3-13', '4-22', '5-3', '5-17', '6-16', '6-18', '6-19', '6-23', '7-13', '8-16', '9-19', '9-23', '10-2', '11-19', '11-24', '12-25'];

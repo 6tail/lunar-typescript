@@ -86,7 +86,7 @@ export class SolarUtil {
         ['11-28', ['恩格斯诞辰纪念日']],
         ['12-1', ['世界艾滋病日']],
         ['12-12', ['西安事变纪念日']],
-        ['12-13', ['南京大屠杀纪念日']],
+        ['12-13', ['国家公祭日']],
         ['12-26', ['毛泽东诞辰纪念日']]
     ]);
 
@@ -96,11 +96,14 @@ export class SolarUtil {
         ['11-4-4', '感恩节']
     ]);
 
-    static isLeapYear(year: number) {
+    static isLeapYear(year: number): boolean {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    static getDaysOfMonth(year: number, month: number) {
+    static getDaysOfMonth(year: number, month: number): number {
+        if (1582 === year && 10 === month) {
+            return 21;
+        }
         const m = month - 1;
         let d = SolarUtil.DAYS_OF_MONTH[m];
         if (m === 1 && SolarUtil.isLeapYear(year)) {
@@ -109,7 +112,23 @@ export class SolarUtil {
         return d;
     }
 
-    static getWeeksOfMonth(year: number, month: number, start: number) {
+    static getDaysOfYear(year: number): number {
+        return SolarUtil.isLeapYear(year) ? 366 : 365;
+    }
+
+    static getDaysInYear(year: number, month: number, day: number): number {
+        let days = 0;
+        for (let i = 1; i < month; i++) {
+            days += SolarUtil.getDaysOfMonth(year, i);
+        }
+        days += day;
+        if (1582 == year && 10 == month && day >= 15) {
+            days -= 10;
+        }
+        return days;
+    }
+
+    static getWeeksOfMonth(year: number, month: number, start: number): number {
         const days = SolarUtil.getDaysOfMonth(year, month);
         const firstDate = ExactDate.fromYmd(year,month,1);
         const firstDayWeek = firstDate.getDay();

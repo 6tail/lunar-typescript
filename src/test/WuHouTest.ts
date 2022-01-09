@@ -57,4 +57,28 @@ describe('物候', () => {
         assert.strictEqual(lunar.getWuHou(), '蚯蚓结');
     });
 
+    it('test10()', () => {
+        const solar = Solar.fromYmd(2021, 12, 21);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getHou(), '冬至 初候');
+    });
+
+    it('test11()', () => {
+        const solar = Solar.fromYmd(2021, 12, 26);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getHou(), '冬至 二候');
+    });
+
+    it('test12()', () => {
+        const solar = Solar.fromYmd(2021, 12, 31);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getHou(), '冬至 三候');
+    });
+
+    it('test13()', () => {
+        const solar = Solar.fromYmd(2022, 1, 5);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getHou(), '小寒 初候');
+    });
+
 });

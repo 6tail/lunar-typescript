@@ -113,6 +113,42 @@ export class Tao {
         return TaoUtil.BA_HUI.containsKey(this._lunar.getDayInGanZhi());
     }
 
+    isDayMingWu(): boolean {
+        return '戊' == this._lunar.getDayGan();
+    }
+
+    isDayAnWu(): boolean {
+        return this._lunar.getDayZhi() == TaoUtil.AN_WU[Math.abs(this.getMonth()) - 1];
+    }
+
+    isDayWu(): boolean {
+        return this.isDayMingWu() || this.isDayAnWu();
+    }
+
+    isDayTianShe(): boolean {
+        let ret = false;
+        const mz = this._lunar.getMonthZhi();
+        const dgz = this._lunar.getDayInGanZhi();
+        if ('寅卯辰'.indexOf(mz) > -1) {
+            if ('戊寅' === dgz) {
+                ret = true;
+            }
+        } else if ('巳午未'.indexOf(mz) > -1) {
+            if ('甲午' === dgz) {
+                ret = true;
+            }
+        } else if ('申酉戌'.indexOf(mz) > -1) {
+            if ('戊申' === dgz) {
+                ret = true;
+            }
+        } else if ('亥子丑'.indexOf(mz) > -1) {
+            if ('甲子' === dgz) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
     toString(): string {
         return this.getYearInChinese() + '年' + this.getMonthInChinese() + '月' + this.getDayInChinese();
     }
