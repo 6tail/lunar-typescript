@@ -45,10 +45,11 @@ export class SolarWeek {
     getIndex(): number {
         const firstDate = ExactDate.fromYmd(this._year, this._month, 1);
         let firstDayWeek = firstDate.getDay();
-        if (firstDayWeek === 0) {
-            firstDayWeek = 7;
+        let offset = firstDayWeek - this._start;
+        if(offset < 0) {
+            offset += 7;
         }
-        return Math.ceil((this._day + firstDayWeek - this._start) / 7);
+        return Math.ceil((this._day + offset) / 7);
     }
 
     next(weeks: number, separateMonth: boolean): SolarWeek {

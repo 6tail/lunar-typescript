@@ -22,4 +22,16 @@ describe('SolarWeek', () => {
         assert.strictEqual(week.getFirstDay().toString(), '2019-04-28');
         assert.strictEqual(week.getFirstDayInMonth().toString(), '2019-05-01');
     });
+
+    it('test1', () => {
+        const start = 0;
+        const week = SolarWeek.fromYmd(2022, 5, 1, start);
+        assert.strictEqual(week.getIndex(), 1);
+    });
+
+    it('test2', () => {
+        const start = 2;
+        const week = SolarWeek.fromYmd(2021, 5, 4, start);
+        assert.strictEqual(week.getIndex(), 2);
+    });
 });
