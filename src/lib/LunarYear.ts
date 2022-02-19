@@ -346,4 +346,8 @@ export class LunarYear {
         return LunarUtil.POSITION_DESC.get(this.getPositionTaiSui());
     }
 
+    next(n: number): LunarYear {
+        return LunarYear.fromYear(this._year + n);
+    }
+
 }

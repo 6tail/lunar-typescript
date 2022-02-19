@@ -1,7 +1,7 @@
 import {LunarUtil} from './LunarUtil';
 import {LunarYear} from './LunarYear';
 import {Solar} from './Solar';
-import {NineStar} from "./NineStar";
+import {NineStar} from './NineStar';
 
 export class LunarMonth {
 
@@ -84,5 +84,65 @@ export class LunarMonth {
 
     toString(): string {
         return `${this.getYear()}年${this.isLeap() ? '闰' : ''}${LunarUtil.MONTH[Math.abs(this.getMonth())]}月(${this.getDayCount()})天`;
+    }
+
+    next(n: number): LunarMonth | null {
+        if (0 == n) {
+            return LunarMonth.fromYm(this._year, this._month);
+        } else {
+            let rest = Math.abs(n);
+            let ny = this._year;
+            let iy = ny;
+            let im = this._month;
+            let index = 0;
+            let months = LunarYear.fromYear(ny).getMonths();
+            let i;
+            let m;
+            let size;
+            if (n > 0) {
+                while (true) {
+                    size = months.length;
+                    for (i = 0; i < size; i++) {
+                        m = months[i];
+                        if (m.getYear() === iy && m.getMonth() === im) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    const more = size - index - 1;
+                    if (rest < more) {
+                        break;
+                    }
+                    rest -= more;
+                    const lastMonth = months[size - 1];
+                    iy = lastMonth.getYear();
+                    im = lastMonth.getMonth();
+                    ny++;
+                    months = LunarYear.fromYear(ny).getMonths();
+                }
+                return months[index + rest];
+            } else {
+                while (true) {
+                    size = months.length;
+                    for (i = 0; i < size; i++) {
+                        m = months[i];
+                        if (m.getYear() === iy && m.getMonth() === im) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (rest <= index) {
+                        break;
+                    }
+                    rest -= index;
+                    const firstMonth = months[0];
+                    iy = firstMonth.getYear();
+                    im = firstMonth.getMonth();
+                    ny--;
+                    months = LunarYear.fromYear(ny).getMonths();
+                }
+                return months[index - rest];
+            }
+        }
     }
 }

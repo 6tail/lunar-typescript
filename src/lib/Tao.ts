@@ -114,11 +114,11 @@ export class Tao {
     }
 
     isDayMingWu(): boolean {
-        return '戊' == this._lunar.getDayGan();
+        return '戊' === this._lunar.getDayGan();
     }
 
     isDayAnWu(): boolean {
-        return this._lunar.getDayZhi() == TaoUtil.AN_WU[Math.abs(this.getMonth()) - 1];
+        return this._lunar.getDayZhi() === TaoUtil.AN_WU[Math.abs(this.getMonth()) - 1];
     }
 
     isDayWu(): boolean {

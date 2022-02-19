@@ -122,7 +122,7 @@ export class SolarUtil {
             days += SolarUtil.getDaysOfMonth(year, i);
         }
         days += day;
-        if (1582 == year && 10 == month && day >= 15) {
+        if (1582 === year && 10 === month && day >= 15) {
             days -= 10;
         }
         return days;

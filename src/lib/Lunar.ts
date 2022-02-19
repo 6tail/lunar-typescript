@@ -1445,12 +1445,12 @@ export class Lunar {
                 if (day > today) {
                     return;
                 }
-                if (null == near || day > near.toYmdHms()) {
+                if (null == near) {
                     name = jq;
                     near = solar;
                 } else {
                     const nearDay = wholeDay ? near.toYmd() : near.toYmdHms();
-                    if (day < nearDay) {
+                    if (day > nearDay) {
                         name = jq;
                         near = solar;
                     }
@@ -1710,8 +1710,12 @@ export class Lunar {
         const name = jieQi.getName();
         const startSolar = jieQi.getSolar();
         const days = ExactDate.getDaysBetween(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay(), this._solar.getYear(), this._solar.getMonth(), this._solar.getDay());
-        const hou = LunarUtil.HOU[Math.floor(days / 5) % LunarUtil.HOU.length];
-        return name + ' ' + hou;
+        const max = LunarUtil.HOU.length - 1;
+        let offset = Math.floor(days / 5);
+        if (offset > max) {
+            offset = max;
+        }
+        return name + ' ' + LunarUtil.HOU[offset];
     }
 
     getDayLu(): string {

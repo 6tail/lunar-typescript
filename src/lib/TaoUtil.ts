@@ -30,7 +30,7 @@ export class TaoUtil {
     ]);
 
     static FESTIVAL: Dictionary<TaoFestival[]> = new Dictionary<TaoFestival[]>([
-        ['1-1', [new TaoFestival('天腊之辰', '天腊，此日五帝会于束方九炁青天')]],
+        ['1-1', [new TaoFestival('天腊之辰', '天腊，此日五帝会于东方九炁青天')]],
         ['1-3', [new TaoFestival('郝真人圣诞'), new TaoFestival('孙真人圣诞')]],
         ['1-5', [new TaoFestival('孙祖清静元君诞')]],
         ['1-7', [new TaoFestival('举迁赏会', '此日上元赐福，天官同地水二官考校罪福')]],
@@ -65,7 +65,7 @@ export class TaoUtil {
         ['4-20', [new TaoFestival('眼光圣母娘娘诞')]],
         ['4-28', [new TaoFestival('神农先帝诞')]],
         ['5-1', [new TaoFestival('南极长生大帝圣诞')]],
-        ['5-5', [new TaoFestival('地腊之辰', '地腊，此日五帝会於南方三炁丹天'), new TaoFestival('南方雷祖圣诞'), new TaoFestival('地祗温元帅圣诞'), new TaoFestival('雷霆邓天君圣诞')]],
+        ['5-5', [new TaoFestival('地腊之辰', '地腊，此日五帝会于南方三炁丹天'), new TaoFestival('南方雷祖圣诞'), new TaoFestival('地祗温元帅圣诞'), new TaoFestival('雷霆邓天君圣诞')]],
         ['5-11', [new TaoFestival('城隍爷圣诞')]],
         ['5-13', [new TaoFestival('关圣帝君降神'), new TaoFestival('关平太子圣诞')]],
         ['5-18', [new TaoFestival('张天师圣诞')]],
@@ -107,7 +107,7 @@ export class TaoUtil {
         ['9-22', [new TaoFestival('增福财神诞')]],
         ['9-23', [new TaoFestival('萨翁真君圣诞')]],
         ['9-28', [new TaoFestival('五显灵官马元帅圣诞')]],
-        ['10-1', [new TaoFestival('民岁腊之辰', '民岁腊，此日五帝会於北方五炁黑天'), new TaoFestival('东皇大帝圣诞')]],
+        ['10-1', [new TaoFestival('民岁腊之辰', '民岁腊，此日五帝会于北方五炁黑天'), new TaoFestival('东皇大帝圣诞')]],
         ['10-3', [new TaoFestival('三茅应化真君圣诞')]],
         ['10-6', [new TaoFestival('天曹诸司五岳五帝圣诞')]],
         ['10-15', [new TaoFestival('下元水官大帝圣诞'), new TaoFestival('建生大会', '此日下元解厄，水官同天地二官考校罪福')]],
@@ -118,7 +118,7 @@ export class TaoUtil {
         ['11-9', [new TaoFestival('湘子韩祖圣诞')]],
         ['11-11', [new TaoFestival('太乙救苦天尊圣诞')]],
         ['11-26', [new TaoFestival('北方五道圣诞')]],
-        ['12-8', [new TaoFestival('王侯腊之辰', '王侯腊，此日五帝会於上方玄都玉京')]],
+        ['12-8', [new TaoFestival('王侯腊之辰', '王侯腊，此日五帝会于上方玄都玉京')]],
         ['12-16', [new TaoFestival('南岳大帝圣诞'), new TaoFestival('福德正神诞')]],
         ['12-20', [new TaoFestival('鲁班先师圣诞')]],
         ['12-21', [new TaoFestival('天猷上帝圣诞')]],
