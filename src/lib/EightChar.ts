@@ -397,8 +397,8 @@ export class EightChar {
         return this._lunar;
     }
 
-    getYun(gender: number) {
-        return new Yun(this._lunar, gender);
+    getYun(gender: number, sect: number = 1) {
+        return new Yun(this._lunar, gender, sect);
     }
 
     toString(): string {

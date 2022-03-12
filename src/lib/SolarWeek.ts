@@ -52,6 +52,16 @@ export class SolarWeek {
         return Math.ceil((this._day + offset) / 7);
     }
 
+    getIndexInYear(): number {
+        const firstDate = ExactDate.fromYmd(this._year, 1, 1);
+        let firstDayWeek = firstDate.getDay();
+        let offset = firstDayWeek - this._start;
+        if(offset < 0) {
+            offset += 7;
+        }
+        return Math.ceil((SolarUtil.getDaysInYear(this._year, this._month, this._day) + offset) / 7);
+    }
+
     next(weeks: number, separateMonth: boolean): SolarWeek {
         if (0 === weeks) {
             return SolarWeek.fromYmd(this._year, this._month, this._day, this._start);

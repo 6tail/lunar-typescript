@@ -9,10 +9,11 @@ export class Yun {
     private _startYear: number;
     private _startMonth: number;
     private _startDay: number;
+    private _startHour: number;
     private _forward: boolean;
     private _lunar: Lunar;
 
-    constructor(lunar: Lunar, gender: number) {
+    constructor(lunar: Lunar, gender: number, sect: number = 1) {
         this._gender = gender;
         this._lunar = lunar;
         const yang = 0 === lunar.getYearGanIndexExact() % 2;
@@ -24,24 +25,41 @@ export class Yun {
         const current = lunar.getSolar();
         const start = forward ? current : prev.getSolar();
         const end = forward ? next.getSolar() : current;
-        const endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substr(11, 5));
-        const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
-        // 时辰差
-        let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-        // 天数差
-        let dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
-        if (hourDiff < 0) {
-            hourDiff += 12;
-            dayDiff--;
+
+        let year;
+        let month;
+        let day;
+        let hour = 0;
+        if (2 === sect) {
+            let minutes = Math.floor((end.getCalendar().getTime() - start.getCalendar().getTime()) / 60000);
+            year = Math.floor(minutes / 4320);
+            minutes -= year * 4320;
+            month = Math.floor(minutes / 360);
+            minutes -= month * 360;
+            day = Math.floor(minutes / 12);
+            minutes -= day * 12;
+            hour = minutes * 2;
+        } else {
+            const endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substr(11, 5));
+            const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substr(11, 5));
+            // 时辰差
+            let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+            // 天数差
+            let dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
+            if (hourDiff < 0) {
+                hourDiff += 12;
+                dayDiff--;
+            }
+            let monthDiff = Math.floor(hourDiff * 10 / 30);
+            month = dayDiff * 4 + monthDiff;
+            day = hourDiff * 10 - monthDiff * 30;
+            year = Math.floor(month / 12);
+            month = month - year * 12;
         }
-        let monthDiff = Math.floor(hourDiff * 10 / 30);
-        let month = dayDiff * 4 + monthDiff;
-        let day = hourDiff * 10 - monthDiff * 30;
-        let year = Math.floor(month / 12);
-        month = month - year * 12;
         this._startYear = year;
         this._startMonth = month;
         this._startDay = day;
+        this._startHour = hour;
     }
 
     getGender(): number {
@@ -60,6 +78,10 @@ export class Yun {
         return this._startDay;
     }
 
+    getStartHour(): number {
+        return this._startHour;
+    }
+
     isForward(): boolean {
         return this._forward;
     }
@@ -74,6 +96,7 @@ export class Yun {
         c.setFullYear(birth.getYear() + this._startYear);
         c.setMonth(birth.getMonth() - 1 + this._startMonth);
         c.setDate(birth.getDay() + this._startDay);
+        c.setHours(birth.getHour() + this._startHour);
         return Solar.fromDate(c);
     }
 

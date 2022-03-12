@@ -34,4 +34,10 @@ describe('SolarWeek', () => {
         const week = SolarWeek.fromYmd(2021, 5, 4, start);
         assert.strictEqual(week.getIndex(), 2);
     });
+
+    it('test3', () => {
+        const start = 0;
+        const week = SolarWeek.fromYmd(2022, 3, 6, start);
+        assert.strictEqual(week.getIndexInYear(), 11);
+    });
 });
