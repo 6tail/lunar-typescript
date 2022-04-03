@@ -1074,8 +1074,27 @@ export class Lunar {
                 l.push(f);
             });
         }
-        if (this._solar.toYmd() === this._jieQi.get('清明').next(-1).toYmd()) {
+        const solarYmd = this._solar.toYmd();
+        if (solarYmd === this._jieQi.get('清明').next(-1).toYmd()) {
             l.push('寒食节');
+        }
+
+        let jq = this._jieQi.get('立春');
+        let offset = 4 - jq.getLunar().getDayGanIndex();
+        if (offset < 0) {
+            offset += 10
+        }
+        if (solarYmd === jq.next(offset + 40).toYmd()) {
+            l.push('春社');
+        }
+
+        jq = this._jieQi.get('立秋');
+        offset = 4 - jq.getLunar().getDayGanIndex();
+        if (offset < 0) {
+            offset += 10
+        }
+        if (solarYmd === jq.next(offset + 40).toYmd()) {
+            l.push('秋社');
         }
         return l;
     }
@@ -1204,12 +1223,12 @@ export class Lunar {
         return LunarUtil.POSITION_TAI_MONTH[m - 1];
     }
 
-    getDayYi(): string[] {
-        return LunarUtil.getDayYi(this.getMonthInGanZhiExact(), this.getDayInGanZhi());
+    getDayYi(sect: number = 1): string[] {
+        return LunarUtil.getDayYi(2 == sect ? this.getMonthInGanZhiExact() : this.getMonthInGanZhi(), this.getDayInGanZhi());
     }
 
-    getDayJi(): string[] {
-        return LunarUtil.getDayJi(this.getMonthInGanZhiExact(), this.getDayInGanZhi());
+    getDayJi(sect: number = 1): string[] {
+        return LunarUtil.getDayJi(2 == sect ? this.getMonthInGanZhiExact() : this.getMonthInGanZhi(), this.getDayInGanZhi());
     }
 
     getDayJiShen(): string[] {

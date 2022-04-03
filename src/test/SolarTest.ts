@@ -96,4 +96,20 @@ describe('Solar', () => {
     it('10', () => {
         assert.strictEqual(SolarUtil.isLeapYear(1500), false);
     });
+
+    it('11', () => {
+        const solar = Solar.fromYmd(2022, 3, 28);
+        assert.strictEqual(solar.getFestivals() + '', '全国中小学生安全教育日');
+    });
+
+    it('12', () => {
+        const solar = Solar.fromYmd(2021, 3, 29);
+        assert.strictEqual(solar.getFestivals() + '', '全国中小学生安全教育日');
+    });
+
+    it('13', () => {
+        const solar = Solar.fromYmd(1996, 3, 25);
+        assert.strictEqual(solar.getFestivals() + '', '全国中小学生安全教育日');
+    });
+
 });

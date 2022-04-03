@@ -577,4 +577,24 @@ describe('Lunar', () => {
         assert.strictEqual(solar.getLunar().getDayPositionTai(),'厕灶厨 外西南');
     });
 
+    it('test053', () => {
+        const solar = Solar.fromYmd(1722, 9, 25);
+        assert.strictEqual(solar.getLunar().getOtherFestivals() + '','秋社');
+    });
+
+    it('test054', () => {
+        const solar = Solar.fromYmd(840, 9, 14);
+        assert.strictEqual(solar.getLunar().getOtherFestivals() + '','秋社');
+    });
+
+    it('test055', () => {
+        const solar = Solar.fromYmd(2022, 3, 16);
+        assert.strictEqual(solar.getLunar().getOtherFestivals() + '','春社');
+    });
+
+    it('test056', () => {
+        const solar = Solar.fromYmd(2021, 3, 21);
+        assert.strictEqual(solar.getLunar().getOtherFestivals() + '','春社');
+    });
+
 });
