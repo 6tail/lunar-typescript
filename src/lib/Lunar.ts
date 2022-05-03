@@ -1074,15 +1074,16 @@ export class Lunar {
                 l.push(f);
             });
         }
+        let jq = this._jieQi.get('清明');
         const solarYmd = this._solar.toYmd();
-        if (solarYmd === this._jieQi.get('清明').next(-1).toYmd()) {
+        if (solarYmd === jq.next(-1).toYmd()) {
             l.push('寒食节');
         }
 
-        let jq = this._jieQi.get('立春');
+        jq = this._jieQi.get('立春');
         let offset = 4 - jq.getLunar().getDayGanIndex();
         if (offset < 0) {
-            offset += 10
+            offset += 10;
         }
         if (solarYmd === jq.next(offset + 40).toYmd()) {
             l.push('春社');
@@ -1091,7 +1092,7 @@ export class Lunar {
         jq = this._jieQi.get('立秋');
         offset = 4 - jq.getLunar().getDayGanIndex();
         if (offset < 0) {
-            offset += 10
+            offset += 10;
         }
         if (solarYmd === jq.next(offset + 40).toYmd()) {
             l.push('秋社');
