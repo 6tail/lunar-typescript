@@ -205,7 +205,7 @@ export class Solar {
         if (f) {
             l.push(f);
         }
-        if (this._day + 7 >= SolarUtil.getDaysOfMonth(this._year, this._month)) {
+        if (this._day + 7 > SolarUtil.getDaysOfMonth(this._year, this._month)) {
             f = SolarUtil.WEEK_FESTIVAL.get(this._month + '-0-' + week);
             if (f) {
                 l.push(f);

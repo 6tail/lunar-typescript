@@ -334,6 +334,18 @@ export class EightChar {
         return v ? v : '';
     }
 
+    getTaiXi(): string {
+        const lunar = this._lunar;
+        const ganIndex = (2 == this._sect) ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
+        const zhiIndex = (2 == this._sect) ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
+        return LunarUtil.HE_GAN_5[ganIndex] + LunarUtil.HE_ZHI_6[zhiIndex];
+    }
+
+    getTaiXiNaYin(): string {
+        const v = LunarUtil.NAYIN.get(this.getTaiXi());
+        return v ? v : '';
+    }
+
     getMingGong() {
         let monthZhiIndex = 0;
         let timeZhiIndex = 0;
@@ -377,7 +389,10 @@ export class EightChar {
                 timeZhiIndex = i;
             }
         }
-        let zhiIndex = (2 + (monthZhiIndex + timeZhiIndex)) % 12;
+        let zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
+        if (zhiIndex > 12) {
+            zhiIndex -= 12;
+        }
         let jiaZiIndex = LunarUtil.getJiaZiIndex(this._lunar.getMonthInGanZhiExact()) - (monthZhiIndex - zhiIndex);
         if (jiaZiIndex >= 60) {
             jiaZiIndex -= 60;

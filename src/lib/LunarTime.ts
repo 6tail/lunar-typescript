@@ -99,7 +99,7 @@ export class LunarTime {
     }
 
     getChong(): string {
-        return LunarUtil.CHONG.get(this.getZhi());
+        return LunarUtil.CHONG[this._zhiIndex];
     }
 
     getSha(): string {
@@ -121,11 +121,11 @@ export class LunarTime {
     }
 
     getChongGan(): string {
-        return LunarUtil.CHONG_GAN.get(this.getGan());
+        return LunarUtil.CHONG_GAN[this._ganIndex];
     }
 
     getChongGanTie(): string {
-        return LunarUtil.CHONG_GAN_TIE.get(this.getGan());
+        return LunarUtil.CHONG_GAN_TIE[this._ganIndex];
     }
 
     getYi(): string[] {

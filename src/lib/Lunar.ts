@@ -867,18 +867,15 @@ export class Lunar {
     }
 
     getDayChong(): string {
-        const v = LunarUtil.CHONG.get(this.getDayZhi());
-        return v ? v : '';
+        return LunarUtil.CHONG[this._dayZhiIndex];
     }
 
     getDayChongGan(): string {
-        const v = LunarUtil.CHONG_GAN.get(this.getDayGan());
-        return v ? v : '';
+        return LunarUtil.CHONG_GAN[this._dayGanIndex];
     }
 
     getDayChongGanTie(): string {
-        const v = LunarUtil.CHONG_GAN_TIE.get(this.getDayGan());
-        return v ? v : '';
+        return LunarUtil.CHONG_GAN_TIE[this._dayGanIndex];
     }
 
     getDayChongShengXiao(): string {
@@ -901,18 +898,15 @@ export class Lunar {
     }
 
     getTimeChong(): string {
-        const v = LunarUtil.CHONG.get(this.getTimeZhi());
-        return v ? v : '';
+        return LunarUtil.CHONG[this._timeZhiIndex];
     }
 
     getTimeChongGan(): string {
-        const v = LunarUtil.CHONG_GAN.get(this.getTimeGan());
-        return v ? v : '';
+        return LunarUtil.CHONG_GAN[this._timeGanIndex];
     }
 
     getTimeChongGanTie(): string {
-        const v = LunarUtil.CHONG_GAN_TIE.get(this.getTimeGan());
-        return v ? v : '';
+        return LunarUtil.CHONG_GAN_TIE[this._timeGanIndex];
     }
 
     getTimeChongShengXiao(): string {

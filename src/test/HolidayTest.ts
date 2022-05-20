@@ -50,4 +50,16 @@ describe('节假日', () => {
         assert.strictEqual(holiday.getTarget(), '2016-10-01');
     });
 
+    it('test3', () => {
+        let holiday = HolidayUtil.getHoliday('2010-01-01');
+        if(null==holiday){
+            throw '2010-01-01';
+        }
+        assert.strictEqual(holiday.getName(), '元旦');
+
+        HolidayUtil.fix('20100101~000000000000000000000000000');
+        holiday = HolidayUtil.getHoliday('2010-01-01');
+        assert.strictEqual(holiday, null);
+    });
+
 });

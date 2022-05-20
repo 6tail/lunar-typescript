@@ -150,4 +150,25 @@ describe('EightChar', () => {
         const eightChar = lunar.getEightChar();
         assert.strictEqual(eightChar.getShenGong(), '壬午');
     });
+
+    it('身宫1', () => {
+        const solar = Solar.fromYmdHms(1994, 12, 6, 2, 0, 0);
+        const lunar = solar.getLunar();
+        const eightChar = lunar.getEightChar();
+        assert.strictEqual(eightChar.getShenGong(), '丁丑');
+    });
+
+    it('身宫2', () => {
+        const solar = Solar.fromYmdHms(1990, 12, 11, 6, 0, 0);
+        const lunar = solar.getLunar();
+        const eightChar = lunar.getEightChar();
+        assert.strictEqual(eightChar.getShenGong(), '庚辰');
+    });
+
+    it('身宫3', () => {
+        const solar = Solar.fromYmdHms(1993, 5, 23, 4, 0, 0);
+        const lunar = solar.getLunar();
+        const eightChar = lunar.getEightChar();
+        assert.strictEqual(eightChar.getShenGong(), '庚申');
+    });
 });

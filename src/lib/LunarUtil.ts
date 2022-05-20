@@ -246,21 +246,12 @@ export class LunarUtil {
         ['12-16', ['尾牙']],
         ['12-24', ['祭灶日']]
     ]);
-    static CHONG: Dictionary<string> = new Dictionary<string>([
-        ['子', '午'], ['丑', '未'], ['寅', '申'], ['卯', '酉'], ['辰', '戌'], ['巳', '亥'], ['午', '子'], ['未', '丑'], ['申', '寅'], ['酉', '卯'], ['戌', '辰'], ['亥', '巳']
-    ]);
-    static CHONG_GAN: Dictionary<string> = new Dictionary<string>([
-        ['甲', '戊'], ['乙', '己'], ['丙', '庚'], ['丁', '辛'], ['戊', '壬'], ['己', '癸'], ['庚', '甲'], ['辛', '乙'], ['壬', '丙'], ['癸', '丁']
-    ]);
-    static CHONG_GAN_BAD: Dictionary<string> = new Dictionary<string>([
-        ['庚', '甲'], ['辛', '乙'], ['壬', '丙'], ['癸', '丁']
-    ]);
-    static CHONG_GAN_TIE: Dictionary<string> = new Dictionary<string>([
-        ['甲', '己'], ['乙', '戊'], ['丙', '辛'], ['丁', '庚'], ['戊', '癸'], ['己', '壬'], ['庚', '乙'], ['辛', '甲'], ['壬', '丁'], ['癸', '丙']
-    ]);
-    static CHONG_GAN_TIE_GOOD: Dictionary<string> = new Dictionary<string>([
-        ['甲', '己'], ['丙', '辛'], ['戊', '癸'], ['庚', '乙'], ['壬', '丁']
-    ]);
+    static CHONG: string[] = ['午', '未', '申', '酉', '戌', '亥', '子', '丑', '寅', '卯', '辰', '巳'];
+    static CHONG_GAN: string[] = ['戊', '己', '庚', '辛', '壬', '癸', '甲', '乙', '丙', '丁'];
+    static CHONG_GAN_TIE: string[] = ['己', '戊', '辛', '庚', '癸', '壬', '乙', '甲', '丁', '丙'];
+    static CHONG_GAN_4: string[] = ['庚', '辛', '壬', '癸', '', '', '甲', '乙', '丙', '丁'];
+    static HE_GAN_5: string[] = ['己', '庚', '辛', '壬', '癸', '甲', '乙', '丙', '丁', '戊'];
+    static HE_ZHI_6: string[] = ['丑', '子', '亥', '戌', '酉', '申', '未', '午', '巳', '辰', '卯', '寅'];
     static SHA: Dictionary<string> = new Dictionary<string>([
         ['子', '南'], ['丑', '东'], ['寅', '北'], ['卯', '西'], ['辰', '南'], ['巳', '东'], ['午', '北'], ['未', '西'], ['申', '南'], ['酉', '东'], ['戌', '北'], ['亥', '西']
     ]);
