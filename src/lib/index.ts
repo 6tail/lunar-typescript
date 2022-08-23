@@ -26,6 +26,7 @@ import {SolarSeason} from './SolarSeason';
 import {SolarHalfYear} from './SolarHalfYear';
 import {SolarYear} from './SolarYear';
 
+import {LunarTime} from './LunarTime';
 import {LunarMonth} from './LunarMonth';
 import {LunarYear} from './LunarYear';
 
@@ -56,6 +57,7 @@ export {
     SolarSeason,
     SolarHalfYear,
     SolarYear,
+    LunarTime,
     LunarMonth,
     LunarYear
 };
