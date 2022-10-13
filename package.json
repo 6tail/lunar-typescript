@@ -1,6 +1,6 @@
 {
   "name": "lunar-typescript",
-  "version": "1.2.23",
+  "version": "1.2.24",
   "description": "lunar is a calendar library for Solar and Chinese Lunar.",
   "main": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",

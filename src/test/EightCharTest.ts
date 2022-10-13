@@ -23,6 +23,15 @@ describe('EightChar', () => {
         assert.strictEqual(eightChar.getTime(), '戊子');
     });
 
+    it('test11', () => {
+        const lunar = Lunar.fromYmdHms(1987, 12, 28, 23, 30, 0);
+        const eightChar = lunar.getEightChar();
+        assert.strictEqual(eightChar.getYear(), '戊辰');
+        assert.strictEqual(eightChar.getMonth(), '甲寅');
+        assert.strictEqual(eightChar.getDay(), '庚子');
+        assert.strictEqual(eightChar.getTime(), '戊子');
+    });
+
     it('test2a', () => {
         const solar = Solar.fromYmdHms(1988, 2, 15, 23, 30, 0);
         const lunar = solar.getLunar();

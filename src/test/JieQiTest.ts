@@ -96,7 +96,7 @@ describe('节气', () => {
 
     it('test8', () => {
         const lunar = Lunar.fromYmd(2050, 12, 1);
-        assert.strictEqual(lunar.getJieQiTable().get('大雪').toYmdHms(), '2050-12-07 06:41:00');
+        assert.strictEqual(lunar.getJieQiTable().get('DA_XUE').toYmdHms(), '2050-12-07 06:41:00');
     });
 
     it('test9', () => {

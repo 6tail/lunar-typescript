@@ -76,7 +76,7 @@ export class Lunar {
     }
 
     static fromYmdHms(lunarYear: number, lunarMonth: number, lunarDay: number, hour: number, minute: number, second: number): Lunar {
-        const y = LunarYear.fromYear(lunarYear);
+        let y = LunarYear.fromYear(lunarYear);
         const m = y.getMonth(lunarMonth);
         if (null == m) {
             throw `wrong lunar year ${lunarYear} month ${lunarMonth}`;
@@ -90,6 +90,9 @@ export class Lunar {
         }
         const noon = Solar.fromJulianDay(m.getFirstJulianDay() + lunarDay - 1);
         const solar = Solar.fromYmdHms(noon.getYear(), noon.getMonth(), noon.getDay(), hour, minute, second);
+        if (noon.getYear() !== lunarYear) {
+            y = LunarYear.fromYear(noon.getYear());
+        }
         return new Lunar(lunarYear, lunarMonth, lunarDay, hour, minute, second, solar, y);
     }
 
