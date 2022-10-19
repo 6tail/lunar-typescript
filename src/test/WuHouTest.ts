@@ -81,4 +81,16 @@ describe('物候', () => {
         assert.strictEqual(lunar.getHou(), '小寒 初候');
     });
 
+    it('test15()', () => {
+        const solar = Solar.fromYmd(2022, 8, 22);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getWuHou(), '寒蝉鸣');
+    });
+
+    it('test16()', () => {
+        const solar = Solar.fromYmd(2022, 8, 23);
+        const lunar = solar.getLunar();
+        assert.strictEqual(lunar.getWuHou(), '鹰乃祭鸟');
+    });
+
 });
