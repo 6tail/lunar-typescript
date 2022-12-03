@@ -416,16 +416,6 @@ describe('Lunar', () => {
         assert.strictEqual(lunar.getSolar().toString(), '2033-12-22');
     });
 
-    it('test023', () => {
-        const lunar = Lunar.fromYmd(2022, 1, 1);
-        assert.strictEqual(lunar.getYearNineStar().toString(), '六白金开阳');
-    });
-
-    it('test024', () => {
-        const lunar = Lunar.fromYmd(2033, 1, 1);
-        assert.strictEqual(lunar.getYearNineStar().toString(), '四绿木天权');
-    });
-
     it('test025', () => {
         const solar = Solar.fromYmdHms(2021, 6, 7, 21, 18, 0);
         assert.strictEqual(solar.getLunar().toString(), '二〇二一年四月廿七');

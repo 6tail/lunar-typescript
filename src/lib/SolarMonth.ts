@@ -50,9 +50,14 @@ export class SolarMonth {
 
     getWeeks(start: number): SolarWeek[] {
         const l: SolarWeek[] = [];
-        const weeks = SolarUtil.getWeeksOfMonth(this._year, this._month, start);
-        for (let i = 0; i < weeks; i++) {
-            l.push(SolarWeek.fromYmd(this._year, this._month, 1 + i * 7, start));
+        let week = SolarWeek.fromYmd(this._year, this._month, 1, start);
+        while (true) {
+            l.push(week);
+            week = week.next(1, false);
+            const firstDay = week.getFirstDay();
+            if (firstDay.getYear() > this._year || firstDay.getMonth() > this._month) {
+                break;
+            }
         }
         return l;
     }

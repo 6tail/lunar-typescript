@@ -12,6 +12,7 @@
   "exclude": [
     "./.idea",
     "./node_modules",
-    "./*.iml"
+    "./*.iml",
+    "./.DS_Store"
   ]
 }

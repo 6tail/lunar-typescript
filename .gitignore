@@ -3,4 +3,4 @@ dist/
 node_modules/
 *.iml
 package-lock.json
-
+.DS_Store
