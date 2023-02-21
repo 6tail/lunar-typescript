@@ -1,14 +1,12 @@
 import {SolarUtil} from './SolarUtil';
 import {Solar} from './Solar';
-import {ExactDate} from './ExactDate';
 
 export class SolarWeek {
 
-    private _year: number;
-    private _month: number;
-    private _day: number;
-    private _start: number;
-    private _calendar: Date;
+    private readonly _year: number;
+    private readonly _month: number;
+    private readonly _day: number;
+    private readonly _start: number;
 
     static fromYmd(year: number, month: number, day: number, start: number): SolarWeek {
         return new SolarWeek(year, month, day, start);
@@ -23,7 +21,6 @@ export class SolarWeek {
         this._month = month;
         this._day = day;
         this._start = start;
-        this._calendar = ExactDate.fromYmd(year, month, day);
     }
 
     getYear(): number {
@@ -43,9 +40,7 @@ export class SolarWeek {
     }
 
     getIndex(): number {
-        const firstDate = ExactDate.fromYmd(this._year, this._month, 1);
-        let firstDayWeek = firstDate.getDay();
-        let offset = firstDayWeek - this._start;
+        let offset = Solar.fromYmd(this._year,this._month,1).getWeek() - this._start;
         if(offset < 0) {
             offset += 7;
         }
@@ -53,9 +48,7 @@ export class SolarWeek {
     }
 
     getIndexInYear(): number {
-        const firstDate = ExactDate.fromYmd(this._year, 1, 1);
-        let firstDayWeek = firstDate.getDay();
-        let offset = firstDayWeek - this._start;
+        let offset = Solar.fromYmd(this._year,1,1).getWeek() - this._start;
         if(offset < 0) {
             offset += 7;
         }
@@ -63,40 +56,40 @@ export class SolarWeek {
     }
 
     next(weeks: number, separateMonth: boolean): SolarWeek {
+        const start = this._start;
         if (0 === weeks) {
-            return SolarWeek.fromYmd(this._year, this._month, this._day, this._start);
+            return SolarWeek.fromYmd(this._year, this._month, this._day, start);
         }
-        let date;
+        let solar = Solar.fromYmd(this._year, this._month, this._day);
         if (separateMonth) {
             let n = weeks;
-            date = ExactDate.fromYmd(this._year, this._month, this._day);
-            let week = SolarWeek.fromDate(date, this._start);
+            let week = SolarWeek.fromYmd(this._year, this._month, this._day, start);
             let month = this._month;
             const plus = n > 0;
             while (0 !== n) {
-                date.setDate(date.getDate() + (plus ? 7 : -7));
-                week = SolarWeek.fromDate(date, this._start);
+                solar = solar.next(plus ? 7 : -7);
+                week = SolarWeek.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
                 let weekMonth = week.getMonth();
                 if (month !== weekMonth) {
                     const index = week.getIndex();
                     if (plus) {
                         if (1 === index) {
                             const firstDay = week.getFirstDay();
-                            week = SolarWeek.fromYmd(firstDay.getYear(), firstDay.getMonth(), firstDay.getDay(), this._start);
+                            week = SolarWeek.fromYmd(firstDay.getYear(), firstDay.getMonth(), firstDay.getDay(), start);
                             weekMonth = week.getMonth();
                         } else {
-                            date = ExactDate.fromYmd(week.getYear(), week.getMonth(), 1);
-                            week = SolarWeek.fromDate(date, this._start);
+                            solar = Solar.fromYmd(week.getYear(), week.getMonth(), 1);
+                            week = SolarWeek.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
                         }
                     } else {
-                        const size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), this._start);
+                        const size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start);
                         if (size === index) {
                             const lastDay = week.getFirstDay().next(6);
-                            week = SolarWeek.fromYmd(lastDay.getYear(), lastDay.getMonth(), lastDay.getDay(), this._start);
+                            week = SolarWeek.fromYmd(lastDay.getYear(), lastDay.getMonth(), lastDay.getDay(), start);
                             weekMonth = week.getMonth();
                         } else {
-                            date = ExactDate.fromYmd(week.getYear(), week.getMonth(), SolarUtil.getDaysOfMonth(week.getYear(), week.getMonth()));
-                            week = SolarWeek.fromDate(date, this._start);
+                            solar = Solar.fromYmd(week.getYear(), week.getMonth(), SolarUtil.getDaysOfMonth(week.getYear(), week.getMonth()));
+                            week = SolarWeek.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
                         }
                     }
                     month = weekMonth;
@@ -105,20 +98,18 @@ export class SolarWeek {
             }
             return week;
         } else {
-            date = ExactDate.fromYmd(this._year, this._month, this._day);
-            date.setDate(date.getDate() + weeks * 7);
-            return SolarWeek.fromDate(date, this._start);
+            solar = solar.next(weeks * 7);
+            return SolarWeek.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
         }
     }
 
     getFirstDay(): Solar {
-        const date = ExactDate.fromYmd(this._year, this._month, this._day);
-        let prev = date.getDay() - this._start;
+        const solar = Solar.fromYmd(this._year, this._month, this._day);
+        let prev = solar.getWeek() - this._start;
         if (prev < 0) {
             prev += 7;
         }
-        date.setDate(date.getDate() - prev);
-        return Solar.fromDate(date);
+        return solar.next(-prev);
     }
 
     getFirstDayInMonth(): Solar {

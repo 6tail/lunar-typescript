@@ -6,3 +6,4 @@ src/
 .gitignore
 *.iml
 tsconfig.json
+.DS_Store

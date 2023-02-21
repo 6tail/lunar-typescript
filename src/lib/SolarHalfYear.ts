@@ -1,11 +1,9 @@
 import {SolarMonth} from './SolarMonth';
-import {ExactDate} from './ExactDate';
 
 export class SolarHalfYear {
 
-    private _year: number;
-    private _month: number;
-    private _calendar: Date;
+    private readonly _year: number;
+    private readonly _month: number;
 
     static fromYm(year: number, month: number): SolarHalfYear {
         return new SolarHalfYear(year, month);
@@ -18,7 +16,6 @@ export class SolarHalfYear {
     constructor(year: number, month: number) {
         this._year = year;
         this._month = month;
-        this._calendar = ExactDate.fromYmd(year, month, 1);
     }
 
     getYear(): number {
@@ -34,12 +31,8 @@ export class SolarHalfYear {
     }
 
     next(halfYears: number): SolarHalfYear {
-        if (0 === halfYears) {
-            return SolarHalfYear.fromYm(this._year, this._month);
-        }
-        const date = ExactDate.fromYmd(this._year, this._month, 1);
-        date.setMonth(date.getMonth() + 6 * halfYears);
-        return SolarHalfYear.fromDate(date);
+        const month = SolarMonth.fromYm(this._year, this._month).next(6 * halfYears);
+        return SolarHalfYear.fromYm(month.getYear(), month.getMonth());
     }
 
     getMonths(): SolarMonth[] {

@@ -112,4 +112,19 @@ describe('Solar', () => {
         assert.strictEqual(solar.getFestivals() + '', '全国中小学生安全教育日');
     });
 
+    it('14', () => {
+        const solar = Solar.fromYmd(1582, 10, 4);
+        assert.strictEqual(solar.nextDay(1).toYmd(), '1582-10-15');
+    });
+
+    it('15', () => {
+        const solar = Solar.fromYmd(1582, 10, 15);
+        assert.strictEqual(solar.nextDay(-1).toYmd(), '1582-10-04');
+    });
+
+    it('16', () => {
+        const solar = Solar.fromYmd(1582, 10, 15);
+        assert.strictEqual(solar.nextDay(-5).toYmd(), '1582-09-30');
+    });
+
 });

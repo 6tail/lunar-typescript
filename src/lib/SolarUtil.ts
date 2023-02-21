@@ -1,5 +1,5 @@
 import {Dictionary} from './Dictionary';
-import {ExactDate} from './ExactDate';
+import {Solar} from './Solar';
 
 export class SolarUtil {
     static WEEK: string[] = ['日', '一', '二', '三', '四', '五', '六'];
@@ -117,6 +117,9 @@ export class SolarUtil {
     }
 
     static getDaysOfYear(year: number): number {
+        if (1582 === year) {
+            return 355;
+        }
         return SolarUtil.isLeapYear(year) ? 366 : 365;
     }
 
@@ -125,17 +128,44 @@ export class SolarUtil {
         for (let i = 1; i < month; i++) {
             days += SolarUtil.getDaysOfMonth(year, i);
         }
-        days += day;
+        let d = day;
         if (1582 === year && 10 === month && day >= 15) {
-            days -= 10;
+            if (day >= 15) {
+                d -= 10;
+            } else if (day > 4) {
+                throw new Error(`wrong solar year ${year} month ${month} day ${day}`);
+            }
         }
+        days += d;
         return days;
     }
 
     static getWeeksOfMonth(year: number, month: number, start: number): number {
-        const days = SolarUtil.getDaysOfMonth(year, month);
-        const firstDate = ExactDate.fromYmd(year,month,1);
-        const firstDayWeek = firstDate.getDay();
-        return Math.ceil((days + firstDayWeek - start) / 7);
+        return Math.ceil((SolarUtil.getDaysOfMonth(year, month) + Solar.fromYmd(year, month, 1).getWeek() - start) / 7);
+    }
+
+    static getDaysBetween(ay: number, am: number, ad: number, by: number, bm: number, bd: number): number {
+        let n;
+        let days;
+        let i;
+        if (ay == by) {
+            n = SolarUtil.getDaysInYear(by, bm, bd) -
+                SolarUtil.getDaysInYear(ay, am, ad);
+        } else if (ay > by) {
+            days = SolarUtil.getDaysOfYear(by) - SolarUtil.getDaysInYear(by, bm, bd);
+            for (i = by + 1; i < ay; i++) {
+                days += SolarUtil.getDaysOfYear(i);
+            }
+            days += SolarUtil.getDaysInYear(ay, am, ad);
+            n = -days;
+        } else {
+            days = SolarUtil.getDaysOfYear(ay) - SolarUtil.getDaysInYear(ay, am, ad);
+            for (i = ay + 1; i < by; i++) {
+                days += SolarUtil.getDaysOfYear(i);
+            }
+            days += SolarUtil.getDaysInYear(by, bm, bd);
+            n = days;
+        }
+        return n;
     }
 }

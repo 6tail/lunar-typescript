@@ -3,18 +3,17 @@ import {SolarWeek} from './SolarWeek';
 import {LunarUtil} from './LunarUtil';
 import {HolidayUtil} from './HolidayUtil';
 import {Lunar} from './Lunar';
-import {ExactDate} from './ExactDate';
+import {SolarMonth} from './SolarMonth';
 
 export class Solar {
     static J2000: number = 2451545;
 
-    private _year: number;
-    private _month: number;
-    private _day: number;
-    private _hour: number;
-    private _minute: number;
-    private _second: number;
-    private _calendar: Date;
+    private readonly _year: number;
+    private readonly _month: number;
+    private readonly _day: number;
+    private readonly _hour: number;
+    private readonly _minute: number;
+    private readonly _second: number;
 
     static fromYmd(year: number, month: number, day: number): Solar {
         return Solar.fromYmdHms(year, month, day, 0, 0, 0);
@@ -74,13 +73,21 @@ export class Solar {
     static fromBaZi(yearGanZhi: string, monthGanZhi: string, dayGanZhi: string, timeGanZhi: string, sect: number = 2, baseYear = 1900): Solar[] {
         sect = (1 == sect) ? 1 : 2;
         const l: Solar[] = [];
+        const years: number[] = [];
         const today = Solar.fromDate(new Date());
-        let lunar = today.getLunar();
-        let offsetYear = LunarUtil.getJiaZiIndex(lunar.getYearInGanZhiExact()) - LunarUtil.getJiaZiIndex(yearGanZhi);
+        let offsetYear = LunarUtil.getJiaZiIndex(today.getLunar().getYearInGanZhiExact()) - LunarUtil.getJiaZiIndex(yearGanZhi);
         if (offsetYear < 0) {
             offsetYear = offsetYear + 60;
         }
-        let startYear = lunar.getYear() - offsetYear;
+        let startYear = today.getYear() - offsetYear - 1;
+        while (true) {
+            years.push(startYear);
+            startYear -= 60;
+            if (startYear < baseYear) {
+                years.push(baseYear);
+                break;
+            }
+        }
         let hour = 0;
         let timeZhi = timeGanZhi.substr(1);
         for (let i = 0, j = LunarUtil.ZHI.length; i < j; i++) {
@@ -88,60 +95,38 @@ export class Solar {
                 hour = (i - 1) * 2;
             }
         }
-        while (startYear >= baseYear) {
-            let year = startYear - 1;
-            let counter = 0;
-            let month = 12;
-            let day;
-            let solar;
-            let found = false;
-            while (counter < 15) {
-                if (year >= baseYear) {
-                    day = 1;
-                    solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
-                    lunar = solar.getLunar();
-                    if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi) {
-                        found = true;
-                        break;
-                    }
-                }
-                month++;
-                if (month > 12) {
-                    month = 1;
-                    year++;
-                }
-                counter++;
-            }
-            if (found) {
-                counter = 0;
-                month--;
-                if (month < 1) {
-                    month = 12;
-                    year--;
-                }
-                day = 1;
-                solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
-                while (counter < 61) {
-                    lunar = solar.getLunar();
-                    const dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+        for (let i = 0, j = years.length; i < j; i++) {
+            inner: for (let x = 0; x < 3; x++) {
+                const year = years[i] + x;
+                let solar = Solar.fromYmdHms(year, 1, 1, hour, 0, 0);
+                while (solar.getYear() === year) {
+                    const lunar = solar.getLunar();
+                    const dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
                     if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
                         l.push(solar);
-                        break;
+                        break inner;
                     }
                     solar = solar.next(1);
-                    counter++;
                 }
             }
-            startYear -= 60;
         }
         return l;
     }
 
     constructor(year: number, month: number, day: number, hour: number, minute: number, second: number) {
-        if (year === 1582 && month === 10) {
-            if (day >= 15) {
-                day -= 10;
+        if (1582 === year && 10 === month) {
+            if (day > 4 && day < 15) {
+                throw new Error(`wrong solar year ${year} month ${month} day ${day}`);
             }
+        }
+        if (hour < 0 || hour > 23) {
+            throw new Error(`wrong hour ${hour}`);
+        }
+        if (minute < 0 || minute > 59) {
+            throw new Error(`wrong minute ${minute}`);
+        }
+        if (second < 0 || second > 59) {
+            throw new Error(`wrong second ${second}`);
         }
         this._year = year;
         this._month = month;
@@ -149,7 +134,6 @@ export class Solar {
         this._hour = hour;
         this._minute = minute;
         this._second = second;
-        this._calendar = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
     }
 
 
@@ -178,7 +162,26 @@ export class Solar {
     }
 
     getWeek(): number {
-        return this._calendar.getDay();
+        const start = Solar.fromYmdHms(1582, 10, 15, 0, 0, 0);
+        let y = this._year;
+        let m = this._month;
+        let d = this._day;
+        const current = Solar.fromYmdHms(y, m, d, 0, 0, 0);
+        // 蔡勒公式
+        if (m < 3) {
+            m += 12;
+            y--;
+        }
+        let c = Math.floor(y/100);
+        y = y - c * 100;
+        let x = y + Math.floor(y/4) + Math.floor(c/4) - 2*c;
+        let w;
+        if (current.isBefore(start)) {
+            w = (x + Math.floor((13*(m+1))/5) + d + 2) % 7;
+        } else {
+            w = (x + Math.floor((26*(m+1))/10) + d - 1) % 7;
+        }
+        return (w + 7) % 7;
     }
 
     getWeekInChinese(): string {
@@ -186,7 +189,7 @@ export class Solar {
     }
 
     getSolarWeek(start: number): SolarWeek {
-        return SolarWeek.fromDate(this._calendar, start);
+        return SolarWeek.fromYmd(this._year, this._month, this._day, start);
     }
 
     isLeapYear(): boolean {
@@ -259,17 +262,11 @@ export class Solar {
     }
 
     toYmd(): string {
-        let d = this._day;
-        if (this._year === 1582 && this._month == 10) {
-            if (d >= 5) {
-                d += 10;
-            }
-        }
         let y = this._year + '';
         while (y.length < 4) {
             y = '0' + y;
         }
-        return [y, (this._month < 10 ? '0' : '') + this._month, (d < 10 ? '0' : '') + d].join('-');
+        return [y, (this._month < 10 ? '0' : '') + this._month, (this._day < 10 ? '0' : '') + this._day].join('-');
     }
 
     toYmdHms(): string {
@@ -294,37 +291,132 @@ export class Solar {
         return s;
     }
 
+    nextYear(years: number): Solar {
+        const y = this._year + years;
+        let m = this._month;
+        let d = this._day;
+        // 2月处理
+        if (2 === m) {
+            if (d > 28) {
+                if (!SolarUtil.isLeapYear(y)) {
+                    d = 28;
+                }
+            }
+        }
+        if (1582 === y && 10 === m) {
+            if (d > 4 && d < 15) {
+                d += 10;
+            }
+        }
+        return Solar.fromYmdHms(y, m, d, this._hour, this._minute, this._second);
+    }
+
+    nextMonth(months: number): Solar {
+        const month = SolarMonth.fromYm(this._year, this._month).next(months);
+        const y = month.getYear();
+        const m = month.getMonth();
+        let d = this._day;
+        // 2月处理
+        if (2 === m) {
+            if (d > 28) {
+                if (!SolarUtil.isLeapYear(y)) {
+                    d = 28;
+                }
+            }
+        }
+        if (1582 === y && 10 === m) {
+            if (d > 4 && d < 15) {
+                d += 10;
+            }
+        }
+        return Solar.fromYmdHms(y, m, d, this._hour, this._minute, this._second);
+    }
+
+    nextDay(days: number): Solar {
+        let y = this._year;
+        let m = this._month;
+        let d = this._day;
+        if (1582 === y && 10 === m) {
+            if (d > 4) {
+                d -= 10
+            }
+        }
+        if (days > 0) {
+            d += days;
+            let daysInMonth = SolarUtil.getDaysOfMonth(y, m);
+            while (d > daysInMonth) {
+                d -= daysInMonth;
+                m++;
+                if (m > 12) {
+                    m = 1;
+                    y++;
+                }
+                daysInMonth = SolarUtil.getDaysOfMonth(y, m);
+            }
+        } else if (days < 0) {
+            while (d + days <= 0) {
+                m--;
+                if (m < 1) {
+                    m = 12;
+                    y--;
+                }
+                d += SolarUtil.getDaysOfMonth(y, m);
+            }
+            d += days;
+        }
+        if (1582 === y && 10 === m) {
+            if (d > 4) {
+                d += 10;
+            }
+        }
+        return Solar.fromYmdHms(y, m, d, this._hour, this._minute, this._second);
+    }
+
     next(days: number, onlyWorkday: boolean = false): Solar {
-        let date = ExactDate.fromYmdHms(this._year, this._month, this._day, this._hour, this._minute, this._second);
-        if (0 != days) {
-            if (!onlyWorkday) {
-                date.setDate(date.getDate() + days);
-            } else {
+        if (onlyWorkday) {
+            let solar = Solar.fromYmdHms(this._year, this._month, this._day, this._hour, this._minute, this._second);
+            if (days !== 0) {
                 let rest = Math.abs(days);
                 const add = days < 1 ? -1 : 1;
                 while (rest > 0) {
-                    date.setDate(date.getDate() + add);
+                    solar = solar.next(add);
                     let work = true;
-                    const holiday = HolidayUtil.getHoliday(date.getFullYear(), date.getMonth() + 1, date.getDate());
+                    const holiday = HolidayUtil.getHoliday(solar.getYear(), solar.getMonth(), solar.getDay());
                     if (!holiday) {
-                        const week = date.getDay();
-                        if (0 == week || 6 == week) {
+                        const week = solar.getWeek();
+                        if (0 === week || 6 === week) {
                             work = false;
                         }
                     } else {
                         work = holiday.isWork();
                     }
                     if (work) {
-                        rest--;
+                        rest -= 1;
                     }
                 }
             }
+            return solar;
+        } else {
+            return this.nextDay(days);
         }
-        return Solar.fromDate(date);
     }
 
-    getLunar() {
-        return Lunar.fromDate(this._calendar);
+    nextHour(hours: number): Solar {
+        const h = this._hour + hours;
+        const n = h < 0 ? -1 : 1;
+        let hour = Math.abs(h);
+        let days = Math.floor(hour / 24) * n;
+        hour = (hour % 24) * n;
+        if (hour < 0) {
+            hour += 24;
+            days--;
+        }
+        const solar = this.next(days);
+        return Solar.fromYmdHms(solar.getYear(), solar.getMonth(), solar.getDay(), hour, solar.getMinute(), solar.getSecond());
+    }
+
+    getLunar(): Lunar {
+        return Lunar.fromSolar(this);
     }
 
     getJulianDay(): number {
@@ -347,7 +439,89 @@ export class Solar {
         return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + n - 1524.5;
     }
 
-    getCalendar(): Date {
-        return this._calendar;
+    isBefore(solar: Solar): boolean {
+        if (this._year > solar.getYear()) {
+            return false;
+        }
+        if (this._year < solar.getYear()) {
+            return true;
+        }
+        if (this._month > solar.getMonth()) {
+            return false;
+        }
+        if (this._month < solar.getMonth()) {
+            return true;
+        }
+        if (this._day > solar.getDay()) {
+            return false;
+        }
+        if (this._day < solar.getDay()) {
+            return true;
+        }
+        if (this._hour > solar.getHour()) {
+            return false;
+        }
+        if (this._hour < solar.getHour()) {
+            return true;
+        }
+        if (this._minute > solar.getMinute()) {
+            return false;
+        }
+        if (this._minute < solar.getMinute()) {
+            return true;
+        }
+        return this._second < solar.getSecond();
     }
+
+    isAfter(solar: Solar): boolean {
+        if (this._year > solar.getYear()) {
+            return true;
+        }
+        if (this._year < solar.getYear()) {
+            return false;
+        }
+        if (this._month > solar.getMonth()) {
+            return true;
+        }
+        if (this._month < solar.getMonth()) {
+            return false;
+        }
+        if (this._day > solar.getDay()) {
+            return true;
+        }
+        if (this._day < solar.getDay()) {
+            return false;
+        }
+        if (this._hour > solar.getHour()) {
+            return true;
+        }
+        if (this._hour < solar.getHour()) {
+            return false;
+        }
+        if (this._minute > solar.getMinute()) {
+            return true;
+        }
+        if (this._minute < solar.getMinute()) {
+            return false;
+        }
+        return this._second > solar.getSecond();
+    }
+
+    subtract(solar: Solar): number {
+        return SolarUtil.getDaysBetween(solar.getYear(), solar.getMonth(), solar.getDay(), this._year, this._month, this._day);
+    }
+
+    subtractMinute(solar: Solar): number {
+        let days = this.subtract(solar);
+        const cm = this._hour * 60 + this._minute;
+        const sm = solar.getHour() * 60 + solar.getMinute();
+        let m = cm - sm;
+        if (m < 0) {
+            m += 1440;
+            days--;
+        }
+        m += days * 1440;
+        return m;
+    }
+
 }

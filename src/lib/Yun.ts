@@ -2,16 +2,15 @@ import {Lunar} from './Lunar';
 import {Solar} from './Solar';
 import {LunarUtil} from './LunarUtil';
 import {DaYun} from './DaYun';
-import {ExactDate} from './ExactDate';
 
 export class Yun {
-    private _gender: number;
-    private _startYear: number;
-    private _startMonth: number;
-    private _startDay: number;
-    private _startHour: number;
-    private _forward: boolean;
-    private _lunar: Lunar;
+    private readonly _gender: number;
+    private readonly _startYear: number;
+    private readonly _startMonth: number;
+    private readonly _startDay: number;
+    private readonly _startHour: number;
+    private readonly _forward: boolean;
+    private readonly _lunar: Lunar;
 
     constructor(lunar: Lunar, gender: number, sect: number = 1) {
         this._gender = gender;
@@ -31,7 +30,7 @@ export class Yun {
         let day;
         let hour = 0;
         if (2 === sect) {
-            let minutes = Math.floor((end.getCalendar().getTime() - start.getCalendar().getTime()) / 60000);
+            let minutes = end.subtractMinute(start);
             year = Math.floor(minutes / 4320);
             minutes -= year * 4320;
             month = Math.floor(minutes / 360);
@@ -45,7 +44,7 @@ export class Yun {
             // 时辰差
             let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
             // 天数差
-            let dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
+            let dayDiff = end.subtract(start);
             if (hourDiff < 0) {
                 hourDiff += 12;
                 dayDiff--;
@@ -91,13 +90,11 @@ export class Yun {
     }
 
     getStartSolar(): Solar {
-        const birth = this._lunar.getSolar();
-        const c = birth.getCalendar();
-        c.setFullYear(birth.getYear() + this._startYear);
-        c.setMonth(birth.getMonth() - 1 + this._startMonth);
-        c.setDate(birth.getDay() + this._startDay);
-        c.setHours(birth.getHour() + this._startHour);
-        return Solar.fromDate(c);
+        let solar = this._lunar.getSolar();
+        solar = solar.nextYear(this._startYear);
+        solar = solar.nextMonth(this._startMonth);
+        solar = solar.next(this._startDay);
+        return solar.nextHour(this._startHour);
     }
 
     getDaYun(n : number = 10): DaYun[] {

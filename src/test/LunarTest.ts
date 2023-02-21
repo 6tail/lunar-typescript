@@ -587,4 +587,14 @@ describe('Lunar', () => {
         assert.strictEqual(solar.getLunar().getOtherFestivals() + '','春社');
     });
 
+    it('test057', () => {
+        const lunar = Lunar.fromYmd(1582, 9, 18);
+        assert.strictEqual(lunar.getSolar().toYmd(), '1582-10-04');
+    });
+
+    it('test058', () => {
+        const lunar = Lunar.fromYmd(1582, 9, 19);
+        assert.strictEqual(lunar.getSolar().toYmd(), '1582-10-15');
+    });
+
 });

@@ -1,4 +1,4 @@
-import {SolarMonth, SolarUtil, SolarWeek} from '../lib';
+import {Solar, SolarMonth, SolarUtil, SolarWeek} from '../lib';
 
 const assert = require('assert');
 
@@ -46,4 +46,15 @@ describe('SolarWeek', () => {
         const weeks = SolarMonth.fromYm(2022, 12).getWeeks(start);
         assert.strictEqual(weeks.length, 5);
     });
+
+    it('test5', () => {
+        const week = Solar.fromYmd(1582, 10, 1).getWeek();
+        assert.strictEqual(week, 1);
+    });
+
+    it('test6', () => {
+        const week = Solar.fromYmd(1582, 10, 15).getWeek();
+        assert.strictEqual(week, 5);
+    });
+
 });
