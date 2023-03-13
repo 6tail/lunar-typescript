@@ -4,7 +4,7 @@ import {TaoUtil} from './TaoUtil';
 import {TaoFestival} from './TaoFestival';
 
 export class Tao {
-    private _lunar: Lunar;
+    private readonly _lunar: Lunar;
 
     static BIRTH_YEAR: number = -2697;
 

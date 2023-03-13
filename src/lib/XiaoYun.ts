@@ -3,12 +3,12 @@ import {Lunar} from './Lunar';
 import {LunarUtil} from './LunarUtil';
 
 export class XiaoYun {
-    private _year: number;
-    private _age: number;
-    private _index: number;
+    private readonly _year: number;
+    private readonly _age: number;
+    private readonly _index: number;
     private _daYun: DaYun;
     private _lunar: Lunar;
-    private _forward: boolean;
+    private readonly _forward: boolean;
 
     constructor(daYun: DaYun, index: number, forward: boolean) {
         this._year = daYun.getStartYear() + index;

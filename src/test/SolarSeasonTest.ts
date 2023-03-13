@@ -1,6 +1,5 @@
 import {SolarSeason} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('SolarSeason', () => {
 

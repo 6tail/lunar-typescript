@@ -8,11 +8,11 @@ import {NineStar} from './NineStar';
 
 export class LunarYear {
 
-    private _year: number;
-    private _ganIndex: number;
-    private _zhiIndex: number;
-    private _months: LunarMonth[];
-    private _jieQiJulianDays: number[];
+    private readonly _year: number;
+    private readonly _ganIndex: number;
+    private readonly _zhiIndex: number;
+    private readonly _months: LunarMonth[];
+    private readonly _jieQiJulianDays: number[];
 
     public static YUAN: string[] = ['下', '上', '中'];
     public static YUN: string[] = ['七', '八', '九', '一', '二', '三', '四', '五', '六'];
@@ -70,7 +70,7 @@ export class LunarYear {
         // 每月天数，长度15
         let dayCounts: number[] = [];
         let i, j;
-        let currentYear = this._year;
+        const currentYear = this._year;
         let year = currentYear - 2000;
         // 从上年的大雪到下年的大寒
         for (i = 0, j = Lunar.JIE_QI_IN_USE.length; i < j; i++) {
@@ -87,7 +87,9 @@ export class LunarYear {
         // 冬至前的初一
         let w = ShouXingUtil.calcShuo(jq[0]);
         if (w > jq[0]) {
-            w -= 29.5306;
+            if (currentYear !== 41 && currentYear !== 193 && currentYear !== 288 && currentYear !== 345 && currentYear !== 918 && currentYear !== 1013) {
+                w -= 29.5306;
+            }
         }
         // 递推每月初一
         for (i = 0; i < 16; i++) {
@@ -98,39 +100,40 @@ export class LunarYear {
             dayCounts.push(Math.floor(hs[i + 1] - hs[i]));
         }
 
-        let currentYearLeap = LunarYear._LEAP.get('_' + currentYear);
-        if (!currentYearLeap) {
-            currentYearLeap = -1;
-            if (hs[13] <= jq[24]) {
-                i = 1;
-                while (hs[i + 1] > jq[2 * i] && i < 13) {
-                    i++;
+        const prevYear = currentYear - 1;
+        let leapYear = -1;
+        let leapIndex = -1;
+
+        let leap = LunarYear._LEAP.get('_' + currentYear);
+        if (!leap) {
+            leap = LunarYear._LEAP.get('_' + prevYear);
+            if (!leap) {
+                if (hs[13] <= jq[24]) {
+                    i = 1;
+                    while (hs[i + 1] > jq[2 * i] && i < 13) {
+                        i++;
+                    }
+                    leapYear = currentYear;
+                    leapIndex = i;
                 }
-                currentYearLeap = i;
+            } else {
+                leapYear = prevYear;
+                leapIndex = leap - 12;
             }
+        } else {
+            leapYear = currentYear;
+            leapIndex = leap;
         }
 
-        const prevYear = currentYear - 1;
-        let prevYearLeap = LunarYear._LEAP.get('_' + prevYear);
-        prevYearLeap = prevYearLeap ? prevYearLeap - 12 : -1;
-
-        let y = this._year - 1;
+        let y = prevYear;
         let m = 11;
         for (i = 0, j = dayCounts.length; i < j; i++) {
             let cm = m;
-            let isNextLeap = false;
-            if (y == currentYear && i == currentYearLeap) {
+            if (y == leapYear && i == leapIndex) {
                 cm = -cm;
-            } else if (y == prevYear && i == prevYearLeap) {
-                cm = -cm;
-            }
-            if (y == currentYear && i + 1 == currentYearLeap) {
-                isNextLeap = true;
-            } else if (y == prevYear && i + 1 == prevYearLeap) {
-                isNextLeap = true;
             }
             this._months.push(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000));
-            if (!isNextLeap) {
+            if (y !== leapYear || i + 1 !== leapIndex) {
                 m++;
             }
             if (m == 13) {
@@ -168,8 +171,30 @@ export class LunarYear {
         return this._jieQiJulianDays;
     }
 
+    getDayCount(): number {
+        let n = 0;
+        for (let i = 0, j = this._months.length; i < j; i++) {
+            const m = this._months[i];
+            if (m.getYear() == this._year) {
+                n += m.getDayCount();
+            }
+        }
+        return n;
+    }
+
     getMonths(): LunarMonth[] {
         return this._months;
+    }
+
+    getMonthsInYear(): LunarMonth[] {
+        const l: LunarMonth[] = [];
+        for (let i = 0, j = this._months.length; i < j; i++) {
+            const m = this._months[i];
+            if (m.getYear() == this._year) {
+                l.push(m);
+            }
+        }
+        return l;
     }
 
     getMonth(lunarMonth: number): LunarMonth | null {

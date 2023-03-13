@@ -5,13 +5,13 @@ import {LiuNian} from './LiuNian';
 import {XiaoYun} from './XiaoYun';
 
 export class DaYun {
-    private _startYear: number;
-    private _endYear: number;
-    private _startAge: number;
-    private _endAge: number;
-    private _index: number;
+    private readonly _startYear: number;
+    private readonly _endYear: number;
+    private readonly _startAge: number;
+    private readonly _endAge: number;
+    private readonly _index: number;
     private _yun: Yun;
-    private _lunar: Lunar;
+    private readonly _lunar: Lunar;
 
     constructor(yun: Yun, index: number) {
         const lunar = yun.getLunar();

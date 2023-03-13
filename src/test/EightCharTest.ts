@@ -1,6 +1,5 @@
 import {Solar, Lunar} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('EightChar', () => {
     it('test1', () => {
@@ -215,6 +214,33 @@ describe('EightChar', () => {
             timeList.push(solar.toYmdHms());
         })
         assert.deepStrictEqual(timeList, ['2020-07-21 22:00:00', '1960-08-05 22:00:00']);
+    });
+
+    it('20', () => {
+        const solarList = Solar.fromBaZi('癸卯', '甲寅', '癸丑', '甲子', 2, 1843);
+        const timeList: string[] = [];
+        solarList.forEach(solar => {
+            timeList.push(solar.toYmdHms());
+        })
+        assert.deepStrictEqual(timeList, ['2023-02-24 23:00:00', '1843-02-08 23:00:00']);
+    });
+
+    it('21', () => {
+        const solarList = Solar.fromBaZi('己亥', '丁丑', '壬寅', '戊申');
+        const timeList: string[] = [];
+        solarList.forEach(solar => {
+            timeList.push(solar.toYmdHms());
+        })
+        assert.deepStrictEqual(timeList, ['1960-01-15 16:00:00', '1900-01-29 16:00:00']);
+    });
+
+    it('22', () => {
+        const solarList = Solar.fromBaZi('己亥', '丙子', '癸酉', '庚申');
+        const timeList: string[] = [];
+        solarList.forEach(solar => {
+            timeList.push(solar.toYmdHms());
+        })
+        assert.deepStrictEqual(timeList, ['1959-12-17 16:00:00']);
     });
 
 });

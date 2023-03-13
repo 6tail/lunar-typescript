@@ -5,10 +5,10 @@ import {NineStar} from './NineStar';
 
 export class LunarMonth {
 
-    private _year: number;
-    private _month: number;
-    private _dayCount: number;
-    private _firstJulianDay: number;
+    private readonly _year: number;
+    private readonly _month: number;
+    private readonly _dayCount: number;
+    private readonly _firstJulianDay: number;
 
     static fromYm(lunarYear: number, lunarMonth: number): LunarMonth | null {
         return LunarYear.fromYear(lunarYear).getMonth(lunarMonth);

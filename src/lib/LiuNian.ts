@@ -4,11 +4,11 @@ import {LunarUtil} from './LunarUtil';
 import {LiuYue} from './LiuYue';
 
 export class LiuNian {
-    private _year: number;
-    private _age: number;
-    private _index: number;
+    private readonly _year: number;
+    private readonly _age: number;
+    private readonly _index: number;
     private _daYun: DaYun;
-    private _lunar: Lunar;
+    private readonly _lunar: Lunar;
 
     constructor(daYun: DaYun, index: number) {
         this._year = daYun.getStartYear() + index;

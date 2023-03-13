@@ -16,7 +16,7 @@ export class NineStar {
     static LUCK_QI_MEN: string[] = ['大凶', '大凶', '小吉', '大吉', '大吉', '大吉', '小凶', '小吉', '小凶'];
     static YIN_YANG_QI_MEN: string[] = ['阳', '阴', '阳', '阳', '阳', '阴', '阴', '阳', '阴'];
 
-    private _index: number;
+    private readonly _index: number;
 
     static fromIndex(index: number): NineStar {
         return new NineStar(index);

@@ -1,6 +1,5 @@
 import {Solar, Lunar, LunarYear} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('Lunar', () => {
     it('干支', () => {
@@ -595,6 +594,56 @@ describe('Lunar', () => {
     it('test058', () => {
         const lunar = Lunar.fromYmd(1582, 9, 19);
         assert.strictEqual(lunar.getSolar().toYmd(), '1582-10-15');
+    });
+
+    it('test059', () => {
+        const lunar = Lunar.fromYmd(1518, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '1518-02-10');
+    });
+
+    it('test060', () => {
+        const lunar = Lunar.fromYmd(793, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0793-02-15');
+    });
+
+    it('test061', () => {
+        const lunar = Lunar.fromYmd(2025, -6, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '2025-07-25');
+    });
+
+    it('test062', () => {
+        const lunar = Lunar.fromYmd(2025, 6, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '2025-06-25');
+    });
+
+    it('test063', () => {
+        const lunar = Lunar.fromYmd(193, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0193-02-19');
+    });
+
+    it('test064', () => {
+        const lunar = Lunar.fromYmd(288, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0288-02-19');
+    });
+
+    it('test065', () => {
+        const lunar = Lunar.fromYmd(755, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0755-02-16');
+    });
+
+    it('test066', () => {
+        const lunar = Lunar.fromYmd(41, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0041-02-20');
+    });
+
+    it('test067', () => {
+        const lunar = Lunar.fromYmd(57, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0057-02-23');
+    });
+
+    it('test068', () => {
+        const lunar = Lunar.fromYmd(345, 1, 1);
+        assert.strictEqual(lunar.getSolar().toYmd(), '0345-02-18');
     });
 
 });

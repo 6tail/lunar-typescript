@@ -1,13 +1,20 @@
 {
   "name": "lunar-typescript",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "lunar is a calendar library for Solar and Chinese Lunar.",
-  "main": "./dist/lib/index.js",
-  "types": "./dist/lib/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
   "scripts": {
-    "clean": "rimraf ./dist",
-    "build": "npm run clean && tsc",
-    "test": "npm run build && mocha ./dist/test/*.js",
+    "build": "unbuild",
+    "test": "npm run build && mocha ./dist/test/*.mjs",
     "release": "npm run test && npm publish"
   },
   "repository": {
@@ -55,10 +62,10 @@
   "devDependencies": {
     "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.9",
-    "mocha": "^8.2.1",
-    "mocha-typescript": "^1.1.17",
+    "mocha": "^10.2.0",
+    "mocha-typescript": "^1.1.14",
     "rimraf": "^3.0.2",
-    "typescript": "^4.1.2"
-  },
-  "dependencies": {}
+    "typescript": "^4.1.2",
+    "unbuild": "^1.1.2"
+  }
 }

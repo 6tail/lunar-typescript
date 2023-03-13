@@ -5,7 +5,7 @@ import {LunarMonth} from './LunarMonth';
 import {FotoFestival} from './FotoFestival';
 
 export class Foto {
-    private _lunar: Lunar;
+    private readonly _lunar: Lunar;
 
     static DEAD_YEAR: number = -543;
 

@@ -2,7 +2,7 @@ import {LiuNian} from './LiuNian';
 import {LunarUtil} from './LunarUtil';
 
 export class LiuYue {
-    private _index: number;
+    private readonly _index: number;
     private _liuNian: LiuNian;
 
     constructor(liuNian: LiuNian, index: number) {

@@ -82,8 +82,7 @@ export class SolarWeek {
                             week = SolarWeek.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay(), start);
                         }
                     } else {
-                        const size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start);
-                        if (size === index) {
+                        if (SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start) === index) {
                             const lastDay = week.getFirstDay().next(6);
                             week = SolarWeek.fromYmd(lastDay.getYear(), lastDay.getMonth(), lastDay.getDay(), start);
                             weekMonth = week.getMonth();

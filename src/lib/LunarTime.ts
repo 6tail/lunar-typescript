@@ -4,8 +4,8 @@ import {NineStar} from './NineStar';
 
 export class LunarTime {
 
-    private _ganIndex: number;
-    private _zhiIndex: number;
+    private readonly _ganIndex: number;
+    private readonly _zhiIndex: number;
     private _lunar: Lunar;
 
     static fromYmdHms(lunarYear: number, lunarMonth: number, lunarDay: number, hour: number, minute: number, second: number): LunarTime {

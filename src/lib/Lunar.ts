@@ -40,35 +40,35 @@ export class Lunar {
     static JIE_QI: string[] = ['冬至', '小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪'];
     static JIE_QI_IN_USE: string[] = ['DA_XUE', '冬至', '小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', 'DONG_ZHI', 'XIAO_HAN', 'DA_HAN', 'LI_CHUN', 'YU_SHUI', 'JING_ZHE'];
 
-    private _year: number;
-    private _month: number;
-    private _day: number;
-    private _hour: number;
-    private _minute: number;
-    private _second: number;
-    private _timeGanIndex: number;
-    private _timeZhiIndex: number;
-    private _dayGanIndex: number;
-    private _dayZhiIndex: number;
-    private _dayGanIndexExact: number;
-    private _dayZhiIndexExact: number;
-    private _dayGanIndexExact2: number;
-    private _dayZhiIndexExact2: number;
-    private _monthGanIndex: number;
-    private _monthZhiIndex: number;
-    private _monthGanIndexExact: number;
-    private _monthZhiIndexExact: number;
-    private _yearGanIndex: number;
-    private _yearZhiIndex: number;
-    private _yearGanIndexByLiChun: number;
-    private _yearZhiIndexByLiChun: number;
-    private _yearGanIndexExact: number;
-    private _yearZhiIndexExact: number;
-    private _weekIndex: number;
-    private _jieQi: Dictionary<Solar>;
-    private _jieQiList: string[];
-    private _solar: Solar;
-    private _eightChar: EightChar;
+    private readonly _year: number;
+    private readonly _month: number;
+    private readonly _day: number;
+    private readonly _hour: number;
+    private readonly _minute: number;
+    private readonly _second: number;
+    private readonly _timeGanIndex: number;
+    private readonly _timeZhiIndex: number;
+    private readonly _dayGanIndex: number;
+    private readonly _dayZhiIndex: number;
+    private readonly _dayGanIndexExact: number;
+    private readonly _dayZhiIndexExact: number;
+    private readonly _dayGanIndexExact2: number;
+    private readonly _dayZhiIndexExact2: number;
+    private readonly _monthGanIndex: number;
+    private readonly _monthZhiIndex: number;
+    private readonly _monthGanIndexExact: number;
+    private readonly _monthZhiIndexExact: number;
+    private readonly _yearGanIndex: number;
+    private readonly _yearZhiIndex: number;
+    private readonly _yearGanIndexByLiChun: number;
+    private readonly _yearZhiIndexByLiChun: number;
+    private readonly _yearGanIndexExact: number;
+    private readonly _yearZhiIndexExact: number;
+    private readonly _weekIndex: number;
+    private readonly _jieQi: Dictionary<Solar>;
+    private readonly _jieQiList: string[];
+    private readonly _solar: Solar;
+    private readonly _eightChar: EightChar;
 
     static fromYmd(lunarYear: number, lunarMonth: number, lunarDay: number): Lunar {
         return Lunar.fromYmdHms(lunarYear, lunarMonth, lunarDay, 0, 0, 0);
@@ -103,9 +103,7 @@ export class Lunar {
         const lms = ly.getMonths();
         for (let i = 0, j = lms.length; i < j; i++) {
             const m = lms[i];
-            // 初一
-            const firstDay = Solar.fromJulianDay(m.getFirstJulianDay());
-            const days = solar.subtract(firstDay);
+            const days = solar.subtract(Solar.fromJulianDay(m.getFirstJulianDay()));
             if (days < m.getDayCount()) {
                 lunarYear = m.getYear();
                 lunarMonth = m.getMonth();
@@ -1636,8 +1634,7 @@ export class Lunar {
             start = this._jieQi.get('冬至');
             startDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay());
         }
-        let endDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay());
-        endDay = endDay.next(81);
+        const endDay = Solar.fromYmd(start.getYear(), start.getMonth(), start.getDay()).next(81);
         if (currentDay.isBefore(startDay) || (!currentDay.isBefore(endDay))) {
             return null;
         }

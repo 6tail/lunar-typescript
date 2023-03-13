@@ -1,6 +1,5 @@
 import {Solar, Lunar} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('运', () => {
     it('起运', () => {

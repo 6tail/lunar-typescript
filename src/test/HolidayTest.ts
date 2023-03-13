@@ -1,6 +1,5 @@
 import {HolidayUtil} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('节假日', () => {
     it('test1', () => {

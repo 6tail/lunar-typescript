@@ -1,6 +1,5 @@
 import {LunarYear} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('LunarYear', () => {
 
@@ -25,6 +24,21 @@ describe('LunarYear', () => {
     it('test4', () => {
         const year = LunarYear.fromYear(2021);
         assert.strictEqual(year.getGengTian(), '十一牛耕田');
+    });
+
+    it('test5', () => {
+        const year = LunarYear.fromYear(2021);
+        assert.strictEqual(year.getDayCount(), 354);
+    });
+
+    it('test6', () => {
+        const year = LunarYear.fromYear(2023);
+        assert.strictEqual(year.getDayCount(), 384);
+    });
+
+    it('test7', () => {
+        const year = LunarYear.fromYear(1517);
+        assert.strictEqual(year.getDayCount(), 384);
     });
 
 });

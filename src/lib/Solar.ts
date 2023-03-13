@@ -4,6 +4,8 @@ import {LunarUtil} from './LunarUtil';
 import {HolidayUtil} from './HolidayUtil';
 import {Lunar} from './Lunar';
 import {SolarMonth} from './SolarMonth';
+import {start} from "repl";
+import base = Mocha.reporters.base;
 
 export class Solar {
     static J2000: number = 2451545;
@@ -80,31 +82,39 @@ export class Solar {
             offsetYear = offsetYear + 60;
         }
         let startYear = today.getYear() - offsetYear - 1;
-        while (true) {
+        const minYear = baseYear - 2;
+        while (startYear >= minYear) {
             years.push(startYear);
             startYear -= 60;
-            if (startYear < baseYear) {
-                years.push(baseYear);
-                break;
-            }
         }
-        let hour = 0;
-        let timeZhi = timeGanZhi.substr(1);
-        for (let i = 0, j = LunarUtil.ZHI.length; i < j; i++) {
+        const hours = [];
+        let timeZhi = timeGanZhi.substring(1);
+        for (let i = 1, j = LunarUtil.ZHI.length; i < j; i++) {
             if (LunarUtil.ZHI[i] === timeZhi) {
-                hour = (i - 1) * 2;
+                hours.push((i - 1) * 2);
             }
         }
-        for (let i = 0, j = years.length; i < j; i++) {
-            inner: for (let x = 0; x < 3; x++) {
-                const year = years[i] + x;
-                let solar = Solar.fromYmdHms(year, 1, 1, hour, 0, 0);
-                while (solar.getYear() === year) {
+        if ('子' === timeZhi) {
+            hours.push(23);
+        }
+        const j = years.length;
+        for (let m = 0, n = hours.length; m < n; m++) {
+            for (let i = 0; i < j; i++) {
+                const y = years[i];
+                const maxYear = y + 3;
+                let year = y;
+                let month = 11;
+                if (year < baseYear) {
+                    year = baseYear;
+                    month = 1;
+                }
+                let solar = Solar.fromYmdHms(year, month, 1, hours[m], 0, 0);
+                while (solar.getYear() <= maxYear) {
                     const lunar = solar.getLunar();
                     const dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
                     if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
                         l.push(solar);
-                        break inner;
+                        break;
                     }
                     solar = solar.next(1);
                 }

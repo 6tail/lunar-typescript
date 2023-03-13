@@ -4,8 +4,8 @@ import {Lunar} from './Lunar';
 export class JieQi {
     private _name: string;
     private _solar: Solar;
-    private _jie: boolean;
-    private _qi: boolean;
+    private readonly _jie: boolean;
+    private readonly _qi: boolean;
 
     constructor(name: string, solar: Solar) {
         let jie = false, qi = false, i, j;

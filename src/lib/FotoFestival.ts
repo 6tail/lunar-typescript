@@ -1,8 +1,8 @@
 export class FotoFestival {
-    private _name: string;
-    private _result: string;
-    private _everyMonth: boolean;
-    private _remark: string;
+    private readonly _name: string;
+    private readonly _result: string;
+    private readonly _everyMonth: boolean;
+    private readonly _remark: string;
 
     constructor(name: string, result: string = '', everyMonth: boolean = false, remark: string = '') {
         this._name = name;

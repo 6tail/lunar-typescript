@@ -1,6 +1,5 @@
 import {Solar, SolarUtil} from '../lib';
-
-const assert = require('assert');
+import * as assert from 'assert';
 
 describe('Solar', () => {
     it('toYmd()', () => {
