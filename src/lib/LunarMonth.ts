@@ -9,16 +9,20 @@ export class LunarMonth {
     private readonly _month: number;
     private readonly _dayCount: number;
     private readonly _firstJulianDay: number;
+    private readonly _index: number;
+    private readonly _zhiIndex: number;
 
     static fromYm(lunarYear: number, lunarMonth: number): LunarMonth | null {
         return LunarYear.fromYear(lunarYear).getMonth(lunarMonth);
     }
 
-    constructor(lunarYear: number, lunarMonth: number, dayCount: number, firstJulianDay: number) {
+    constructor(lunarYear: number, lunarMonth: number, dayCount: number, firstJulianDay: number, index: number) {
         this._year = lunarYear;
         this._month = lunarMonth;
         this._dayCount = dayCount;
         this._firstJulianDay = firstJulianDay;
+        this._index = index;
+        this._zhiIndex = (index - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
     }
 
     getYear(): number {
@@ -27,6 +31,31 @@ export class LunarMonth {
 
     getMonth(): number {
         return this._month;
+    }
+
+    getIndex(): number {
+        return this._index;
+    }
+
+    getGanIndex(): number {
+        const offset = (LunarYear.fromYear(this._year).getGanIndex() + 1) % 5 * 2;
+        return (this._index - 1 + offset) % 10;
+    }
+
+    getZhiIndex(): number {
+        return this._zhiIndex;
+    }
+
+    getGan(): string {
+        return LunarUtil.GAN[this.getGanIndex() + 1];
+    }
+
+    getZhi(): string {
+        return LunarUtil.ZHI[this._zhiIndex + 1];
+    }
+
+    getGanZhi(): string {
+        return this.getGan() + this.getZhi();
     }
 
     isLeap(): boolean {
@@ -39,6 +68,46 @@ export class LunarMonth {
 
     getFirstJulianDay(): number {
         return this._firstJulianDay;
+    }
+
+    getPositionXi(): string {
+        return LunarUtil.POSITION_XI[this.getGanIndex() + 1];
+    }
+
+    getPositionXiDesc(): string {
+        return LunarUtil.POSITION_DESC.get(this.getPositionXi());
+    }
+
+    getPositionYangGui(): string {
+        return LunarUtil.POSITION_YANG_GUI[this.getGanIndex() + 1];
+    }
+
+    getPositionYangGuiDesc(): string {
+        return LunarUtil.POSITION_DESC.get(this.getPositionYangGui());
+    }
+
+    getPositionYinGui(): string {
+        return LunarUtil.POSITION_YIN_GUI[this.getGanIndex() + 1];
+    }
+
+    getPositionYinGuiDesc(): string {
+        return LunarUtil.POSITION_DESC.get(this.getPositionYinGui());
+    }
+
+    getPositionFu(sect: number = 2): string {
+        return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[this.getGanIndex() + 1];
+    }
+
+    getPositionFuDesc(sect: number = 2): string {
+        return LunarUtil.POSITION_DESC.get(this.getPositionFu(sect));
+    }
+
+    getPositionCai(): string {
+        return LunarUtil.POSITION_CAI[this.getGanIndex() + 1];
+    }
+
+    getPositionCaiDesc(): string {
+        return LunarUtil.POSITION_DESC.get(this.getPositionCai());
     }
 
     getPositionTaiSui(): string {

@@ -18,13 +18,13 @@ export class HolidayUtil {
         if (start < 0) {
             return null;
         }
-        let right = HolidayUtil._DATA_IN_USE.substr(start);
+        let right = HolidayUtil._DATA_IN_USE.substring(start);
         const n = right.length % HolidayUtil._SIZE;
         if (n > 0) {
-            right = right.substr(n);
+            right = right.substring(n);
         }
         while ((0 !== right.indexOf(key)) && right.length >= HolidayUtil._SIZE) {
-            right = right.substr(HolidayUtil._SIZE);
+            right = right.substring(HolidayUtil._SIZE);
         }
         return right;
     }
@@ -35,34 +35,34 @@ export class HolidayUtil {
             return null;
         }
         let keySize = key.length;
-        let left = HolidayUtil._DATA_IN_USE.substr(0, start + keySize);
+        let left = HolidayUtil._DATA_IN_USE.substring(0, start + keySize);
         let size = left.length;
         const n = size % HolidayUtil._SIZE;
         if (n > 0) {
-            left = left.substr(0, size - n);
+            left = left.substring(0, size - n);
         }
         size = left.length;
         while ((size - keySize !== left.lastIndexOf(key)) && size >= HolidayUtil._SIZE) {
-            left = left.substr(0, size - HolidayUtil._SIZE);
+            left = left.substring(0, size - HolidayUtil._SIZE);
             size = left.length;
         }
         return left;
     }
 
     private static _buildHolidayForward(s: string): Holiday {
-        const day = s.substr(0, 8);
+        const day = s.substring(0, 8);
         const name = HolidayUtil._NAMES_IN_USE[s.charCodeAt(8) - HolidayUtil._ZERO];
         const work = s.charCodeAt(9) === HolidayUtil._ZERO;
-        const target = s.substr(10, 8);
+        const target = s.substring(10, 18);
         return new Holiday(day, name, work, target);
     }
 
     private static _buildHolidayBackward(s: string): Holiday {
         const size = s.length;
-        const day = s.substr(size - 18, 8);
+        const day = s.substring(size - 18, size - 8);
         const name = HolidayUtil._NAMES_IN_USE[s.charCodeAt(size - 10) - HolidayUtil._ZERO];
         const work = s.charCodeAt(size - 9) === HolidayUtil._ZERO;
-        const target = s.substr(size - 8);
+        const target = s.substring(size - 8);
         return new Holiday(day, name, work, target);
     }
 
@@ -97,7 +97,7 @@ export class HolidayUtil {
     }
 
     static getHoliday(yearOrYmd: number|string, month: number = 0, day: number = 0): Holiday | null {
-        let l = [];
+        let l;
         if (month == 0 || day == 0) {
             l = HolidayUtil._findHolidaysForward((yearOrYmd+'').replace(/-/g, ''));
         } else {
@@ -107,23 +107,17 @@ export class HolidayUtil {
     }
 
     static getHolidays(yearOrYmd: number|string, month: number = 0): Holiday[] {
-        let l = [];
         if (month == 0) {
-            l = HolidayUtil._findHolidaysForward((yearOrYmd + '').replace(/-/g, ''));
-        } else {
-            l = HolidayUtil._findHolidaysForward(yearOrYmd + HolidayUtil._padding(month));
+            return HolidayUtil._findHolidaysForward((yearOrYmd + '').replace(/-/g, ''));
         }
-        return l;
+        return HolidayUtil._findHolidaysForward(yearOrYmd + HolidayUtil._padding(month));
     }
 
     static getHolidaysByTarget(yearOrYmd: number|string, month: number = 0): Holiday[] {
-        let l = [];
         if (month == 0) {
-            l = HolidayUtil._findHolidaysBackward((yearOrYmd + '').replace(/-/g, ''));
-        } else {
-            l = HolidayUtil._findHolidaysBackward(yearOrYmd + HolidayUtil._padding(month));
+            return HolidayUtil._findHolidaysBackward((yearOrYmd + '').replace(/-/g, ''));
         }
-        return l;
+        return HolidayUtil._findHolidaysBackward(yearOrYmd + HolidayUtil._padding(month));
     }
 
     private static _fixNames(names: string[]) {
@@ -138,9 +132,9 @@ export class HolidayUtil {
         }
         const append = [];
         while (data.length >= HolidayUtil._SIZE) {
-            const segment = data.substr(0, HolidayUtil._SIZE);
-            const day = segment.substr(0, 8);
-            const remove = HolidayUtil._TAG_REMOVE == segment.substr(8, 1);
+            const segment = data.substring(0, HolidayUtil._SIZE);
+            const day = segment.substring(0, 8);
+            const remove = HolidayUtil._TAG_REMOVE == segment.substring(8, 9);
             const holiday = HolidayUtil.getHoliday(day);
             if (!holiday) {
                 if (!remove) {
@@ -159,7 +153,7 @@ export class HolidayUtil {
                     HolidayUtil._DATA_IN_USE = HolidayUtil._DATA_IN_USE.replace(new RegExp(old, 'g'), remove ? '' : segment);
                 }
             }
-            data = data.substr(HolidayUtil._SIZE);
+            data = data.substring(HolidayUtil._SIZE);
         }
         if (append.length > 0) {
             HolidayUtil._DATA_IN_USE += append.join('');

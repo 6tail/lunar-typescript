@@ -127,17 +127,20 @@ export class LunarYear {
 
         let y = prevYear;
         let m = 11;
+        let index = m;
         for (i = 0, j = dayCounts.length; i < j; i++) {
             let cm = m;
             if (y == leapYear && i == leapIndex) {
                 cm = -cm;
             }
-            this._months.push(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000));
+            this._months.push(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
             if (y !== leapYear || i + 1 !== leapIndex) {
                 m++;
             }
+            index++;
             if (m == 13) {
                 m = 1;
+                index = 1;
                 y++;
             }
         }
