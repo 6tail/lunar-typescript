@@ -4,8 +4,6 @@ import {LunarUtil} from './LunarUtil';
 import {HolidayUtil} from './HolidayUtil';
 import {Lunar} from './Lunar';
 import {SolarMonth} from './SolarMonth';
-import {start} from "repl";
-import base = Mocha.reporters.base;
 
 export class Solar {
     static J2000: number = 2451545;
@@ -128,6 +126,12 @@ export class Solar {
             if (day > 4 && day < 15) {
                 throw new Error(`wrong solar year ${year} month ${month} day ${day}`);
             }
+        }
+        if (month < 1 || month > 12) {
+            throw new Error(`wrong month ${month}`);
+        }
+        if (day < 1 || day > 31) {
+            throw new Error(`wrong day ${day}`);
         }
         if (hour < 0 || hour > 23) {
             throw new Error(`wrong hour ${hour}`);

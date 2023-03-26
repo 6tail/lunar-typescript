@@ -1,6 +1,6 @@
 export class TaoFestival {
-    private _name: string;
-    private _remark: string;
+    private readonly _name: string;
+    private readonly _remark: string;
 
     constructor(name: string, remark: string = '') {
         this._name = name;

@@ -17,4 +17,9 @@ describe('Foto', () => {
         assert.strictEqual(foto.getShou(), '青龙');
     });
 
+    it('test2', () => {
+        const foto = Foto.fromLunar(Lunar.fromYmd(2021, 3, 16));
+        assert.deepStrictEqual(foto.getOtherFestivals(), ['准提菩萨圣诞']);
+    });
+
 });

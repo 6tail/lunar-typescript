@@ -1746,6 +1746,10 @@ export class Lunar {
         return lu;
     }
 
+    getTime(): LunarTime {
+        return LunarTime.fromYmdHms(this._year, this._month, this._day, this._hour, this._minute, this._second);
+    }
+
     getTimes(): LunarTime[] {
         const l = [];
         l.push(LunarTime.fromYmdHms(this._year, this._month, this._day, 0, 0, 0));

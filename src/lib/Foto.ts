@@ -69,6 +69,17 @@ export class Foto {
         return l ? l : [];
     }
 
+    getOtherFestivals(): string[] {
+        const l: string[] = [];
+        const fs = FotoUtil.OTHER_FESTIVAL.get(this.getMonth() + '-' + this.getDay());
+        if (fs) {
+            fs.forEach(f => {
+                l.push(f);
+            });
+        }
+        return l;
+    }
+
     isMonthZhai(): boolean {
         const m = this.getMonth();
         return 1 === m || 5 === m || 9 === m;
