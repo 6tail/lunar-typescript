@@ -1,5 +1,4 @@
 import {LunarMonth} from './LunarMonth';
-import {Lunar} from './Lunar';
 import {ShouXingUtil} from './ShouXingUtil';
 import {Solar} from './Solar';
 import {Dictionary} from './Dictionary';
@@ -73,7 +72,7 @@ export class LunarYear {
         const currentYear = this._year;
         let year = currentYear - 2000;
         // 从上年的大雪到下年的大寒
-        for (i = 0, j = Lunar.JIE_QI_IN_USE.length; i < j; i++) {
+        for (i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
             // 精确的节气
             let t = 36525 * ShouXingUtil.saLonT((year + (17 + i) * 15.0 / 360) * ShouXingUtil.PI_2);
             t += ShouXingUtil.ONE_THIRD - ShouXingUtil.dtT(t);

@@ -1,27 +1,10 @@
 import {Lunar} from './Lunar';
 import {LunarUtil} from './LunarUtil';
 import {Yun} from './Yun';
-import {Dictionary} from './Dictionary';
 
 export class EightChar {
-    static MONTH_ZHI: string[] = ['', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'];
-    static CHANG_SHENG: string[] = ['长生', '沐浴', '冠带', '临官', '帝旺', '衰', '病', '死', '墓', '绝', '胎', '养'];
-
-    private static CHANG_SHENG_OFFSET: Dictionary<number> = new Dictionary<number>([
-        ['甲', 1],
-        ['丙', 10],
-        ['戊', 10],
-        ['庚', 7],
-        ['壬', 4],
-        ['乙', 6],
-        ['丁', 9],
-        ['己', 9],
-        ['辛', 0],
-        ['癸', 3]
-    ]);
-
     private _sect: number = 2;
-    private _lunar: Lunar;
+    private readonly _lunar: Lunar;
 
     static fromLunar(lunar: Lunar): EightChar {
         return new EightChar(lunar);
@@ -97,7 +80,7 @@ export class EightChar {
     }
 
     getDiShi(zhiIndex: number): string {
-        const offset = EightChar.CHANG_SHENG_OFFSET.get(this.getDayGan());
+        const offset = LunarUtil.CHANG_SHENG_OFFSET.get(this.getDayGan());
         if (offset == undefined) {
             return '';
         }
@@ -108,7 +91,7 @@ export class EightChar {
         if (index < 0) {
             index += 12;
         }
-        return EightChar.CHANG_SHENG[index];
+        return LunarUtil.CHANG_SHENG[index];
     }
 
     getYearDiShi(): string {
@@ -295,7 +278,7 @@ export class EightChar {
 
     getTimeDiShi(): string {
         const zhiIndex = this._lunar.getTimeZhiIndex();
-        const offset = EightChar.CHANG_SHENG_OFFSET.get(this.getDayGan());
+        const offset = LunarUtil.CHANG_SHENG_OFFSET.get(this.getDayGan());
         if (offset == undefined) {
             return '';
         }
@@ -306,7 +289,7 @@ export class EightChar {
         if (index < 0) {
             index += 12;
         }
-        return EightChar.CHANG_SHENG[index];
+        return LunarUtil.CHANG_SHENG[index];
     }
 
     getTimeXun(): string {
@@ -335,9 +318,8 @@ export class EightChar {
     }
 
     getTaiXi(): string {
-        const lunar = this._lunar;
-        const ganIndex = (2 == this._sect) ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
-        const zhiIndex = (2 == this._sect) ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
+        const ganIndex = (2 == this._sect) ? this._lunar.getDayGanIndexExact2() : this._lunar.getDayGanIndexExact();
+        const zhiIndex = (2 == this._sect) ? this._lunar.getDayZhiIndexExact2() : this._lunar.getDayZhiIndexExact();
         return LunarUtil.HE_GAN_5[ganIndex] + LunarUtil.HE_ZHI_6[zhiIndex];
     }
 
@@ -347,17 +329,8 @@ export class EightChar {
     }
 
     getMingGong() {
-        let monthZhiIndex = 0;
-        let timeZhiIndex = 0;
-        for (let i = 0, j = EightChar.MONTH_ZHI.length; i < j; i++) {
-            let zhi = EightChar.MONTH_ZHI[i];
-            if (this._lunar.getMonthZhiExact() === zhi) {
-                monthZhiIndex = i;
-            }
-            if (this._lunar.getTimeZhi() === zhi) {
-                timeZhiIndex = i;
-            }
-        }
+        const monthZhiIndex = LunarUtil.find(this._lunar.getMonthZhiExact(), LunarUtil.MONTH_ZHI)!.index;
+        const timeZhiIndex = LunarUtil.find(this._lunar.getTimeZhi(), LunarUtil.MONTH_ZHI)!.index;
         let zhiIndex = 26 - (monthZhiIndex + timeZhiIndex);
         if (zhiIndex > 12) {
             zhiIndex -= 12;
@@ -378,17 +351,8 @@ export class EightChar {
     }
 
     getShenGong(): string {
-        let monthZhiIndex = 0;
-        let timeZhiIndex = 0;
-        for (let i = 0, j = EightChar.MONTH_ZHI.length; i < j; i++) {
-            let zhi = EightChar.MONTH_ZHI[i];
-            if (this._lunar.getMonthZhiExact() === zhi) {
-                monthZhiIndex = i;
-            }
-            if (this._lunar.getTimeZhi() === zhi) {
-                timeZhiIndex = i;
-            }
-        }
+        const monthZhiIndex = LunarUtil.find(this._lunar.getMonthZhiExact(), LunarUtil.MONTH_ZHI)!.index;
+        const timeZhiIndex = LunarUtil.find(this._lunar.getTimeZhi(), LunarUtil.MONTH_ZHI)!.index;
         let zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
         if (zhiIndex > 12) {
             zhiIndex -= 12;

@@ -20,7 +20,7 @@ export class LiuYue {
 
     getGanZhi(): string {
         let offset = 0;
-        const yearGan = this._liuNian.getGanZhi().substring(0, 1);
+        const yearGan = LunarUtil.find(this._liuNian.getGanZhi(), LunarUtil.GAN)!.value;
         if ('甲' === yearGan || '己' === yearGan) {
             offset = 2;
         } else if ('乙' === yearGan || '庚' === yearGan) {

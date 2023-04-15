@@ -2,27 +2,27 @@ import {Dictionary} from './Dictionary';
 import {Solar} from './Solar';
 
 export class SolarUtil {
-    static WEEK: string[] = ['日', '一', '二', '三', '四', '五', '六'];
+    static WEEK: string[] = ['{w.sun}', '{w.mon}', '{w.tues}', '{w.wed}', '{w.thur}', '{w.fri}', '{w.sat}'];
     static DAYS_OF_MONTH: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    static XINGZUO: string[] = ['白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯', '水瓶', '双鱼'];
+    static XINGZUO: string[] = ['{xz.aries}', '{xz.taurus}', '{xz.gemini}', '{xz.cancer}', '{xz.leo}', '{xz.virgo}', '{xz.libra}', '{xz.scorpio}', '{xz.sagittarius}', '{xz.capricornus}', '{xz.aquarius}', '{xz.pisces}'];
     static FESTIVAL: Dictionary<string> = new Dictionary<string>([
-        ['1-1', '元旦节'],
-        ['2-14', '情人节'],
-        ['3-8', '妇女节'],
-        ['3-12', '植树节'],
-        ['3-15', '消费者权益日'],
-        ['4-1', '愚人节'],
-        ['5-1', '劳动节'],
-        ['5-4', '青年节'],
-        ['6-1', '儿童节'],
-        ['7-1', '建党节'],
-        ['8-1', '建军节'],
-        ['9-10', '教师节'],
-        ['10-1', '国庆节'],
-        ['10-31', '万圣节前夜'],
-        ['11-1', '万圣节'],
-        ['12-24', '平安夜'],
-        ['12-25', '圣诞节']
+        ['1-1', '{jr.yuanDan}'],
+        ['2-14', '{jr.qingRen}'],
+        ['3-8', '{jr.fuNv}'],
+        ['3-12', '{jr.zhiShu}'],
+        ['3-15', '{jr.xiaoFei}'],
+        ['4-1', '{jr.yuRen}'],
+        ['5-1', '{jr.wuYi}'],
+        ['5-4', '{jr.qingNian}'],
+        ['6-1', '{jr.erTong}'],
+        ['7-1', '{jr.jianDang}'],
+        ['8-1', '{jr.jianJun}'],
+        ['9-10', '{jr.jiaoShi}'],
+        ['10-1', '{jr.guoQing}'],
+        ['10-31', '{jr.wanShengYe}'],
+        ['11-1', '{jr.wanSheng}'],
+        ['12-24', '{jr.pingAn}'],
+        ['12-25', '{jr.shengDan}']
     ]);
     static OTHER_FESTIVAL: Dictionary<string[]> = new Dictionary<string[]>([
         ['1-8', ['周恩来逝世纪念日']],

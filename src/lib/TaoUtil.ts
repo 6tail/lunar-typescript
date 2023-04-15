@@ -5,7 +5,7 @@ export class TaoUtil {
     static SAN_HUI: string[] = ['1-7', '7-7', '10-15'];
     static SAN_YUAN: string[] = ['1-15', '7-15', '10-15'];
     static WU_LA: string[] = ['1-1', '5-5', '7-7', '10-1', '12-8'];
-    static AN_WU: string[] = ['未', '戌', '辰', '寅', '午', '子', '酉', '申', '巳', '亥', '卯', '丑'];
+    static AN_WU: string[] = ['{dz.wei}', '{dz.xu}', '{dz.chen}', '{dz.yin}', '{dz.wu}', '{dz.zi}', '{dz.you}', '{dz.shen}', '{dz.si}', '{dz.hai}', '{dz.mao}', '{dz.chou}'];
 
     static BA_HUI: Dictionary<string> = new Dictionary<string>([
         ['丙午', '天会'],

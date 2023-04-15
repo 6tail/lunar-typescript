@@ -29,6 +29,9 @@ import {SolarYear} from './SolarYear';
 import {LunarTime} from './LunarTime';
 import {LunarMonth} from './LunarMonth';
 import {LunarYear} from './LunarYear';
+import {I18n} from './I18n';
+
+I18n.init();
 
 export {
     Solar,
@@ -59,5 +62,6 @@ export {
     SolarYear,
     LunarTime,
     LunarMonth,
-    LunarYear
+    LunarYear,
+    I18n
 };
