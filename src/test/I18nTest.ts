@@ -22,4 +22,9 @@ describe('i18n', () => {
         I18n.setLanguage('chs');
     });
 
+    it('test3', () => {
+        const lunar = Lunar.fromDate(new Date());
+        console.log(lunar.getDayJiShen());
+    });
+
 });
