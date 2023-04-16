@@ -88,7 +88,7 @@ export class Solar {
         const hours = [];
         let timeZhi = LunarUtil.find(timeGanZhi, LunarUtil.ZHI)!;
         hours.push((timeZhi.index - 1) * 2);
-        if ('子' === timeZhi.value) {
+        if (1 === timeZhi.index) {
             hours.push(23);
         }
         const j = years.length;

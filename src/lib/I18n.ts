@@ -73,7 +73,7 @@ export class I18n {
             'jz.gengYin': '庚寅',
             'jz.xinMao': '辛卯',
             'jz.renChen': '壬辰',
-            'jz.GuiSi': '癸巳',
+            'jz.guiSi': '癸巳',
             'jz.jiaWu': '甲午',
             'jz.yiWei': '乙未',
             'jz.bingShen': '丙申',
@@ -149,6 +149,8 @@ export class I18n {
             'wx.shui': '水',
             'wx.huo': '火',
             'wx.tu': '土',
+            'wx.ri': '日',
+            'wx.yue': '月',
             'n.zero': '〇',
             'n.one': '一',
             'n.two': '二',
@@ -229,7 +231,6 @@ export class I18n {
             'jq.liDong': '立冬',
             'jq.xiaoXue': '小雪',
             'jq.daXue': '大雪',
-            'fs.chuXi': '除夕',
             'sn.qingLong': '青龙',
             'sn.baiHu': '白虎',
             'sn.zhuQue': '朱雀',
@@ -257,6 +258,7 @@ export class I18n {
             's.heiDao': '黑道',
             's.goodLuck': '吉',
             's.badLuck': '凶',
+            'jr.chuXi': '除夕',
             'jr.chunJie': '春节',
             'jr.yuanXiao': '元宵节',
             'jr.longTou': '龙头节',
@@ -426,6 +428,8 @@ export class I18n {
             'wx.shui': 'Water',
             'wx.huo': 'Fire',
             'wx.tu': 'Earth',
+            'wx.ri': 'Sun',
+            'wx.yue': 'Moon',
             'n.zero': '0',
             'n.one': '1',
             'n.two': '2',
@@ -504,7 +508,6 @@ export class I18n {
             'jq.liDong': 'Beginning of Winter',
             'jq.xiaoXue': 'Light Snow',
             'jq.daXue': 'Heavy Snow',
-            'fs.chuXi': 'Chinese New Year\'s Eve',
             'sn.qingLong': 'Azure Dragon',
             'sn.baiHu': 'White Tiger',
             'sn.zhuQue': 'Rosefinch',
@@ -512,6 +515,7 @@ export class I18n {
             's.none': 'None',
             's.goodLuck': 'Good luck',
             's.badLuck': 'Bad luck',
+            'jr.chuXi': 'Chinese New Year\'s Eve',
             'jr.chunJie': 'Luna New Year',
             'jr.yuanXiao': 'Lantern Festival',
             'jr.duanWu': 'Dragon Boat Festival',
@@ -578,6 +582,10 @@ export class I18n {
         },
         'SolarUtil': {
             'FESTIVAL': new Dictionary<string>()
+        },
+        'TaoUtil': {
+            'BA_HUI': new Dictionary<string>(),
+            'BA_JIE': new Dictionary<string>()
         }
     };
 
@@ -691,7 +699,7 @@ export class I18n {
         for (let k in v) {
             const dict: Dictionary<string[]> = v[k];
             dict.keys().forEach(key => {
-                const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+                const x = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
                 const arr = dict.get(key);
@@ -700,7 +708,7 @@ export class I18n {
                         return I18n.getMessage($1);
                     });
                 }
-                o[k].set(i, arr);
+                o[k].set(x, arr);
             });
         }
     }
@@ -737,6 +745,9 @@ export class I18n {
         let s = I18n._MESSAGES[I18n._LANG][key];
         if (!s) {
             s = I18n._MESSAGES[I18n._DEFAULT_LANG][key];
+        }
+        if (!s) {
+            s = key;
         }
         return s;
     }

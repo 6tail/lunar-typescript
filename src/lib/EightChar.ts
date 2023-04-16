@@ -277,19 +277,7 @@ export class EightChar {
     }
 
     getTimeDiShi(): string {
-        const zhiIndex = this._lunar.getTimeZhiIndex();
-        const offset = LunarUtil.CHANG_SHENG_OFFSET.get(this.getDayGan());
-        if (offset == undefined) {
-            return '';
-        }
-        let index = offset + (this._lunar.getDayGanIndexExact() % 2 == 0 ? zhiIndex : -zhiIndex);
-        if (index >= 12) {
-            index -= 12;
-        }
-        if (index < 0) {
-            index += 12;
-        }
-        return LunarUtil.CHANG_SHENG[index];
+        return this.getDiShi(this._lunar.getTimeZhiIndex());
     }
 
     getTimeXun(): string {

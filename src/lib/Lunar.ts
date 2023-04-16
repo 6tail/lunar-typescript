@@ -771,7 +771,7 @@ export class Lunar {
         if (m < 0) {
             m += 12;
         }
-        return [I18n.getMessage('bg.gen'), LunarUtil.POSITION_GAN[monthGanIndex], I18n.getMessage('kun'), I18n.getMessage('xun')][m % 4]
+        return [I18n.getMessage('bg.gen'), LunarUtil.POSITION_GAN[monthGanIndex], I18n.getMessage('bg.kun'), I18n.getMessage('bg.xun')][m % 4]
     }
 
     getMonthPositionTaiSuiDesc(sect: number = 2): string {
@@ -795,16 +795,16 @@ export class Lunar {
                 yearZhiIndex = this._yearZhiIndexByLiChun;
         }
         let p;
-        if ('甲子,乙丑,丙寅,丁卯,戊辰,已巳'.indexOf(dayInGanZhi) > -1) {
-            p = '震';
-        } else if ('丙子,丁丑,戊寅,已卯,庚辰,辛巳'.indexOf(dayInGanZhi) > -1) {
-            p = '离';
-        } else if ('戊子,已丑,庚寅,辛卯,壬辰,癸巳'.indexOf(dayInGanZhi) > -1) {
-            p = '中';
-        } else if ('庚子,辛丑,壬寅,癸卯,甲辰,乙巳'.indexOf(dayInGanZhi) > -1) {
-            p = '兑';
-        } else if ('壬子,癸丑,甲寅,乙卯,丙辰,丁巳'.indexOf(dayInGanZhi) > -1) {
-            p = '坎';
+        if ([I18n.getMessage('jz.jiaZi'), I18n.getMessage('jz.yiChou'), I18n.getMessage('jz.bingYin'), I18n.getMessage('jz.dingMao'), I18n.getMessage('jz.wuChen'), I18n.getMessage('jz.jiSi')].join(',').indexOf(dayInGanZhi) > -1) {
+            p = I18n.getMessage('bg.zhen');
+        } else if ([I18n.getMessage('jz.bingZi'), I18n.getMessage('jz.dingChou'), I18n.getMessage('jz.wuYin'), I18n.getMessage('jz.jiMao'), I18n.getMessage('jz.gengChen'), I18n.getMessage('jz.xinSi')].join(',').indexOf(dayInGanZhi) > -1) {
+            p = I18n.getMessage('bg.li');
+        } else if ([I18n.getMessage('jz.wuZi'), I18n.getMessage('jz.jiChou'), I18n.getMessage('jz.gengYin'), I18n.getMessage('jz.xinMao'), I18n.getMessage('jz.renChen'), I18n.getMessage('jz.guiSi')].join(',').indexOf(dayInGanZhi) > -1) {
+            p = I18n.getMessage('ps.center');
+        } else if ([I18n.getMessage('jz.gengZi'), I18n.getMessage('jz.xinChou'), I18n.getMessage('jz.renYin'), I18n.getMessage('jz.guiMao'), I18n.getMessage('jz.jiaChen'), I18n.getMessage('jz.yiSi')].join(',').indexOf(dayInGanZhi) > -1) {
+            p = I18n.getMessage('bg.dui');
+        } else if ([I18n.getMessage('jz.renZi'), I18n.getMessage('jz.guiChou'), I18n.getMessage('jz.jiaYin'), I18n.getMessage('jz.yiMao'), I18n.getMessage('jz.bingChen'), I18n.getMessage('jz.dingSi')].join(',').indexOf(dayInGanZhi) > -1) {
+            p = I18n.getMessage('bg.kan');
         } else {
             p = LunarUtil.POSITION_TAI_SUI_YEAR[yearZhiIndex];
         }
@@ -1042,7 +1042,7 @@ export class Lunar {
             l.push(f);
         }
         if (Math.abs(this._month) == 12 && this._day >= 29 && this._year != this.next(1).getYear()) {
-            l.push(I18n.getMessage('fs.chuXi'));
+            l.push(I18n.getMessage('jr.chuXi'));
         }
         return l;
     }
@@ -1281,13 +1281,11 @@ export class Lunar {
                 yearZhiIndex = this._yearZhiIndexByLiChun;
                 monthZhiIndex = this._monthZhiIndex;
         }
-        const index = yearZhiIndex % 3;
-        let n = 27 - (index * 3);
+        let n = 27 - (yearZhiIndex % 3 * 3);
         if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX) {
             n -= 3;
         }
-        const offset = (n - monthZhiIndex) % 9;
-        return NineStar.fromIndex(offset);
+        return NineStar.fromIndex((n - monthZhiIndex) % 9);
     }
 
     private getJieQiSolar(name: string): Solar {
@@ -1685,8 +1683,7 @@ export class Lunar {
 
     getWuHou(): string {
         const jieQi = this.getPrevJieQi(true);
-        const name = jieQi.getName();
-        const jq = LunarUtil.find(name, LunarUtil.JIE_QI)!;
+        const jq = LunarUtil.find(jieQi.getName(), LunarUtil.JIE_QI)!;
         const current = Solar.fromYmd(this._solar.getYear(), this._solar.getMonth(), this._solar.getDay());
         const startSolar = jieQi.getSolar();
         const start = Solar.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());

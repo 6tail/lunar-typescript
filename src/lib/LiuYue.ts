@@ -19,17 +19,8 @@ export class LiuYue {
     }
 
     getGanZhi(): string {
-        let offset = 0;
-        const yearGan = LunarUtil.find(this._liuNian.getGanZhi(), LunarUtil.GAN)!.value;
-        if ('甲' === yearGan || '己' === yearGan) {
-            offset = 2;
-        } else if ('乙' === yearGan || '庚' === yearGan) {
-            offset = 4;
-        } else if ('丙' === yearGan || '辛' === yearGan) {
-            offset = 6;
-        } else if ('丁' === yearGan || '壬' === yearGan) {
-            offset = 8;
-        }
+        const yearGanIndex = LunarUtil.find(this._liuNian.getGanZhi(), LunarUtil.GAN)!.index - 1;
+        const offset = [2, 4, 6, 8, 0][yearGanIndex % 5];
         const gan = LunarUtil.GAN[(this._index + offset) % 10 + 1];
         const zhi = LunarUtil.ZHI[(this._index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
         return gan + zhi;

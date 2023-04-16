@@ -1,6 +1,7 @@
 import {LunarUtil} from './LunarUtil';
 import {Lunar} from './Lunar';
 import {NineStar} from './NineStar';
+import {I18n} from './I18n';
 
 export class LunarTime {
 
@@ -140,24 +141,13 @@ export class LunarTime {
         const solarYmd = this._lunar.getSolar().toYmd();
         const jieQi = this._lunar.getJieQiTable();
         let asc = false;
-        if (solarYmd >= jieQi.get('冬至').toYmd() && solarYmd < jieQi.get('夏至').toYmd()) {
+        if (solarYmd >= jieQi.get(I18n.getMessage('jq.dongZhi')).toYmd() && solarYmd < jieQi.get(I18n.getMessage('jq.xiaZhi')).toYmd()) {
             asc = true;
         }
-        let start = asc ? 7 : 3;
-        const dayZhi = this._lunar.getDayZhi();
-        if ('子午卯酉'.indexOf(dayZhi) > -1) {
-            start = asc ? 1 : 9;
-        } else if ('辰戌丑未'.indexOf(dayZhi) > -1) {
-            start = asc ? 4 : 6;
-        }
-        let index = asc ? start + this._zhiIndex - 1 : start - this._zhiIndex - 1;
-        if (index > 8) {
-            index -= 9;
-        }
-        if (index < 0) {
-            index += 9;
-        }
-        return NineStar.fromIndex(index);
+        const offset = asc ? [0, 3, 6] : [8, 5, 2];
+        const start = offset[this._lunar.getDayZhiIndex() % 3];
+        const index = asc ? (start + this._zhiIndex) : (start + 9 - this._zhiIndex);
+        return NineStar.fromIndex(index % 9);
     }
 
     getXun(): string {

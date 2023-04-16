@@ -2,6 +2,7 @@ import {DaYun} from './DaYun';
 import {Lunar} from './Lunar';
 import {LunarUtil} from './LunarUtil';
 import {LiuYue} from './LiuYue';
+import {I18n} from './I18n';
 
 export class LiuNian {
     private readonly _year: number;
@@ -35,7 +36,7 @@ export class LiuNian {
     }
 
     getGanZhi(): string {
-        let offset = LunarUtil.getJiaZiIndex(this._lunar.getJieQiTable().get('立春').getLunar().getYearInGanZhiExact()) + this._index;
+        let offset = LunarUtil.getJiaZiIndex(this._lunar.getJieQiTable().get(I18n.getMessage('jq.liChun')).getLunar().getYearInGanZhiExact()) + this._index;
         if (this._daYun.getIndex() > 0) {
             offset += this._daYun.getStartAge() - 1;
         }

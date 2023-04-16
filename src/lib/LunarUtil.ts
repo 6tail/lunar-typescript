@@ -422,7 +422,34 @@ export class LunarUtil {
         ['{dz.wei}0', '昴']
     ]);
     static XIU_LUCK: Dictionary<string> = new Dictionary<string>([
-        ['角', '{s.goodLuck}'], ['亢', '{s.badLuck}'], ['氐', '{s.badLuck}'], ['房', '{s.goodLuck}'], ['心', '{s.badLuck}'], ['尾', '{s.goodLuck}'], ['箕', '{s.goodLuck}'], ['斗', '{s.goodLuck}'], ['牛', '{s.badLuck}'], ['女', '{s.badLuck}'], ['虚', '{s.badLuck}'], ['危', '{s.badLuck}'], ['室', '{s.goodLuck}'], ['壁', '{s.goodLuck}'], ['奎', '{s.badLuck}'], ['娄', '{s.goodLuck}'], ['胃', '{s.goodLuck}'], ['昴', '{s.badLuck}'], ['毕', '{s.goodLuck}'], ['觜', '{s.badLuck}'], ['参', '{s.goodLuck}'], ['井', '{s.goodLuck}'], ['鬼', '{s.badLuck}'], ['柳', '{s.badLuck}'], ['星', '{s.badLuck}'], ['张', '{s.goodLuck}'], ['翼', '{s.badLuck}'], ['轸', '{s.goodLuck}']
+        ['角', '{s.goodLuck}'],
+        ['亢', '{s.badLuck}'],
+        ['氐', '{s.badLuck}'],
+        ['房', '{s.goodLuck}'],
+        ['心', '{s.badLuck}'],
+        ['尾', '{s.goodLuck}'],
+        ['箕', '{s.goodLuck}'],
+        ['斗', '{s.goodLuck}'],
+        ['牛', '{s.badLuck}'],
+        ['女', '{s.badLuck}'],
+        ['虚', '{s.badLuck}'],
+        ['危', '{s.badLuck}'],
+        ['室', '{s.goodLuck}'],
+        ['壁', '{s.goodLuck}'],
+        ['奎', '{s.badLuck}'],
+        ['娄', '{s.goodLuck}'],
+        ['胃', '{s.goodLuck}'],
+        ['昴', '{s.badLuck}'],
+        ['毕', '{s.goodLuck}'],
+        ['觜', '{s.badLuck}'],
+        ['参', '{s.goodLuck}'],
+        ['井', '{s.goodLuck}'],
+        ['鬼', '{s.badLuck}'],
+        ['柳', '{s.badLuck}'],
+        ['星', '{s.badLuck}'],
+        ['张', '{s.goodLuck}'],
+        ['翼', '{s.badLuck}'],
+        ['轸', '{s.goodLuck}']
     ]);
     static XIU_SONG: Dictionary<string> = new Dictionary<string>([
         ['角', '角星造作主荣昌，外进田财及女郎，嫁娶婚姻出贵子，文人及第见君王，惟有埋葬不可用，三年之后主瘟疫，起工修筑坟基地，堂前立见主人凶。'],
@@ -455,7 +482,34 @@ export class LunarUtil {
         ['轸', '轸星临水造龙宫，代代为官受皇封，富贵荣华增寿禄，库满仓盈自昌隆，埋葬文昌来照助，宅舍安宁不见凶，更有为官沾帝宠，婚姻龙子入龙宫。']
     ]);
     static ZHENG: Dictionary<string> = new Dictionary<string>([
-        ['角', '{wx.mu}'], ['井', '{wx.mu}'], ['奎', '{wx.mu}'], ['斗', '{wx.mu}'], ['亢', '{wx.jin}'], ['鬼', '{wx.jin}'], ['娄', '{wx.jin}'], ['牛', '{wx.jin}'], ['氐', '{wx.tu}'], ['柳', '{wx.tu}'], ['胃', '{wx.tu}'], ['女', '{wx.tu}'], ['房', '日'], ['星', '日'], ['昴', '日'], ['虚', '日'], ['心', '月'], ['张', '月'], ['毕', '月'], ['危', '月'], ['尾', '{wx.huo}'], ['翼', '{wx.huo}'], ['觜', '{wx.huo}'], ['室', '{wx.huo}'], ['箕', '{wx.shui}'], ['轸', '{wx.shui}'], ['参', '{wx.shui}'], ['壁', '{wx.shui}']
+        ['角', '{wx.mu}'],
+        ['井', '{wx.mu}'],
+        ['奎', '{wx.mu}'],
+        ['斗', '{wx.mu}'],
+        ['亢', '{wx.jin}'],
+        ['鬼', '{wx.jin}'],
+        ['娄', '{wx.jin}'],
+        ['牛', '{wx.jin}'],
+        ['氐', '{wx.tu}'],
+        ['柳', '{wx.tu}'],
+        ['胃', '{wx.tu}'],
+        ['女', '{wx.tu}'],
+        ['房', '{wx.ri}'],
+        ['星', '{wx.ri}'],
+        ['昴', '{wx.ri}'],
+        ['虚', '{wx.ri}'],
+        ['心', '{wx.yue}'],
+        ['张', '{wx.yue}'],
+        ['毕', '{wx.yue}'],
+        ['危', '{wx.yue}'],
+        ['尾', '{wx.huo}'],
+        ['翼', '{wx.huo}'],
+        ['觜', '{wx.huo}'],
+        ['室', '{wx.huo}'],
+        ['箕', '{wx.shui}'],
+        ['轸', '{wx.shui}'],
+        ['参', '{wx.shui}'],
+        ['壁', '{wx.shui}']
     ]);
     static ANIMAL: Dictionary<string> = new Dictionary<string>([
         ['角', '{dw.jiao}'],

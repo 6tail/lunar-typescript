@@ -8,25 +8,25 @@ export class TaoUtil {
     static AN_WU: string[] = ['{dz.wei}', '{dz.xu}', '{dz.chen}', '{dz.yin}', '{dz.wu}', '{dz.zi}', '{dz.you}', '{dz.shen}', '{dz.si}', '{dz.hai}', '{dz.mao}', '{dz.chou}'];
 
     static BA_HUI: Dictionary<string> = new Dictionary<string>([
-        ['丙午', '天会'],
-        ['壬午', '地会'],
-        ['壬子', '人会'],
-        ['庚午', '日会'],
-        ['庚申', '月会'],
-        ['辛酉', '星辰会'],
-        ['甲辰', '五行会'],
-        ['甲戌', '四时会']
+        ['{jz.bingWu}', '天会'],
+        ['{jz.renWu}', '地会'],
+        ['{jz.renZi}', '人会'],
+        ['{jz.gengWu}', '日会'],
+        ['{jz.gengShen}', '月会'],
+        ['{jz.xinYou}', '星辰会'],
+        ['{jz.jiaChen}', '五行会'],
+        ['{jz.jiaXu}', '四时会']
     ]);
 
     static BA_JIE: Dictionary<string> = new Dictionary<string>([
-        ['立春', '东北方度仙上圣天尊同梵炁始青天君下降'],
-        ['春分', '东方玉宝星上天尊同青帝九炁天君下降'],
-        ['立夏', '东南方好生度命天尊同梵炁始丹天君下降'],
-        ['夏至', '南方玄真万福天尊同赤帝三炁天君下降'],
-        ['立秋', '西南方太灵虚皇天尊同梵炁始素天君下降'],
-        ['秋分', '西方太妙至极天尊同白帝七炁天君下降'],
-        ['立冬', '西北方无量太华天尊同梵炁始玄天君下降'],
-        ['冬至', '北方玄上玉宸天尊同黑帝五炁天君下降']
+        ['{jq.liChun}', '东北方度仙上圣天尊同梵炁始青天君下降'],
+        ['{jq.chunFen}', '东方玉宝星上天尊同青帝九炁天君下降'],
+        ['{jq.liXia}', '东南方好生度命天尊同梵炁始丹天君下降'],
+        ['{jq.xiaZhi}', '南方玄真万福天尊同赤帝三炁天君下降'],
+        ['{jq.liQiu}', '西南方太灵虚皇天尊同梵炁始素天君下降'],
+        ['{jq.qiuFen}', '西方太妙至极天尊同白帝七炁天君下降'],
+        ['{jq.liDong}', '西北方无量太华天尊同梵炁始玄天君下降'],
+        ['{jq.dongZhi}', '北方玄上玉宸天尊同黑帝五炁天君下降']
     ]);
 
     static FESTIVAL: Dictionary<TaoFestival[]> = new Dictionary<TaoFestival[]>([

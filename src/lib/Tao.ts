@@ -2,6 +2,7 @@ import {Lunar} from './Lunar';
 import {LunarUtil} from './LunarUtil';
 import {TaoUtil} from './TaoUtil';
 import {TaoFestival} from './TaoFestival';
+import {I18n} from './I18n';
 
 export class Tao {
     private readonly _lunar: Lunar;
@@ -67,9 +68,9 @@ export class Tao {
             });
         }
         const jq = this._lunar.getJieQi();
-        if ('冬至' === jq) {
+        if (I18n.getMessage('jq.dongZhi') === jq) {
             l.push(new TaoFestival('元始天尊圣诞'));
-        } else if ('夏至' === jq) {
+        } else if (I18n.getMessage('jq.xiaZhi') === jq) {
             l.push(new TaoFestival('灵宝天尊圣诞'));
         }
         let f = TaoUtil.BA_JIE.get(jq);
@@ -114,7 +115,7 @@ export class Tao {
     }
 
     isDayMingWu(): boolean {
-        return '戊' === this._lunar.getDayGan();
+        return I18n.getMessage('tg.wu') === this._lunar.getDayGan();
     }
 
     isDayAnWu(): boolean {
@@ -129,20 +130,20 @@ export class Tao {
         let ret = false;
         const mz = this._lunar.getMonthZhi();
         const dgz = this._lunar.getDayInGanZhi();
-        if ('寅卯辰'.indexOf(mz) > -1) {
-            if ('戊寅' === dgz) {
+        if ([I18n.getMessage('dz.yin'), I18n.getMessage('dz.mao'), I18n.getMessage('dz.chen')].join(',').indexOf(mz) > -1) {
+            if (I18n.getMessage('jz.wuYin') === dgz) {
                 ret = true;
             }
-        } else if ('巳午未'.indexOf(mz) > -1) {
-            if ('甲午' === dgz) {
+        } else if ([I18n.getMessage('dz.si'), I18n.getMessage('dz.wu'), I18n.getMessage('dz.wei')].join(',').indexOf(mz) > -1) {
+            if (I18n.getMessage('jz.jiaWu') === dgz) {
                 ret = true;
             }
-        } else if ('申酉戌'.indexOf(mz) > -1) {
-            if ('戊申' === dgz) {
+        } else if ([I18n.getMessage('dz.shen'), I18n.getMessage('dz.you'), I18n.getMessage('dz.xu')].join(',').indexOf(mz) > -1) {
+            if (I18n.getMessage('jz.wuShen') === dgz) {
                 ret = true;
             }
-        } else if ('亥子丑'.indexOf(mz) > -1) {
-            if ('甲子' === dgz) {
+        } else if ([I18n.getMessage('dz.hai'), I18n.getMessage('dz.zi'), I18n.getMessage('dz.chou')].join(',').indexOf(mz) > -1) {
+            if (I18n.getMessage('jz.jiaZi') === dgz) {
                 ret = true;
             }
         }
