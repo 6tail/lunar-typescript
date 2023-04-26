@@ -3,7 +3,35 @@ import {FotoFestival} from './FotoFestival';
 
 export class FotoUtil {
     static DAY_ZHAI_GUAN_YIN: string[] = ['1-8', '2-7', '2-9', '2-19', '3-3', '3-6', '3-13', '4-22', '5-3', '5-17', '6-16', '6-18', '6-19', '6-23', '7-13', '8-16', '9-19', '9-23', '10-2', '11-19', '11-24', '12-25'];
-    static XIU_27: string[] = ['角','亢','氐','房','心','尾','箕','斗','女','虚','危','室','壁','奎','娄','胃','昴','毕','觜','参','井','鬼','柳','星','张','翼','轸'];
+    static XIU_27: string[] = [
+        '{xx.jiao}',
+        '{xx.kang}',
+        '{xx.di}',
+        '{xx.fang}',
+        '{xx.xin}',
+        '{xx.tail}',
+        '{xx.ji}',
+        '{xx.dou}',
+        '{xx.nv}',
+        '{xx.xu}',
+        '{xx.wei}',
+        '{xx.shi}',
+        '{xx.qiang}',
+        '{xx.kui}',
+        '{xx.lou}',
+        '{xx.vei}',
+        '{xx.mao}',
+        '{xx.bi}',
+        '{xx.zi}',
+        '{xx.can}',
+        '{xx.jing}',
+        '{xx.gui}',
+        '{xx.liu}',
+        '{xx.xing}',
+        '{xx.zhang}',
+        '{xx.yi}',
+        '{xx.zhen}'
+    ];
     private static XIU_OFFSET: number[] = [11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9];
     static _DJ = '犯者夺纪';
     static _JS = '犯者减寿';

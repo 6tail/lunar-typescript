@@ -27,4 +27,14 @@ describe('i18n', () => {
         console.log(lunar.getDayJiShen());
     });
 
+    it('test4', () => {
+        const lunar = Lunar.fromDate(new Date());
+
+        I18n.setLanguage('en');
+        console.log(lunar.toFullString());
+
+        I18n.setLanguage('chs');
+        console.log(lunar.toFullString());
+    });
+
 });

@@ -7,6 +7,7 @@ import {SolarUtil} from './SolarUtil';
 import {LunarUtil} from './LunarUtil';
 import {FotoUtil} from './FotoUtil';
 import {TaoUtil} from './TaoUtil';
+import {NineStarUtil} from './NineStarUtil';
 import {ShouXingUtil} from './ShouXingUtil';
 import {Holiday} from './Holiday';
 import {HolidayUtil} from './HolidayUtil';
@@ -43,6 +44,7 @@ export {
     LunarUtil,
     FotoUtil,
     TaoUtil,
+    NineStarUtil,
     ShouXingUtil,
     Holiday,
     HolidayUtil,

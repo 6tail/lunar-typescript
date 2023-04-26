@@ -771,7 +771,7 @@ export class Lunar {
         if (m < 0) {
             m += 12;
         }
-        return [I18n.getMessage('bg.gen'), LunarUtil.POSITION_GAN[monthGanIndex], I18n.getMessage('bg.kun'), I18n.getMessage('bg.xun')][m % 4]
+        return [I18n.getMessage('bg.gen'), LunarUtil.POSITION_GAN[monthGanIndex], I18n.getMessage('bg.kun'), I18n.getMessage('bg.xun')][m % 4];
     }
 
     getMonthPositionTaiSuiDesc(sect: number = 2): string {
@@ -1354,6 +1354,7 @@ export class Lunar {
     }
 
     getJieQiTable(): Dictionary<Solar> {
+        this.checkLang();
         return this._jieQi;
     }
 
@@ -1684,10 +1685,7 @@ export class Lunar {
     getWuHou(): string {
         const jieQi = this.getPrevJieQi(true);
         const jq = LunarUtil.find(jieQi.getName(), LunarUtil.JIE_QI)!;
-        const current = Solar.fromYmd(this._solar.getYear(), this._solar.getMonth(), this._solar.getDay());
-        const startSolar = jieQi.getSolar();
-        const start = Solar.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());
-        let index = Math.floor(current.subtract(start) / 5);
+        let index = Math.floor(this._solar.subtract(jieQi.getSolar()) / 5);
         if (index > 2) {
             index = 2;
         }
