@@ -57,7 +57,7 @@ export class NineStarUtil {
     static COLOR: string[] = [
         '{s.white}',
         '{s.black}',
-        '{s.blue}}',
+        '{s.blue}',
         '{s.green}',
         '{s.yellow}',
         '{s.white}',

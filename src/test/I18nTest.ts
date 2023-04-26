@@ -23,8 +23,10 @@ describe('i18n', () => {
     });
 
     it('test3', () => {
-        const lunar = Lunar.fromDate(new Date());
-        console.log(lunar.getDayJiShen());
+        const lunar = Lunar.fromYmd(2023, 3, 7);
+        I18n.setLanguage('en');
+        assert.strictEqual(lunar.getDayNineStar().toString(), '3BlueWood天玑');
+        I18n.setLanguage('chs');
     });
 
     it('test4', () => {
