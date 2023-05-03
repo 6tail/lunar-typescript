@@ -243,4 +243,12 @@ describe('EightChar', () => {
         assert.deepStrictEqual(timeList, ['1959-12-17 16:00:00']);
     });
 
+    it('流月', () => {
+        const solar = Solar.fromYmdHms(2023, 5, 3, 9, 0, 0);
+        const lunar = solar.getLunar();
+        const eightChar = lunar.getEightChar();
+        const yun = eightChar.getYun(1);
+        assert.strictEqual(yun.getDaYun()[0].getLiuNian()[0].getLiuYue()[0].getGanZhi(), '甲寅');
+    });
+
 });
