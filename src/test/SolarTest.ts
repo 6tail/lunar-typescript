@@ -126,4 +126,14 @@ describe('Solar', () => {
         assert.strictEqual(solar.nextDay(-5).toYmd(), '1582-09-30');
     });
 
+    it('17', () => {
+        const solar = Solar.fromYmd(2023, 5, 1);
+        assert.strictEqual(solar.getSalaryRate(), 3);
+    });
+
+    it('18', () => {
+        const solar = Solar.fromYmd(2023, 6, 1);
+        assert.strictEqual(solar.getSalaryRate(), 1);
+    });
+
 });

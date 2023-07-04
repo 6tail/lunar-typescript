@@ -271,6 +271,57 @@ export class Solar {
         return SolarUtil.XINGZUO[index];
     }
 
+    /**
+     * 获取薪资比例(感谢 https://gitee.com/smr1987)
+     * @returns 1 | 2 | 3 薪资比例
+     */
+    getSalaryRate(): number {
+        // 元旦节
+        if (this._month === 1 && this._day === 1) {
+            return 3;
+        }
+        // 劳动节
+        if (this._month === 5 && this._day === 1) {
+            return 3;
+        }
+        // 国庆
+        if (this._month === 10 && this._day >= 1 && this._day <= 3) {
+            return 3;
+        }
+        const lunar = this.getLunar();
+        // 春节
+        if (lunar.getMonth() === 1 && lunar.getDay() >= 1 && lunar.getDay() <= 3) {
+            return 3;
+        }
+        // 端午
+        if (lunar.getMonth() === 5 && lunar.getDay() === 5) {
+            return 3;
+        }
+        // 中秋
+        if (lunar.getMonth() === 8 && lunar.getDay() === 15) {
+            return 3;
+        }
+        // 清明
+        if ('清明' === lunar.getJieQi()) {
+            return 3;
+        }
+        const holiday = HolidayUtil.getHoliday(this._year, this._month, this._day);
+        if (holiday) {
+            // 法定假日非上班
+            if (!holiday.isWork()) {
+                return 2;
+            }
+        } else {
+            // 周末
+            const week = this.getWeek();
+            if (week === 6 || week === 0) {
+                return 2;
+            }
+        }
+        // 工作日
+        return 1;
+    }
+
     toYmd(): string {
         let y = this._year + '';
         while (y.length < 4) {
