@@ -93,7 +93,7 @@ describe('Solar', () => {
     });
 
     it('10', () => {
-        assert.strictEqual(SolarUtil.isLeapYear(1500), false);
+        assert.strictEqual(SolarUtil.isLeapYear(1500), true);
     });
 
     it('11', () => {

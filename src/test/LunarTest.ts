@@ -646,4 +646,19 @@ describe('Lunar', () => {
         assert.strictEqual(lunar.getSolar().toYmd(), '0345-02-18');
     });
 
+    it('test069', () => {
+        const solar = Solar.fromYmd(917, 12, 1);
+        assert.strictEqual(solar.getLunar().toString(), '九一七年闰十月十四');
+    });
+
+    it('test070', () => {
+        const solar = Solar.fromYmd(917, 12, 31);
+        assert.strictEqual(solar.getLunar().toString(), '九一七年冬月十五');
+    });
+
+    it('test071', () => {
+        const solar = Solar.fromYmd(918, 1, 1);
+        assert.strictEqual(solar.getLunar().toString(), '九一七年冬月十六');
+    });
+
 });

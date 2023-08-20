@@ -67,6 +67,10 @@ export class Solar {
             minute -= 60;
             hour++;
         }
+        if (hour > 23) {
+            hour -= 24;
+            day += 1;
+        }
         return Solar.fromYmdHms(year, month, day, hour, minute, second);
     }
 
@@ -77,7 +81,7 @@ export class Solar {
         const today = Solar.fromDate(new Date());
         let offsetYear = LunarUtil.getJiaZiIndex(today.getLunar().getYearInGanZhiExact()) - LunarUtil.getJiaZiIndex(yearGanZhi);
         if (offsetYear < 0) {
-            offsetYear = offsetYear + 60;
+            offsetYear += 60;
         }
         let startYear = today.getYear() - offsetYear - 1;
         const minYear = baseYear - 2;
