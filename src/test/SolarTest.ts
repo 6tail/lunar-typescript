@@ -136,4 +136,24 @@ describe('Solar', () => {
         assert.strictEqual(solar.getSalaryRate(), 1);
     });
 
+    it('19', () => {
+        const solar = Solar.fromYmd(2023, 8, 31);
+        assert.strictEqual(solar.nextMonth(1).toYmd(), '2023-09-30');
+    });
+
+    it('20', () => {
+        const solar = Solar.fromYmd(2023, 8, 31);
+        assert.strictEqual(solar.nextMonth(2).toYmd(), '2023-10-31');
+    });
+
+    it('21', () => {
+        const solar = Solar.fromYmd(2023, 8, 31);
+        assert.strictEqual(solar.nextYear(2).toYmd(), '2025-08-31');
+    });
+
+    it('22', () => {
+        const solar = Solar.fromYmd(2023, 8, 31);
+        assert.strictEqual(solar.nextMonth(6).toYmd(), '2024-02-29');
+    });
+
 });
