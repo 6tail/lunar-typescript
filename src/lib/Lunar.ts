@@ -1659,11 +1659,7 @@ export class Lunar {
 
         days = currentDay.subtract(startDay);
         // 末伏
-        if (!liQiuDay.isAfter(startDay)) {
-            if (days < 10) {
-                return new Fu('末伏', days + 1);
-            }
-        } else {
+        if (liQiuDay.isAfter(startDay)) {
             // 中伏
             if (days < 10) {
                 return new Fu('中伏', days + 11);
@@ -1671,9 +1667,9 @@ export class Lunar {
             // 末伏第1天
             startDay = startDay.next(10);
             days = currentDay.subtract(startDay);
-            if (days < 10) {
-                return new Fu('末伏', days + 1);
-            }
+        }
+        if (days < 10) {
+            return new Fu('末伏', days + 1);
         }
         return null;
     }

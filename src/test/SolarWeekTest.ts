@@ -56,4 +56,32 @@ describe('SolarWeek', () => {
         assert.strictEqual(week, 5);
     });
 
+    it('test7', () => {
+        assert.strictEqual(Solar.fromYmd(1129, 11, 17).getWeek(), 0);
+    });
+
+    it('test8', () => {
+        assert.strictEqual(Solar.fromYmd(1129, 11, 1).getWeek(), 5);
+    });
+
+    it('test9', () => {
+        assert.strictEqual(Solar.fromYmd(8, 11, 1).getWeek(), 4);
+    });
+
+    it('test10', () => {
+        assert.strictEqual(Solar.fromYmd(1582, 9, 30).getWeek(), 0);
+    });
+
+    it('test11', () => {
+        assert.strictEqual(Solar.fromYmd(1582, 1, 1).getWeek(), 1);
+    });
+
+    it('test12', () => {
+        assert.strictEqual(Solar.fromYmd(1500, 2, 29).getWeek(), 6);
+    });
+
+    it('test13', () => {
+        assert.strictEqual(Solar.fromYmd(9865, 7, 26).getWeek(), 3);
+    });
+
 });

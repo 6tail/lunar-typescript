@@ -563,7 +563,7 @@ describe('Lunar', () => {
 
     it('test052', () => {
         const solar = Solar.fromYmd(2011, 11, 12);
-        assert.strictEqual(solar.getLunar().getDayPositionTai(),'厕灶厨 外西南');
+        assert.strictEqual(solar.getLunar().getDayPositionTai(),'厨灶厕 外西南');
     });
 
     it('test053', () => {

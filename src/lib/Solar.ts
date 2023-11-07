@@ -176,26 +176,7 @@ export class Solar {
     }
 
     getWeek(): number {
-        const start = Solar.fromYmdHms(1582, 10, 15, 0, 0, 0);
-        let y = this._year;
-        let m = this._month;
-        let d = this._day;
-        const current = Solar.fromYmdHms(y, m, d, 0, 0, 0);
-        // 蔡勒公式
-        if (m < 3) {
-            m += 12;
-            y--;
-        }
-        let c = Math.floor(y/100);
-        y = y - c * 100;
-        let x = y + Math.floor(y/4) + Math.floor(c/4) - 2*c;
-        let w;
-        if (current.isBefore(start)) {
-            w = (x + Math.floor((13*(m+1))/5) + d + 2) % 7;
-        } else {
-            w = (x + Math.floor((26*(m+1))/10) + d - 1) % 7;
-        }
-        return (w + 7) % 7;
+        return (Math.floor(this.getJulianDay()) + 7000002) % 7;
     }
 
     getWeekInChinese(): string {
