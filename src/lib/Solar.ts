@@ -176,7 +176,7 @@ export class Solar {
     }
 
     getWeek(): number {
-        return (Math.floor(this.getJulianDay()) + 7000002) % 7;
+        return (Math.floor(this.getJulianDay() + 0.5) + 7000001) % 7;
     }
 
     getWeekInChinese(): string {
