@@ -43,33 +43,33 @@ export class EightChar {
     }
 
     getYearHideGan(): string[] {
-        const v = LunarUtil.ZHI_HIDE_GAN.get(this.getYearZhi());
+        const v = LunarUtil.ZHI_HIDE_GAN[this.getYearZhi()];
         return v ? v : [];
     }
 
     getYearWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this.getYearGan());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this.getYearZhi());
+        const gan = LunarUtil.WU_XING_GAN[this.getYearGan()];
+        const zhi = LunarUtil.WU_XING_ZHI[this.getYearZhi()];
         return gan && zhi ? gan + zhi : '';
     }
 
     getYearNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getYear());
+        const v = LunarUtil.NAYIN[this.getYear()];
         return v ? v : '';
     }
 
     getYearShiShenGan(): string {
-        const v = LunarUtil.SHI_SHEN_GAN.get(this.getDayGan() + this.getYearGan());
+        const v = LunarUtil.SHI_SHEN[this.getDayGan() + this.getYearGan()];
         return v ? v : '';
     }
 
     getYearShiShenZhi(): string[] {
         const dayGan = this.getDayGan();
-        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN.get(this.getYearZhi());
+        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN[this.getYearZhi()];
         const l: string[] = [];
         if (hideGan) {
             for (let i = 0, j = hideGan.length; i < j; i++) {
-                const v = LunarUtil.SHI_SHEN_ZHI.get(dayGan + hideGan[i]);
+                const v = LunarUtil.SHI_SHEN[dayGan + hideGan[i]];
                 if (v) {
                     l.push(v);
                 }
@@ -79,7 +79,7 @@ export class EightChar {
     }
 
     getDiShi(zhiIndex: number): string {
-        const offset = LunarUtil.CHANG_SHENG_OFFSET.get(this.getDayGan());
+        const offset = LunarUtil.CHANG_SHENG_OFFSET[this.getDayGan()];
         if (offset == undefined) {
             return '';
         }
@@ -118,33 +118,33 @@ export class EightChar {
     }
 
     getMonthHideGan(): string[] {
-        const v = LunarUtil.ZHI_HIDE_GAN.get(this.getMonthZhi());
+        const v = LunarUtil.ZHI_HIDE_GAN[this.getMonthZhi()];
         return v ? v : [];
     }
 
     getMonthWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this.getMonthGan());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this.getMonthZhi());
+        const gan = LunarUtil.WU_XING_GAN[this.getMonthGan()];
+        const zhi = LunarUtil.WU_XING_ZHI[this.getMonthZhi()];
         return gan && zhi ? gan + zhi : '';
     }
 
     getMonthNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getMonth());
+        const v = LunarUtil.NAYIN[this.getMonth()];
         return v ? v : '';
     }
 
     getMonthShiShenGan(): string {
-        const v = LunarUtil.SHI_SHEN_GAN.get(this.getDayGan() + this.getMonthGan());
+        const v = LunarUtil.SHI_SHEN[this.getDayGan() + this.getMonthGan()];
         return v ? v : '';
     }
 
     getMonthShiShenZhi(): string[] {
         const dayGan = this.getDayGan();
-        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN.get(this.getMonthZhi());
+        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN[this.getMonthZhi()];
         const l: string[] = [];
         if (hideGan) {
             for (let i = 0, j = hideGan.length; i < j; i++) {
-                const v = LunarUtil.SHI_SHEN_ZHI.get(dayGan + hideGan[i]);
+                const v = LunarUtil.SHI_SHEN[dayGan + hideGan[i]];
                 if (v) {
                     l.push(v);
                 }
@@ -178,18 +178,18 @@ export class EightChar {
     }
 
     getDayHideGan(): string[] {
-        const v = LunarUtil.ZHI_HIDE_GAN.get(this.getDayZhi());
+        const v = LunarUtil.ZHI_HIDE_GAN[this.getDayZhi()];
         return v ? v : [];
     }
 
     getDayWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this.getDayGan());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this.getDayZhi());
+        const gan = LunarUtil.WU_XING_GAN[this.getDayGan()];
+        const zhi = LunarUtil.WU_XING_ZHI[this.getDayZhi()];
         return gan && zhi ? gan + zhi : '';
     }
 
     getDayNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getDay());
+        const v = LunarUtil.NAYIN[this.getDay()];
         return v ? v : '';
     }
 
@@ -199,11 +199,11 @@ export class EightChar {
 
     getDayShiShenZhi(): string[] {
         const dayGan = this.getDayGan();
-        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN.get(this.getDayZhi());
+        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN[this.getDayZhi()];
         const l: string[] = [];
         if (hideGan) {
             for (let i = 0, j = hideGan.length; i < j; i++) {
-                const v = LunarUtil.SHI_SHEN_ZHI.get(dayGan + hideGan[i]);
+                const v = LunarUtil.SHI_SHEN[dayGan + hideGan[i]];
                 if (v) {
                     l.push(v);
                 }
@@ -237,33 +237,33 @@ export class EightChar {
     }
 
     getTimeHideGan(): string[] {
-        const v = LunarUtil.ZHI_HIDE_GAN.get(this.getTimeZhi());
+        const v = LunarUtil.ZHI_HIDE_GAN[this.getTimeZhi()];
         return v ? v : [];
     }
 
     getTimeWuXing(): string {
-        const gan = LunarUtil.WU_XING_GAN.get(this._lunar.getTimeGan());
-        const zhi = LunarUtil.WU_XING_ZHI.get(this._lunar.getTimeZhi());
+        const gan = LunarUtil.WU_XING_GAN[this._lunar.getTimeGan()];
+        const zhi = LunarUtil.WU_XING_ZHI[this._lunar.getTimeZhi()];
         return gan && zhi ? gan + zhi : '';
     }
 
     getTimeNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getTime());
+        const v = LunarUtil.NAYIN[this.getTime()];
         return v ? v : '';
     }
 
     getTimeShiShenGan(): string {
-        const v = LunarUtil.SHI_SHEN_GAN.get(this.getDayGan() + this.getTimeGan());
+        const v = LunarUtil.SHI_SHEN[this.getDayGan() + this.getTimeGan()];
         return v ? v : '';
     }
 
     getTimeShiShenZhi(): string[] {
         const dayGan = this.getDayGan();
-        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN.get(this.getTimeZhi());
+        const hideGan: string[] | undefined = LunarUtil.ZHI_HIDE_GAN[this.getTimeZhi()];
         const l: string[] = [];
         if (hideGan) {
             for (let i = 0, j = hideGan.length; i < j; i++) {
-                const v = LunarUtil.SHI_SHEN_ZHI.get(dayGan + hideGan[i]);
+                const v = LunarUtil.SHI_SHEN[dayGan + hideGan[i]];
                 if (v) {
                     l.push(v);
                 }
@@ -297,7 +297,7 @@ export class EightChar {
     }
 
     getTaiYuanNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getTaiYuan());
+        const v = LunarUtil.NAYIN[this.getTaiYuan()];
         return v ? v : '';
     }
 
@@ -308,7 +308,7 @@ export class EightChar {
     }
 
     getTaiXiNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getTaiXi());
+        const v = LunarUtil.NAYIN[this.getTaiXi()];
         return v ? v : '';
     }
 
@@ -330,7 +330,7 @@ export class EightChar {
     }
 
     getMingGongNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getMingGong());
+        const v = LunarUtil.NAYIN[this.getMingGong()];
         return v ? v : '';
     }
 
@@ -352,7 +352,7 @@ export class EightChar {
     }
 
     getShenGongNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getShenGong());
+        const v = LunarUtil.NAYIN[this.getShenGong()];
         return v ? v : '';
     }
 

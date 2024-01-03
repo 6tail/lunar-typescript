@@ -251,4 +251,13 @@ describe('EightChar', () => {
         assert.strictEqual(yun.getDaYun()[0].getLiuNian()[0].getLiuYue()[0].getGanZhi(), '甲寅');
     });
 
+    it('23', () => {
+        const solarList = Solar.fromBaZi('丁丑', '癸卯', '癸丑', '辛酉');
+        const timeList: string[] = [];
+        solarList.forEach(solar => {
+            timeList.push(solar.toYmdHms());
+        })
+        assert.deepStrictEqual(timeList, ['1997-03-12 18:00:00', '1937-03-27 18:00:00']);
+    });
+
 });

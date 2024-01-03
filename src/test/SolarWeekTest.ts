@@ -84,4 +84,14 @@ describe('SolarWeek', () => {
         assert.strictEqual(Solar.fromYmd(9865, 7, 26).getWeek(), 3);
     });
 
+    it('test14', () => {
+        assert.strictEqual(Solar.fromYmd(1961, 9, 30).getWeek(), 6);
+        assert.strictEqual(Solar.fromYmdHms(1961, 9, 30, 23, 59, 59).getWeek(), 6);
+    });
+
+    it('test15', () => {
+        assert.strictEqual(Solar.fromYmdHms(2021, 9, 15, 0, 0, 0).getWeek(), 3);
+        assert.strictEqual(Solar.fromYmdHms(2021, 9, 15, 23, 59, 59).getWeek(), 3);
+    });
+
 });

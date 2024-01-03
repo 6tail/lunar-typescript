@@ -38,7 +38,7 @@ export class NineStar {
     }
 
     getPositionDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getPosition());
+        const v = LunarUtil.POSITION_DESC[this.getPosition()];
         return v ? v : '';
     }
 

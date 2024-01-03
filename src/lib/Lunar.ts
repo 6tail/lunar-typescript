@@ -4,7 +4,6 @@ import {LunarUtil} from './LunarUtil';
 import {JieQi} from './JieQi';
 import {EightChar} from './EightChar';
 import {NineStar} from './NineStar';
-import {Dictionary} from './Dictionary';
 import {ShuJiu} from './ShuJiu';
 import {Fu} from './Fu';
 import {LunarYear} from './LunarYear';
@@ -33,7 +32,7 @@ interface LunarInfo {
     yearGanIndexExact: number;
     yearZhiIndexExact: number;
     weekIndex: number;
-    jieQi: Dictionary<Solar>;
+    jieQi: { [key: string]: Solar };
     jieQiList: string[];
 }
 
@@ -64,7 +63,7 @@ export class Lunar {
     private readonly _yearGanIndexExact: number;
     private readonly _yearZhiIndexExact: number;
     private readonly _weekIndex: number;
-    private _jieQi: Dictionary<Solar>;
+    private _jieQi: { [key: string]: Solar };
     private _jieQiList: string[];
     private readonly _solar: Solar;
     private readonly _eightChar: EightChar;
@@ -122,7 +121,7 @@ export class Lunar {
         for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
             const key = LunarUtil.JIE_QI_IN_USE[i];
             o.jieQiList.push(key);
-            o.jieQi.set(key, Solar.fromJulianDay(julianDays[i]));
+            o.jieQi[key] = Solar.fromJulianDay(julianDays[i]);
         }
     }
 
@@ -153,9 +152,9 @@ export class Lunar {
         const solarYmdHms = solar.toYmdHms();
 
         //获取立春的阳历时刻
-        let liChun = o.jieQi.get(I18n.getMessage('jq.liChun'));
+        let liChun = o.jieQi[I18n.getMessage('jq.liChun')];
         if (liChun.getYear() != solarYear) {
-            liChun = o.jieQi.get('LI_CHUN');
+            liChun = o.jieQi['LI_CHUN'];
         }
         const liChunYmd = liChun.toYmd();
         const liChunYmdHms = liChun.toYmdHms();
@@ -201,7 +200,7 @@ export class Lunar {
         //序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
         let index = -3;
         for (i = 0; i < size; i += 2) {
-            end = o.jieQi.get(LunarUtil.JIE_QI_IN_USE[i]);
+            end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
             let symd = null == start ? ymd : start.toYmd();
             if (ymd >= symd && ymd < end.toYmd()) {
                 break;
@@ -216,7 +215,7 @@ export class Lunar {
         start = null;
         index = -3;
         for (i = 0; i < size; i += 2) {
-            end = o.jieQi.get(LunarUtil.JIE_QI_IN_USE[i]);
+            end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
             let stime = null == start ? time : start.toYmdHms();
             if (time >= stime && time < end.toYmdHms()) {
                 break;
@@ -286,7 +285,7 @@ export class Lunar {
             yearGanIndexExact: 0,
             yearZhiIndexExact: 0,
             weekIndex: 0,
-            jieQi: new Dictionary<Solar>(),
+            jieQi: {},
             jieQiList: []
         };
         Lunar._computeJieQi(o, ly);
@@ -651,7 +650,7 @@ export class Lunar {
     }
 
     getDayPositionXiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionXi());
+        const v = LunarUtil.POSITION_DESC[this.getDayPositionXi()];
         return v ? v : '';
     }
 
@@ -660,7 +659,7 @@ export class Lunar {
     }
 
     getDayPositionYangGuiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionYangGui());
+        const v = LunarUtil.POSITION_DESC[this.getDayPositionYangGui()];
         return v ? v : '';
     }
 
@@ -669,7 +668,7 @@ export class Lunar {
     }
 
     getDayPositionYinGuiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionYinGui());
+        const v = LunarUtil.POSITION_DESC[this.getDayPositionYinGui()];
         return v ? v : '';
     }
 
@@ -678,7 +677,7 @@ export class Lunar {
     }
 
     getDayPositionFuDesc(sect: number = 2): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionFu(sect));
+        const v = LunarUtil.POSITION_DESC[this.getDayPositionFu(sect)];
         return v ? v : '';
     }
 
@@ -687,7 +686,7 @@ export class Lunar {
     }
 
     getDayPositionCaiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getDayPositionCai());
+        const v = LunarUtil.POSITION_DESC[this.getDayPositionCai()];
         return v ? v : '';
     }
 
@@ -696,7 +695,7 @@ export class Lunar {
     }
 
     getTimePositionXiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionXi());
+        const v = LunarUtil.POSITION_DESC[this.getTimePositionXi()];
         return v ? v : '';
     }
 
@@ -705,7 +704,7 @@ export class Lunar {
     }
 
     getTimePositionYangGuiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionYangGui());
+        const v = LunarUtil.POSITION_DESC[this.getTimePositionYangGui()];
         return v ? v : '';
     }
 
@@ -714,7 +713,7 @@ export class Lunar {
     }
 
     getTimePositionYinGuiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionYinGui());
+        const v = LunarUtil.POSITION_DESC[this.getTimePositionYinGui()];
         return v ? v : '';
     }
 
@@ -723,7 +722,7 @@ export class Lunar {
     }
 
     getTimePositionFuDesc(sect: number = 2): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionFu(sect));
+        const v = LunarUtil.POSITION_DESC[this.getTimePositionFu(sect)];
         return v ? v : '';
     }
 
@@ -732,7 +731,7 @@ export class Lunar {
     }
 
     getTimePositionCaiDesc(): string {
-        const v = LunarUtil.POSITION_DESC.get(this.getTimePositionCai());
+        const v = LunarUtil.POSITION_DESC[this.getTimePositionCai()];
         return v ? v : '';
     }
 
@@ -752,7 +751,7 @@ export class Lunar {
     }
 
     getYearPositionTaiSuiDesc(sect: number = 2): string {
-        return LunarUtil.POSITION_DESC.get(this.getYearPositionTaiSui(sect));
+        return LunarUtil.POSITION_DESC[this.getYearPositionTaiSui(sect)];
     }
 
     getMonthPositionTaiSui(sect: number = 2): string {
@@ -775,7 +774,7 @@ export class Lunar {
     }
 
     getMonthPositionTaiSuiDesc(sect: number = 2): string {
-        return LunarUtil.POSITION_DESC.get(this.getMonthPositionTaiSui(sect));
+        return LunarUtil.POSITION_DESC[this.getMonthPositionTaiSui(sect)];
     }
 
     getDayPositionTaiSui(sect: number = 2): string {
@@ -812,7 +811,7 @@ export class Lunar {
     }
 
     getDayPositionTaiSuiDesc(sect: number = 2): string {
-        return LunarUtil.POSITION_DESC.get(this.getDayPositionTaiSui(sect));
+        return LunarUtil.POSITION_DESC[this.getDayPositionTaiSui(sect)];
     }
 
     getChong(): string {
@@ -866,7 +865,7 @@ export class Lunar {
     }
 
     getDaySha(): string {
-        const v = LunarUtil.SHA.get(this.getDayZhi());
+        const v = LunarUtil.SHA[this.getDayZhi()];
         return v ? v : '';
     }
 
@@ -897,27 +896,27 @@ export class Lunar {
     }
 
     getTimeSha(): string {
-        const v = LunarUtil.SHA.get(this.getTimeZhi());
+        const v = LunarUtil.SHA[this.getTimeZhi()];
         return v ? v : '';
     }
 
     getYearNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getYearInGanZhi());
+        const v = LunarUtil.NAYIN[this.getYearInGanZhi()];
         return v ? v : '';
     }
 
     getMonthNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getMonthInGanZhi());
+        const v = LunarUtil.NAYIN[this.getMonthInGanZhi()];
         return v ? v : '';
     }
 
     getDayNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getDayInGanZhi());
+        const v = LunarUtil.NAYIN[this.getDayInGanZhi()];
         return v ? v : '';
     }
 
     getTimeNaYin(): string {
-        const v = LunarUtil.NAYIN.get(this.getTimeInGanZhi());
+        const v = LunarUtil.NAYIN[this.getTimeInGanZhi()];
         return v ? v : '';
     }
 
@@ -951,9 +950,9 @@ export class Lunar {
             for (let i = 0, j = LunarUtil.JIE_QI_IN_USE.length; i < j; i++) {
                 const newKey = LunarUtil.JIE_QI_IN_USE[i];
                 const oldKey = this._jieQiList[i];
-                const value = this._jieQi.get(oldKey);
+                const value = this._jieQi[oldKey];
                 this._jieQiList[i] = newKey;
-                this._jieQi.set(newKey, value);
+                this._jieQi[newKey] = value;
             }
             this._lang = lang;
         }
@@ -983,12 +982,13 @@ export class Lunar {
 
     getJieQi(): string {
         let name = '';
-        this._jieQi.forEach((k, d) => {
+        for (let k in this._jieQi) {
+            const d = this._jieQi[k];
             if (d.getYear() == this._solar.getYear() && d.getMonth() == this._solar.getMonth() && d.getDay() == this._solar.getDay()) {
                 name = k;
-                return false;
+                break;
             }
-        });
+        }
         return Lunar._convertJieQi(name);
     }
 
@@ -1001,43 +1001,43 @@ export class Lunar {
     }
 
     getXiu(): string {
-        let v = LunarUtil.XIU.get(this.getDayZhi() + this.getWeek());
+        let v = LunarUtil.XIU[this.getDayZhi() + this.getWeek()];
         return v ? v : '';
     }
 
     getXiuLuck(): string {
-        let v = LunarUtil.XIU_LUCK.get(this.getXiu());
+        let v = LunarUtil.XIU_LUCK[this.getXiu()];
         return v ? v : '';
     }
 
     getXiuSong(): string {
-        let v = LunarUtil.XIU_SONG.get(this.getXiu());
+        let v = LunarUtil.XIU_SONG[this.getXiu()];
         return v ? v : '';
     }
 
     getZheng(): string {
-        let v = LunarUtil.ZHENG.get(this.getXiu());
+        let v = LunarUtil.ZHENG[this.getXiu()];
         return v ? v : '';
     }
 
     getAnimal(): string {
-        let v = LunarUtil.ANIMAL.get(this.getXiu());
+        let v = LunarUtil.ANIMAL[this.getXiu()];
         return v ? v : '';
     }
 
     getGong(): string {
-        let v = LunarUtil.GONG.get(this.getXiu());
+        let v = LunarUtil.GONG[this.getXiu()];
         return v ? v : '';
     }
 
     getShou(): string {
-        let v = LunarUtil.SHOU.get(this.getGong());
+        let v = LunarUtil.SHOU[this.getGong()];
         return v ? v : '';
     }
 
     getFestivals(): string[] {
         const l: string[] = [];
-        const f = LunarUtil.FESTIVAL.get(this._month + '-' + this._day);
+        const f = LunarUtil.FESTIVAL[this._month + '-' + this._day];
         if (f) {
             l.push(f);
         }
@@ -1049,7 +1049,7 @@ export class Lunar {
 
     getOtherFestivals(): string[] {
         const l: string[] = [];
-        const fs = LunarUtil.OTHER_FESTIVAL.get(this._month + '-' + this._day);
+        const fs = LunarUtil.OTHER_FESTIVAL[this._month + '-' + this._day];
         if (fs) {
             fs.forEach(f => {
                 l.push(f);
@@ -1157,7 +1157,7 @@ export class Lunar {
 
     getDayTianShen(): string {
         const monthZhi = this.getMonthZhi();
-        const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET.get(monthZhi);
+        const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[monthZhi];
         if (offset == undefined) {
             return '';
         }
@@ -1166,7 +1166,7 @@ export class Lunar {
 
     getTimeTianShen(): string {
         const dayZhi = this.getDayZhiExact();
-        const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET.get(dayZhi);
+        const offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[dayZhi];
         if (offset == undefined) {
             return '';
         }
@@ -1174,22 +1174,22 @@ export class Lunar {
     }
 
     getDayTianShenType(): string {
-        const v = LunarUtil.TIAN_SHEN_TYPE.get(this.getDayTianShen());
+        const v = LunarUtil.TIAN_SHEN_TYPE[this.getDayTianShen()];
         return v ? v : '';
     }
 
     getTimeTianShenType(): string {
-        const v = LunarUtil.TIAN_SHEN_TYPE.get(this.getTimeTianShen());
+        const v = LunarUtil.TIAN_SHEN_TYPE[this.getTimeTianShen()];
         return v ? v : '';
     }
 
     getDayTianShenLuck(): string {
-        const v = LunarUtil.TIAN_SHEN_TYPE_LUCK.get(this.getDayTianShenType());
+        const v = LunarUtil.TIAN_SHEN_TYPE_LUCK[this.getDayTianShenType()];
         return v ? v : '';
     }
 
     getTimeTianShenLuck(): string {
-        const v = LunarUtil.TIAN_SHEN_TYPE_LUCK.get(this.getTimeTianShenType());
+        const v = LunarUtil.TIAN_SHEN_TYPE_LUCK[this.getTimeTianShenType()];
         return v ? v : '';
     }
 
@@ -1290,7 +1290,7 @@ export class Lunar {
 
     private getJieQiSolar(name: string): Solar {
         this.checkLang();
-        return this._jieQi.get(name);
+        return this._jieQi[name];
     }
 
     getDayNineStar(): NineStar {
@@ -1353,7 +1353,7 @@ export class Lunar {
         return this._solar;
     }
 
-    getJieQiTable(): Dictionary<Solar> {
+    getJieQiTable(): { [key: string]: Solar} {
         this.checkLang();
         return this._jieQi;
     }
@@ -1405,26 +1405,27 @@ export class Lunar {
     private getNearJieQi(forward: boolean, conditions: string[], wholeDay: boolean): JieQi {
         let name: string = '';
         let near: any = null;
-        let filters: Dictionary<boolean> = new Dictionary<boolean>();
+        let filters: { [key: string]: boolean } = {};
         let filter = false;
         if (conditions) {
             for (let i = 0, j = conditions.length; i < j; i++) {
-                filters.set(conditions[i], true);
+                filters[conditions[i]] = true;
                 filter = true;
             }
         }
         const today = wholeDay ? this._solar.toYmd() : this._solar.toYmdHms();
-        this._jieQi.forEach((key, solar) => {
+        for (let key in this._jieQi) {
+            const solar = this._jieQi[key];
             const jq = Lunar._convertJieQi(key);
             if (filter) {
-                if (!filters.containsKey(jq)) {
-                    return;
+                if (!filters[jq]) {
+                    continue;
                 }
             }
             const day = wholeDay ? solar.toYmd() : solar.toYmdHms();
             if (forward) {
                 if (day < today) {
-                    return;
+                    continue;
                 }
                 if (null == near) {
                     name = jq;
@@ -1438,7 +1439,7 @@ export class Lunar {
                 }
             } else {
                 if (day > today) {
-                    return;
+                    continue;
                 }
                 if (null == near) {
                     name = jq;
@@ -1451,18 +1452,19 @@ export class Lunar {
                     }
                 }
             }
-        });
+        }
         return new JieQi(name, near);
     }
 
     getCurrentJieQi(): JieQi | null {
         let jq = null;
-        this._jieQi.forEach((k, d) => {
+        for (let k in this._jieQi) {
+            const d = this._jieQi[k];
             if (d.getYear() == this._solar.getYear() && d.getMonth() == this._solar.getMonth() && d.getDay() == this._solar.getDay()) {
                 jq = new JieQi(Lunar._convertJieQi(k), d);
-                return false;
+                break;
             }
-        });
+        }
         return jq;
     }
 
@@ -1700,8 +1702,8 @@ export class Lunar {
     }
 
     getDayLu(): string {
-        const gan = LunarUtil.LU.get(this.getDayGan());
-        const zhi = LunarUtil.LU.get(this.getDayZhi());
+        const gan = LunarUtil.LU[this.getDayGan()];
+        const zhi = LunarUtil.LU[this.getDayZhi()];
         let lu = gan + '命互禄';
         if (zhi) {
             lu += ' ' + zhi + '命进禄';

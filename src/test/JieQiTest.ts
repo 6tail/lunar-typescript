@@ -90,12 +90,12 @@ describe('节气', () => {
 
     it('test7', () => {
         const lunar = Lunar.fromYmd(2012, 9, 1);
-        assert.strictEqual(lunar.getJieQiTable().get('白露').toYmdHms(), '2012-09-07 13:29:01');
+        assert.strictEqual(lunar.getJieQiTable()['白露'].toYmdHms(), '2012-09-07 13:29:01');
     });
 
     it('test8', () => {
         const lunar = Lunar.fromYmd(2050, 12, 1);
-        assert.strictEqual(lunar.getJieQiTable().get('DA_XUE').toYmdHms(), '2050-12-07 06:41:13');
+        assert.strictEqual(lunar.getJieQiTable()['DA_XUE'].toYmdHms(), '2050-12-07 06:41:13');
     });
 
     it('test9', () => {
@@ -108,7 +108,7 @@ describe('节气', () => {
 
     it('test10', () => {
         const lunar = Lunar.fromYmd(2023, 6, 1);
-        assert.strictEqual(lunar.getJieQiTable().get('冬至').toYmdHms(), '2022-12-22 05:48:11');
+        assert.strictEqual(lunar.getJieQiTable()['冬至'].toYmdHms(), '2022-12-22 05:48:11');
     });
 
 });

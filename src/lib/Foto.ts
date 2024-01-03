@@ -65,13 +65,13 @@ export class Foto {
     }
 
     getFestivals(): FotoFestival[] {
-        const l = FotoUtil.FESTIVAL.get(this.getMonth() + '-' + this.getDay());
+        const l = FotoUtil.FESTIVAL[this.getMonth() + '-' + this.getDay()];
         return l ? l : [];
     }
 
     getOtherFestivals(): string[] {
         const l: string[] = [];
-        const fs = FotoUtil.OTHER_FESTIVAL.get(this.getMonth() + '-' + this.getDay());
+        const fs = FotoUtil.OTHER_FESTIVAL[this.getMonth() + '-' + this.getDay()];
         if (fs) {
             fs.forEach(f => {
                 l.push(f);
@@ -133,27 +133,27 @@ export class Foto {
     }
 
     getXiuLuck(): string {
-        return LunarUtil.XIU_LUCK.get(this.getXiu());
+        return LunarUtil.XIU_LUCK[this.getXiu()];
     }
 
     getXiuSong(): string {
-        return LunarUtil.XIU_SONG.get(this.getXiu());
+        return LunarUtil.XIU_SONG[this.getXiu()];
     }
 
     getZheng(): string {
-        return LunarUtil.ZHENG.get(this.getXiu());
+        return LunarUtil.ZHENG[this.getXiu()];
     }
 
     getAnimal(): string {
-        return LunarUtil.ANIMAL.get(this.getXiu());
+        return LunarUtil.ANIMAL[this.getXiu()];
     }
 
     getGong(): string {
-        return LunarUtil.GONG.get(this.getXiu());
+        return LunarUtil.GONG[this.getXiu()];
     }
 
     getShou(): string {
-        return LunarUtil.SHOU.get(this.getGong());
+        return LunarUtil.SHOU[this.getGong()];
     }
 
     toString(): string {

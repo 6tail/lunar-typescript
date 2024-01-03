@@ -330,7 +330,7 @@ export class LunarYear {
     }
 
     getPositionXiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionXi());
+        return LunarUtil.POSITION_DESC[this.getPositionXi()];
     }
 
     getPositionYangGui(): string {
@@ -338,7 +338,7 @@ export class LunarYear {
     }
 
     getPositionYangGuiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionYangGui());
+        return LunarUtil.POSITION_DESC[this.getPositionYangGui()];
     }
 
     getPositionYinGui(): string {
@@ -346,7 +346,7 @@ export class LunarYear {
     }
 
     getPositionYinGuiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionYinGui());
+        return LunarUtil.POSITION_DESC[this.getPositionYinGui()];
     }
 
     getPositionFu(sect: number = 2): string {
@@ -354,7 +354,7 @@ export class LunarYear {
     }
 
     getPositionFuDesc(sect: number = 2): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionFu(sect));
+        return LunarUtil.POSITION_DESC[this.getPositionFu(sect)];
     }
 
     getPositionCai(): string {
@@ -362,7 +362,7 @@ export class LunarYear {
     }
 
     getPositionCaiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionCai());
+        return LunarUtil.POSITION_DESC[this.getPositionCai()];
     }
 
     getPositionTaiSui(): string {
@@ -370,7 +370,7 @@ export class LunarYear {
     }
 
     getPositionTaiSuiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionTaiSui());
+        return LunarUtil.POSITION_DESC[this.getPositionTaiSui()];
     }
 
     next(n: number): LunarYear {

@@ -61,7 +61,7 @@ export class Tao {
 
     getFestivals(): TaoFestival[] {
         const l: TaoFestival[] = [];
-        const fs = TaoUtil.FESTIVAL.get(this.getMonth() + '-' + this.getDay());
+        const fs = TaoUtil.FESTIVAL[this.getMonth() + '-' + this.getDay()];
         if (fs) {
             fs.forEach(f => {
                 l.push(f);
@@ -73,11 +73,11 @@ export class Tao {
         } else if (I18n.getMessage('jq.xiaZhi') === jq) {
             l.push(new TaoFestival('灵宝天尊圣诞'));
         }
-        let f = TaoUtil.BA_JIE.get(jq);
+        let f = TaoUtil.BA_JIE[jq];
         if (f) {
             l.push(new TaoFestival(f));
         }
-        f = TaoUtil.BA_HUI.get(this._lunar.getDayInGanZhi());
+        f = TaoUtil.BA_HUI[this._lunar.getDayInGanZhi()];
         if (f) {
             l.push(new TaoFestival(f));
         }
@@ -103,7 +103,7 @@ export class Tao {
     }
 
     isDayBaJie(): boolean {
-        return TaoUtil.BA_JIE.containsKey(this._lunar.getJieQi());
+        return !!TaoUtil.BA_JIE[this._lunar.getJieQi()];
     }
 
     isDayWuLa(): boolean {
@@ -111,7 +111,7 @@ export class Tao {
     }
 
     isDayBaHui(): boolean {
-        return TaoUtil.BA_HUI.containsKey(this._lunar.getDayInGanZhi());
+        return !!TaoUtil.BA_HUI[this._lunar.getDayInGanZhi()];
     }
 
     isDayMingWu(): boolean {

@@ -48,7 +48,7 @@ export class LunarTime {
     }
 
     getPositionXiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionXi());
+        return LunarUtil.POSITION_DESC[this.getPositionXi()];
     }
 
     getPositionYangGui(): string {
@@ -56,7 +56,7 @@ export class LunarTime {
     }
 
     getPositionYangGuiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionYangGui());
+        return LunarUtil.POSITION_DESC[this.getPositionYangGui()];
     }
 
     getPositionYinGui(): string {
@@ -64,7 +64,7 @@ export class LunarTime {
     }
 
     getPositionYinGuiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionYinGui());
+        return LunarUtil.POSITION_DESC[this.getPositionYinGui()];
     }
 
     getPositionFu(sect: number = 2): string {
@@ -72,7 +72,7 @@ export class LunarTime {
     }
 
     getPositionFuDesc(sect: number = 2): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionFu(sect));
+        return LunarUtil.POSITION_DESC[this.getPositionFu(sect)];
     }
 
     getPositionCai(): string {
@@ -80,23 +80,23 @@ export class LunarTime {
     }
 
     getPositionCaiDesc(): string {
-        return LunarUtil.POSITION_DESC.get(this.getPositionCai());
+        return LunarUtil.POSITION_DESC[this.getPositionCai()];
     }
 
     getNaYin(): string {
-        return LunarUtil.NAYIN.get(this.getGanZhi());
+        return LunarUtil.NAYIN[this.getGanZhi()];
     }
 
     getTianShen(): string {
-        return LunarUtil.TIAN_SHEN[(this._zhiIndex + LunarUtil.ZHI_TIAN_SHEN_OFFSET.get(this._lunar.getDayZhiExact())) % 12 + 1];
+        return LunarUtil.TIAN_SHEN[(this._zhiIndex + LunarUtil.ZHI_TIAN_SHEN_OFFSET[this._lunar.getDayZhiExact()]) % 12 + 1];
     }
 
     getTianShenType(): string {
-        return LunarUtil.TIAN_SHEN_TYPE.get(this.getTianShen());
+        return LunarUtil.TIAN_SHEN_TYPE[this.getTianShen()];
     }
 
     getTianShenLuck(): string {
-        return LunarUtil.TIAN_SHEN_TYPE_LUCK.get(this.getTianShenType());
+        return LunarUtil.TIAN_SHEN_TYPE_LUCK[this.getTianShenType()];
     }
 
     getChong(): string {
@@ -104,7 +104,7 @@ export class LunarTime {
     }
 
     getSha(): string {
-        return LunarUtil.SHA.get(this.getZhi());
+        return LunarUtil.SHA[this.getZhi()];
     }
 
     getChongShengXiao(): string {
@@ -141,7 +141,7 @@ export class LunarTime {
         const solarYmd = this._lunar.getSolar().toYmd();
         const jieQi = this._lunar.getJieQiTable();
         let asc = false;
-        if (solarYmd >= jieQi.get(I18n.getMessage('jq.dongZhi')).toYmd() && solarYmd < jieQi.get(I18n.getMessage('jq.xiaZhi')).toYmd()) {
+        if (solarYmd >= jieQi[I18n.getMessage('jq.dongZhi')].toYmd() && solarYmd < jieQi[I18n.getMessage('jq.xiaZhi')].toYmd()) {
             asc = true;
         }
         const offset = asc ? [0, 3, 6] : [8, 5, 2];

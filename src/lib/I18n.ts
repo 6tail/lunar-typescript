@@ -3,7 +3,6 @@ import {SolarUtil} from './SolarUtil';
 import {TaoUtil} from './TaoUtil';
 import {FotoUtil} from './FotoUtil';
 import {NineStarUtil} from './NineStarUtil';
-import {Dictionary} from './Dictionary';
 
 export class I18n {
     private static _DEFAULT_LANG: string = 'chs';
@@ -1324,46 +1323,45 @@ export class I18n {
         'NineStarUtil': NineStarUtil
     };
 
-    private static _DICT_STRING: {[key: string]: {[key: string]: Dictionary<string>}} = {
+    private static _DICT_STRING: {[key: string]: {[key: string]: {[key: string]: string}}} = {
         'LunarUtil': {
-            'TIAN_SHEN_TYPE': new Dictionary<string>(),
-            'TIAN_SHEN_TYPE_LUCK': new Dictionary<string>(),
-            'XIU_LUCK': new Dictionary<string>(),
-            'LU': new Dictionary<string>(),
-            'XIU': new Dictionary<string>(),
-            'SHA': new Dictionary<string>(),
-            'POSITION_DESC': new Dictionary<string>(),
-            'NAYIN': new Dictionary<string>(),
-            'WU_XING_GAN': new Dictionary<string>(),
-            'WU_XING_ZHI': new Dictionary<string>(),
-            'SHOU': new Dictionary<string>(),
-            'GONG': new Dictionary<string>(),
-            'FESTIVAL': new Dictionary<string>(),
-            'ZHENG': new Dictionary<string>(),
-            'ANIMAL': new Dictionary<string>(),
-            'SHI_SHEN_GAN': new Dictionary<string>(),
-            'SHI_SHEN_ZHI': new Dictionary<string>(),
-            'XIU_SONG': new Dictionary<string>()
+            'TIAN_SHEN_TYPE': {},
+            'TIAN_SHEN_TYPE_LUCK': {},
+            'XIU_LUCK': {},
+            'LU': {},
+            'XIU': {},
+            'SHA': {},
+            'POSITION_DESC': {},
+            'NAYIN': {},
+            'WU_XING_GAN': {},
+            'WU_XING_ZHI': {},
+            'SHOU': {},
+            'GONG': {},
+            'FESTIVAL': {},
+            'ZHENG': {},
+            'ANIMAL': {},
+            'SHI_SHEN': {},
+            'XIU_SONG': {}
         },
         'SolarUtil': {
-            'FESTIVAL': new Dictionary<string>()
+            'FESTIVAL': {}
         },
         'TaoUtil': {
-            'BA_HUI': new Dictionary<string>(),
-            'BA_JIE': new Dictionary<string>()
+            'BA_HUI': {},
+            'BA_JIE': {}
         }
     };
 
-    private static _DICT_NUMBER: {[key: string]: {[key: string]: Dictionary<number>}} = {
+    private static _DICT_NUMBER: {[key: string]: {[key: string]: {[key: string]: number}}} = {
         'LunarUtil': {
-            'ZHI_TIAN_SHEN_OFFSET': new Dictionary<number>(),
-            'CHANG_SHENG_OFFSET': new Dictionary<number>()
+            'ZHI_TIAN_SHEN_OFFSET': {},
+            'CHANG_SHENG_OFFSET': {}
         }
     };
 
-    private static _DICT_ARRAY: {[key: string]: {[key: string]: Dictionary<string[]>}} = {
+    private static _DICT_ARRAY: {[key: string]: {[key: string]: {[key: string]: string[]}}} = {
         'LunarUtil': {
-            'ZHI_HIDE_GAN': new Dictionary<string[]>()
+            'ZHI_HIDE_GAN': {}
         }
     };
 
@@ -1447,16 +1445,15 @@ export class I18n {
         const v = I18n._DICT_STRING[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<string> = v[k];
-            dict.keys().forEach(key => {
+            const dict: {[key: string]: string} = v[k];
+            for (let key in dict) {
                 const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
-                const j = dict.get(key).replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+                o[k][i] = dict[key].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
-                o[k].set(i, j);
-            });
+            }
         }
     }
 
@@ -1464,13 +1461,13 @@ export class I18n {
         const v = I18n._DICT_NUMBER[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<number> = v[k];
-            dict.keys().forEach(key => {
+            const dict: {[key: string]: number} = v[k];
+            for (let key in dict) {
                 const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
-                o[k].set(i, dict.get(key));
-            });
+                o[k][i] = dict[key];
+            }
         }
     }
 
@@ -1478,19 +1475,19 @@ export class I18n {
         const v = I18n._DICT_ARRAY[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<string[]> = v[k];
-            dict.keys().forEach(key => {
+            const dict: {[key: string]: string[]} = v[k];
+            for (let key in dict) {
                 const x = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
-                const arr = dict.get(key);
+                const arr = dict[key];
                 for (let i = 0, j = arr.length; i < j; i++) {
                     arr[i] = arr[i].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                         return I18n.getMessage($1);
                     });
                 }
-                o[k].set(x, arr);
-            });
+                o[k][x] = arr;
+            }
         }
     }
 
@@ -1560,10 +1557,10 @@ export class I18n {
         const v = I18n._DICT_ARRAY[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<string[]> = o[k];
-            dict.keys().forEach(key => {
-                v[k].set(key, dict.get(key));
-            });
+            const dict: {[key: string]: string[]} = o[k];
+            for (let key in dict) {
+                v[k][key] = dict[key];
+            }
         }
     }
 
@@ -1571,10 +1568,10 @@ export class I18n {
         const v = I18n._DICT_STRING[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<string> = o[k];
-            dict.keys().forEach(key => {
-                v[k].set(key, dict.get(key));
-            });
+            const dict: {[key: string]: string} = o[k];
+            for (let key in dict) {
+                v[k][key] = dict[key];
+            }
         }
     }
 
@@ -1582,10 +1579,10 @@ export class I18n {
         const v = I18n._DICT_NUMBER[c];
         const o = I18n._OBJS[c];
         for (let k in v) {
-            const dict: Dictionary<number> = o[k];
-            dict.keys().forEach(key => {
-                v[k].set(key, dict.get(key));
-            });
+            const dict: { [key: string]: number } = o[k];
+            for (let key in dict) {
+                v[k][key] = dict[key];
+            }
         }
     }
 

@@ -79,7 +79,7 @@ export class Solar {
         const l: Solar[] = [];
         const years: number[] = [];
         const today = Solar.fromDate(new Date());
-        let offsetYear = LunarUtil.getJiaZiIndex(today.getLunar().getYearInGanZhiExact()) - LunarUtil.getJiaZiIndex(yearGanZhi);
+        let offsetYear = (today.getYear() - 4) % 60 - LunarUtil.getJiaZiIndex(yearGanZhi);
         if (offsetYear < 0) {
             offsetYear += 60;
         }
@@ -193,18 +193,18 @@ export class Solar {
 
     getFestivals(): string[] {
         const l: string[] = [];
-        let f = SolarUtil.FESTIVAL.get(this._month + '-' + this._day);
+        let f = SolarUtil.FESTIVAL[this._month + '-' + this._day];
         if (f) {
             l.push(f);
         }
         const weeks = Math.ceil(this._day / 7);
         const week = this.getWeek();
-        f = SolarUtil.WEEK_FESTIVAL.get(this._month + '-' + weeks + '-' + week);
+        f = SolarUtil.WEEK_FESTIVAL[this._month + '-' + weeks + '-' + week];
         if (f) {
             l.push(f);
         }
         if (this._day + 7 > SolarUtil.getDaysOfMonth(this._year, this._month)) {
-            f = SolarUtil.WEEK_FESTIVAL.get(this._month + '-0-' + week);
+            f = SolarUtil.WEEK_FESTIVAL[this._month + '-0-' + week];
             if (f) {
                 l.push(f);
             }
@@ -214,7 +214,7 @@ export class Solar {
 
     getOtherFestivals(): string[] {
         const l: string[] = [];
-        const fs = SolarUtil.OTHER_FESTIVAL.get(this._month + '-' + this._day);
+        const fs = SolarUtil.OTHER_FESTIVAL[this._month + '-' + this._day];
         if (fs) {
             fs.forEach(f => {
                 l.push(f);
