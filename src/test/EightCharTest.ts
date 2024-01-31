@@ -163,7 +163,7 @@ describe('EightChar', () => {
         const solar = Solar.fromYmdHms(1994, 12, 6, 2, 0, 0);
         const lunar = solar.getLunar();
         const eightChar = lunar.getEightChar();
-        assert.strictEqual(eightChar.getShenGong(), '丁丑');
+        assert.strictEqual(eightChar.getShenGong(), '乙丑');
     });
 
     it('身宫2', () => {

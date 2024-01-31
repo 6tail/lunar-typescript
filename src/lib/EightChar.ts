@@ -313,20 +313,15 @@ export class EightChar {
     }
 
     getMingGong() {
-        const monthZhiIndex = LunarUtil.find(this._lunar.getMonthZhiExact(), LunarUtil.MONTH_ZHI)!.index;
-        const timeZhiIndex = LunarUtil.find(this._lunar.getTimeZhi(), LunarUtil.MONTH_ZHI)!.index;
-        let zhiIndex = 26 - (monthZhiIndex + timeZhiIndex);
-        if (zhiIndex > 12) {
-            zhiIndex -= 12;
+        const monthZhiIndex = LunarUtil.find(this.getMonthZhi(), LunarUtil.MONTH_ZHI)!.index;
+        const timeZhiIndex = LunarUtil.find(this.getTimeZhi(), LunarUtil.MONTH_ZHI)!.index;
+        let offset = monthZhiIndex + timeZhiIndex;
+        offset = (offset >= 14 ? 26 : 14) - offset;
+        let ganIndex = (this._lunar.getYearGanIndexExact() + 1) * 2 + offset;
+        while (ganIndex > 10) {
+            ganIndex -= 10;
         }
-        let jiaZiIndex = LunarUtil.getJiaZiIndex(this._lunar.getMonthInGanZhiExact()) - (monthZhiIndex - zhiIndex);
-        if (jiaZiIndex >= 60) {
-            jiaZiIndex -= 60;
-        }
-        if (jiaZiIndex < 0) {
-            jiaZiIndex += 60;
-        }
-        return LunarUtil.JIA_ZI[jiaZiIndex];
+        return LunarUtil.GAN[ganIndex] + LunarUtil.MONTH_ZHI[offset];
     }
 
     getMingGongNaYin(): string {
@@ -335,20 +330,17 @@ export class EightChar {
     }
 
     getShenGong(): string {
-        const monthZhiIndex = LunarUtil.find(this._lunar.getMonthZhiExact(), LunarUtil.MONTH_ZHI)!.index;
-        const timeZhiIndex = LunarUtil.find(this._lunar.getTimeZhi(), LunarUtil.MONTH_ZHI)!.index;
-        let zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
-        if (zhiIndex > 12) {
-            zhiIndex -= 12;
+        const monthZhiIndex = LunarUtil.find(this.getMonthZhi(), LunarUtil.MONTH_ZHI)!.index;
+        const timeZhiIndex = LunarUtil.find(this.getTimeZhi(), LunarUtil.ZHI)!.index;
+        let offset = monthZhiIndex + timeZhiIndex;
+        while (offset > 12) {
+            offset -= 12;
         }
-        let jiaZiIndex = LunarUtil.getJiaZiIndex(this._lunar.getMonthInGanZhiExact()) - (monthZhiIndex - zhiIndex);
-        if (jiaZiIndex >= 60) {
-            jiaZiIndex -= 60;
+        let ganIndex = (this._lunar.getYearGanIndexExact() + 1) * 2 + (offset % 12);
+        while (ganIndex > 10) {
+            ganIndex -= 10;
         }
-        if (jiaZiIndex < 0) {
-            jiaZiIndex += 60;
-        }
-        return LunarUtil.JIA_ZI[jiaZiIndex];
+        return LunarUtil.GAN[ganIndex] + LunarUtil.MONTH_ZHI[offset];
     }
 
     getShenGongNaYin(): string {
