@@ -1356,12 +1356,7 @@ export class LunarUtil {
     }
 
     static getJiaZiIndex(ganZhi: string): number {
-        for (let i = 0, j = LunarUtil.JIA_ZI.length; i < j; i++) {
-            if (LunarUtil.JIA_ZI[i] === ganZhi) {
-                return i;
-            }
-        }
-        return -1;
+        return LunarUtil.index(ganZhi, LunarUtil.JIA_ZI, 0);
     }
 
     private static hex(n: number): string {
@@ -1536,7 +1531,7 @@ export class LunarUtil {
         if (diff < 0) {
             diff += 12;
         }
-        return diff / 2;
+        return Math.floor(diff / 2);
     }
 
     static getXun(ganZhi: string): string {
@@ -1561,6 +1556,15 @@ export class LunarUtil {
             }
         }
         return null;
+    }
+
+    static index(name: string, names: Array<string>, offset: number): number {
+        for (let i = 0, j = names.length; i < j; i++) {
+            if (names[i] === name) {
+                return i + offset;
+            }
+        }
+        return -1;
     }
 
 }

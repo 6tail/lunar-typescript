@@ -186,7 +186,7 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['1976-09-21 12:00:00', '1916-10-06 12:00:00']);
+        assert.deepStrictEqual(timeList, ['1916-10-06 12:00:00', '1976-09-21 12:00:00']);
     });
 
     it('17', () => {
@@ -195,7 +195,7 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['1999-07-21 16:00:00', '1939-08-05 16:00:00']);
+        assert.deepStrictEqual(timeList, ['1939-08-05 16:00:00', '1999-07-21 16:00:00']);
     });
 
     it('18', () => {
@@ -204,7 +204,7 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['1960-12-17 12:00:00', '1901-01-01 12:00:00']);
+        assert.deepStrictEqual(timeList, ['1901-01-01 12:00:00', '1960-12-17 12:00:00']);
     });
 
     it('19', () => {
@@ -213,16 +213,16 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['2020-07-21 22:00:00', '1960-08-05 22:00:00']);
+        assert.deepStrictEqual(timeList, ['1960-08-05 22:00:00', '2020-07-21 22:00:00']);
     });
 
     it('20', () => {
-        const solarList = Solar.fromBaZi('癸卯', '甲寅', '癸丑', '甲子', 2, 1843);
+        const solarList = Solar.fromBaZi('癸卯', '甲寅', '甲寅', '甲子', 2, 1843);
         const timeList: string[] = [];
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['2023-02-24 23:00:00', '1843-02-08 23:00:00']);
+        assert.deepStrictEqual(timeList, ['1843-02-09 00:00:00', '2023-02-25 00:00:00']);
     });
 
     it('21', () => {
@@ -231,7 +231,7 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['1960-01-15 16:00:00', '1900-01-29 16:00:00']);
+        assert.deepStrictEqual(timeList, ['1900-01-29 16:00:00', '1960-01-15 16:00:00']);
     });
 
     it('22', () => {
@@ -257,7 +257,7 @@ describe('EightChar', () => {
         solarList.forEach(solar => {
             timeList.push(solar.toYmdHms());
         })
-        assert.deepStrictEqual(timeList, ['1997-03-12 18:00:00', '1937-03-27 18:00:00']);
+        assert.deepStrictEqual(timeList, ['1937-03-27 18:00:00', '1997-03-12 18:00:00']);
     });
 
 });
