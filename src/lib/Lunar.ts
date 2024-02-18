@@ -1424,7 +1424,7 @@ export class Lunar {
             }
             const day = wholeDay ? solar.toYmd() : solar.toYmdHms();
             if (forward) {
-                if (day < today) {
+                if (day <= today) {
                     continue;
                 }
                 if (null == near) {

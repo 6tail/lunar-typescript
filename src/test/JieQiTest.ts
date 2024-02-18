@@ -111,4 +111,10 @@ describe('节气', () => {
         assert.strictEqual(lunar.getJieQiTable()['冬至'].toYmdHms(), '2022-12-22 05:48:11');
     });
 
+    it('test11', () => {
+        const lunar = Solar.fromYmd(2024, 2, 4).getLunar();
+        assert.strictEqual(lunar.getPrevJie(true).getName(), '立春');
+        assert.strictEqual(lunar.getNextJie(true).getName(), '惊蛰');
+    });
+
 });
