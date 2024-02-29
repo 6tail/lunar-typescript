@@ -83,7 +83,7 @@ export class Solar {
             m += 12;
         }
         // 月天干要一致
-        if (((LunarUtil.index(yearGanZhi.substring(0, 1), LunarUtil.GAN, -1) + 1) * 2 + m) % 10 !== LunarUtil.index(monthGanZhi.substring(0,1), LunarUtil.GAN, -1)) {
+        if (((LunarUtil.index(yearGanZhi.substring(0, 1), LunarUtil.GAN, -1) + 1) * 2 + m) % 10 !== LunarUtil.index(monthGanZhi.substring(0, 1), LunarUtil.GAN, -1)) {
             return l;
         }
         // 1年的立春是辛酉，序号57
@@ -96,6 +96,10 @@ export class Solar {
         m *= 2;
         // 时辰地支转时刻，子时按零点算
         let h = LunarUtil.index(timeGanZhi.substring(1), LunarUtil.ZHI, -1) * 2;
+        let hours = [h];
+        if (0 == h && 2 == sect) {
+            hours = [0, 23];
+        }
         const startYear = baseYear - 1;
 
         // 结束年
@@ -110,8 +114,6 @@ export class Solar {
                 // 节令推移，年干支和月干支就都匹配上了
                 let solarTime = jieQiTable[jieQiList[4 + m]];
                 if (solarTime.getYear() >= baseYear) {
-                    let mi = 0;
-                    let s = 0;
                     // 日干支和节令干支的偏移值
                     let lunar = solarTime.getLunar();
                     let dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
@@ -122,18 +124,23 @@ export class Solar {
                     if (d > 0) {
                         // 从节令推移天数
                         solarTime = solarTime.next(d);
-                    } else if (h === solarTime.getHour()) {
-                        // 如果正好是节令当天，且小时和节令的小时数相等的极端情况，把分钟和秒钟带上
-                        mi = solarTime.getMinute();
-                        s = solarTime.getSecond();
                     }
-                    // 验证一下
-                    const solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), h, mi, s);
-                    lunar = solar.getLunar();
-                    dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
-                    if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
-                        l.push(solar);
-                    }
+                    hours.forEach(hour => {
+                        let mi = 0;
+                        let s = 0;
+                        if (d == 0 && hour === solarTime.getHour()) {
+                            // 如果正好是节令当天，且小时和节令的小时数相等的极端情况，把分钟和秒钟带上
+                            mi = solarTime.getMinute();
+                            s = solarTime.getSecond();
+                        }
+                        // 验证一下
+                        const solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), hour, mi, s);
+                        lunar = solar.getLunar();
+                        dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                        if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
+                            l.push(solar);
+                        }
+                    });
                 }
             }
             y += 60;

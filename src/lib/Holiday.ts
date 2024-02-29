@@ -13,7 +13,7 @@ export class Holiday {
     }
 
     private static _ymd(s: string): string {
-        return s.indexOf('-') < 0 ? (s.substr(0, 4) + '-' + s.substr(4, 2) + '-' + s.substr(6)) : s;
+        return s.indexOf('-') < 0 ? (s.substring(0, 4) + '-' + s.substring(4, 6) + '-' + s.substring(6)) : s;
     }
 
     getDay(): string {

@@ -59,7 +59,7 @@ export class HolidayUtil {
 
     private static _buildHolidayBackward(s: string): Holiday {
         const size = s.length;
-        const day = s.substring(size - 18, size - 8);
+        const day = s.substring(size - 18, size - 10);
         const name = HolidayUtil._NAMES_IN_USE[s.charCodeAt(size - 10) - HolidayUtil._ZERO];
         const work = s.charCodeAt(size - 9) === HolidayUtil._ZERO;
         const target = s.substring(size - 8);
@@ -74,7 +74,7 @@ export class HolidayUtil {
         }
         while (0 === s.indexOf(key)) {
             l.push(HolidayUtil._buildHolidayForward(s));
-            s = s.substr(HolidayUtil._SIZE);
+            s = s.substring(HolidayUtil._SIZE);
         }
         return l;
     }
@@ -89,7 +89,7 @@ export class HolidayUtil {
         let keySize = key.length;
         while (size - keySize === s.lastIndexOf(key)) {
             l.push(HolidayUtil._buildHolidayBackward(s));
-            s = s.substr(0, size - HolidayUtil._SIZE);
+            s = s.substring(0, size - HolidayUtil._SIZE);
             size = s.length;
         }
         l.reverse();

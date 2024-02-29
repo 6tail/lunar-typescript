@@ -61,4 +61,13 @@ describe('节假日', () => {
         assert.strictEqual(holiday, null);
     });
 
+    it('test4', () => {
+        let holidays = HolidayUtil.getHolidaysByTarget('2024-01-01');
+        const days: string[] = [];
+        holidays.forEach(h => {
+            days.push(h.getDay());
+        })
+        assert.deepStrictEqual(days, ['2023-12-30', '2023-12-31', '2024-01-01']);
+    });
+
 });

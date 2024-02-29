@@ -1,4 +1,4 @@
-import {Solar, Lunar, LunarYear} from '../lib';
+import {Solar, Lunar, LunarYear, LunarUtil} from '../lib';
 import * as assert from 'assert';
 
 describe('Lunar', () => {
@@ -659,6 +659,11 @@ describe('Lunar', () => {
     it('test071', () => {
         const solar = Solar.fromYmd(918, 1, 1);
         assert.strictEqual(solar.getLunar().toString(), '九一七年冬月十六');
+    });
+
+    it('test072', () => {
+        const solar = Solar.fromYmd(2024, 2, 24);
+        assert.deepStrictEqual(solar.getLunar().getDayYi(), ['造车器', '纳采', '订盟', '祭祀', '祈福', '求嗣', '移徙', '出行', '开市', '出火', '入宅', '立券', '交易', '安门', '安床', '安葬', '谢土']);
     });
 
 });
