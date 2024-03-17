@@ -260,4 +260,13 @@ describe('EightChar', () => {
         assert.deepStrictEqual(timeList, ['1937-03-27 18:00:00', '1997-03-12 18:00:00']);
     });
 
+    it('24', () => {
+        const solarList = Solar.fromBaZi('丁卯', '丁未', '甲申', '乙丑', 1, 1900);
+        const timeList: string[] = [];
+        solarList.forEach(solar => {
+            timeList.push(solar.toYmdHms());
+        })
+        assert.deepStrictEqual(timeList, ['1987-08-03 02:00:00']);
+    });
+
 });
