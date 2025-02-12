@@ -671,7 +671,7 @@ export class I18n {
             'yj.kaiCang': '开仓',
             'yj.maiChe': '买车',
             'yj.zhiChan': '置产',
-            'yj.guYong': '雇庸',
+            'yj.guYong': '雇佣',
             'yj.chuHuoCai': '出货财',
             'yj.anJiXie': '安机械',
             'yj.zaoCheQi': '造车器',
