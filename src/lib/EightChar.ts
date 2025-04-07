@@ -332,15 +332,8 @@ export class EightChar {
     getShenGong(): string {
         const monthZhiIndex = LunarUtil.find(this.getMonthZhi(), LunarUtil.MONTH_ZHI)!.index;
         const timeZhiIndex = LunarUtil.find(this.getTimeZhi(), LunarUtil.ZHI)!.index;
-        let offset = monthZhiIndex + timeZhiIndex;
-        while (offset > 12) {
-            offset -= 12;
-        }
-        let ganIndex = (this._lunar.getYearGanIndexExact() + 1) * 2 + (offset % 12);
-        while (ganIndex > 10) {
-            ganIndex -= 10;
-        }
-        return LunarUtil.GAN[ganIndex] + LunarUtil.MONTH_ZHI[offset];
+        const offset = (monthZhiIndex + timeZhiIndex - 1) % 12;
+        return LunarUtil.GAN[((this._lunar.getYearGanIndexExact() + 1) * 2 + offset) % 10 + 1] + LunarUtil.MONTH_ZHI[offset + 1];
     }
 
     getShenGongNaYin(): string {
