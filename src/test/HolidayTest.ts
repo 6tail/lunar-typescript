@@ -62,7 +62,7 @@ describe('节假日', () => {
     });
 
     it('test4', () => {
-        let holidays = HolidayUtil.getHolidaysByTarget('2024-01-01');
+        const holidays = HolidayUtil.getHolidaysByTarget('2024-01-01');
         const days: string[] = [];
         holidays.forEach(h => {
             days.push(h.getDay());

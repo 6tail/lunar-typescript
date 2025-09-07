@@ -34,7 +34,7 @@ export class HolidayUtil {
         if (start < 0) {
             return null;
         }
-        let keySize = key.length;
+        const keySize = key.length;
         let left = HolidayUtil._DATA_IN_USE.substring(0, start + keySize);
         let size = left.length;
         const n = size % HolidayUtil._SIZE;
@@ -80,13 +80,13 @@ export class HolidayUtil {
     }
 
     private static _findHolidaysBackward(key: string): Holiday[] {
-        let l: Holiday[] = [];
+        const l: Holiday[] = [];
         let s = HolidayUtil._findBackward(key);
         if (null == s) {
             return l;
         }
         let size = s.length;
-        let keySize = key.length;
+        const keySize = key.length;
         while (size - keySize === s.lastIndexOf(key)) {
             l.push(HolidayUtil._buildHolidayBackward(s));
             s = s.substring(0, size - HolidayUtil._SIZE);
@@ -160,11 +160,17 @@ export class HolidayUtil {
         }
     }
 
-    static fix(a: any, b?: string) {
+    static fix(a: string | string[], b?: string) {
         if (!b) {
-            HolidayUtil._fixData(a);
+            if (Array.isArray(a)) {
+                HolidayUtil._fixNames(a);
+            } else {
+                HolidayUtil._fixData(a);
+            }
         } else {
-            HolidayUtil._fixNames(a);
+            if (Array.isArray(a)) {
+                HolidayUtil._fixNames(a);
+            }
             HolidayUtil._fixData(b);
         }
     }

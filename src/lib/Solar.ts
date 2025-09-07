@@ -95,7 +95,7 @@ export class Solar {
         // 节令偏移值
         m *= 2;
         // 时辰地支转时刻，子时按零点算
-        let h = LunarUtil.index(timeGanZhi.substring(1), LunarUtil.ZHI, -1) * 2;
+        const h = LunarUtil.index(timeGanZhi.substring(1), LunarUtil.ZHI, -1) * 2;
         let hours = [h];
         if (0 == h && 2 == sect) {
             hours = [0, 23];
@@ -132,9 +132,12 @@ export class Solar {
                             s = solarTime.getSecond();
                         }
                         // 验证一下
-                        const solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), hour, mi, s);
-                        let lunar = solar.getLunar();
-                        let dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                        let solar = Solar.fromYmdHms(solarTime.getYear(), solarTime.getMonth(), solarTime.getDay(), hour, mi, s);
+                        if (d === 30) {
+                            solar = solar.nextHour(-1);
+                        }
+                        const lunar = solar.getLunar();
+                        const dgz = (2 === sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
                         if (lunar.getYearInGanZhiExact() === yearGanZhi && lunar.getMonthInGanZhiExact() === monthGanZhi && dgz === dayGanZhi && lunar.getTimeInGanZhi() === timeGanZhi) {
                             l.push(solar);
                         }
@@ -364,7 +367,7 @@ export class Solar {
 
     nextYear(years: number): Solar {
         const y = this._year + years;
-        let m = this._month;
+        const m = this._month;
         let d = this._day;
         if (1582 === y && 10 === m) {
             if (d > 4 && d < 15) {
@@ -488,7 +491,7 @@ export class Solar {
     getJulianDay(): number {
         let y = this._year;
         let m = this._month;
-        let d = this._day + ((this._second / 60 + this._minute) / 60 + this._hour) / 24;
+        const d = this._day + ((this._second / 60 + this._minute) / 60 + this._hour) / 24;
         let n = 0;
         let g = false;
         if (y * 372 + m * 31 + Math.floor(d) >= 588829) {

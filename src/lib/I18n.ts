@@ -512,7 +512,7 @@ export class I18n {
             'h.tianShu': '田鼠化为鴽',
             'h.hongShi': '虹始见',
             'h.pingShi': '萍始生',
-            'h.mingJiu': '鸣鸠拂奇羽',
+            'h.mingJiu': '鸣鸠拂其羽',
             'h.daiSheng': '戴胜降于桑',
             'h.louGuo': '蝼蝈鸣',
             'h.qiuYinChu': '蚯蚓出',
@@ -1431,7 +1431,7 @@ export class I18n {
     private static updateArray(c: string) {
         const v = I18n._ARRAYS[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const arr = v[k];
             for (let i = 0, j = arr.length; i < j; i++) {
                 o[k][i] = arr[i].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
@@ -1444,9 +1444,9 @@ export class I18n {
     private static updateStringDictionary(c: string) {
         const v = I18n._DICT_STRING[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: {[key: string]: string} = v[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
@@ -1460,9 +1460,9 @@ export class I18n {
     private static updateNumberDictionary(c: string) {
         const v = I18n._DICT_NUMBER[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: {[key: string]: number} = v[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
@@ -1474,9 +1474,9 @@ export class I18n {
     private static updateArrayDictionary(c: string) {
         const v = I18n._DICT_ARRAY[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: {[key: string]: string[]} = v[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 const x = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
@@ -1492,16 +1492,16 @@ export class I18n {
     }
 
     private static update() {
-        for (let c in I18n._ARRAYS) {
+        for (const c in I18n._ARRAYS) {
             I18n.updateArray(c);
         }
-        for (let c in I18n._DICT_STRING) {
+        for (const c in I18n._DICT_STRING) {
             I18n.updateStringDictionary(c);
         }
-        for (let c in I18n._DICT_NUMBER) {
+        for (const c in I18n._DICT_NUMBER) {
             I18n.updateNumberDictionary(c);
         }
-        for (let c in I18n._DICT_ARRAY) {
+        for (const c in I18n._DICT_ARRAY) {
             I18n.updateArrayDictionary(c);
         }
     }
@@ -1544,7 +1544,7 @@ export class I18n {
     private static initArray(c: string) {
         const v = I18n._ARRAYS[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             v[k].length = 0;
             const arr = o[k];
             for (let i = 0, j = arr.length; i < j; i++) {
@@ -1556,9 +1556,9 @@ export class I18n {
     private static initArrayDictionary(c: string) {
         const v = I18n._DICT_ARRAY[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: {[key: string]: string[]} = o[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 v[k][key] = dict[key];
             }
         }
@@ -1567,9 +1567,9 @@ export class I18n {
     private static initStringDictionary(c: string) {
         const v = I18n._DICT_STRING[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: {[key: string]: string} = o[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 v[k][key] = dict[key];
             }
         }
@@ -1578,9 +1578,9 @@ export class I18n {
     private static initNumberDictionary(c: string) {
         const v = I18n._DICT_NUMBER[c];
         const o = I18n._OBJS[c];
-        for (let k in v) {
+        for (const k in v) {
             const dict: { [key: string]: number } = o[k];
-            for (let key in dict) {
+            for (const key in dict) {
                 v[k][key] = dict[key];
             }
         }
@@ -1591,16 +1591,16 @@ export class I18n {
             return;
         }
         I18n._INIT = true;
-        for (let c in I18n._ARRAYS) {
+        for (const c in I18n._ARRAYS) {
             I18n.initArray(c);
         }
-        for (let c in I18n._DICT_STRING) {
+        for (const c in I18n._DICT_STRING) {
             I18n.initStringDictionary(c);
         }
-        for (let c in I18n._DICT_NUMBER) {
+        for (const c in I18n._DICT_NUMBER) {
             I18n.initNumberDictionary(c);
         }
-        for (let c in I18n._DICT_ARRAY) {
+        for (const c in I18n._DICT_ARRAY) {
             I18n.initArrayDictionary(c);
         }
         I18n.setLanguage(I18n._DEFAULT_LANG);

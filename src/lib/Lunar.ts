@@ -201,7 +201,7 @@ export class Lunar {
         let index = -3;
         for (i = 0; i < size; i += 2) {
             end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
-            let symd = null == start ? ymd : start.toYmd();
+            const symd = null == start ? ymd : start.toYmd();
             if (ymd >= symd && ymd < end.toYmd()) {
                 break;
             }
@@ -216,7 +216,7 @@ export class Lunar {
         index = -3;
         for (i = 0; i < size; i += 2) {
             end = o.jieQi[LunarUtil.JIE_QI_IN_USE[i]];
-            let stime = null == start ? time : start.toYmdHms();
+            const stime = null == start ? time : start.toYmdHms();
             if (time >= stime && time < end.toYmdHms()) {
                 break;
             }
@@ -982,7 +982,7 @@ export class Lunar {
 
     getJieQi(): string {
         let name = '';
-        for (let k in this._jieQi) {
+        for (const k in this._jieQi) {
             const d = this._jieQi[k];
             if (d.getYear() == this._solar.getYear() && d.getMonth() == this._solar.getMonth() && d.getDay() == this._solar.getDay()) {
                 name = k;
@@ -1001,37 +1001,37 @@ export class Lunar {
     }
 
     getXiu(): string {
-        let v = LunarUtil.XIU[this.getDayZhi() + this.getWeek()];
+        const v = LunarUtil.XIU[this.getDayZhi() + this.getWeek()];
         return v ? v : '';
     }
 
     getXiuLuck(): string {
-        let v = LunarUtil.XIU_LUCK[this.getXiu()];
+        const v = LunarUtil.XIU_LUCK[this.getXiu()];
         return v ? v : '';
     }
 
     getXiuSong(): string {
-        let v = LunarUtil.XIU_SONG[this.getXiu()];
+        const v = LunarUtil.XIU_SONG[this.getXiu()];
         return v ? v : '';
     }
 
     getZheng(): string {
-        let v = LunarUtil.ZHENG[this.getXiu()];
+        const v = LunarUtil.ZHENG[this.getXiu()];
         return v ? v : '';
     }
 
     getAnimal(): string {
-        let v = LunarUtil.ANIMAL[this.getXiu()];
+        const v = LunarUtil.ANIMAL[this.getXiu()];
         return v ? v : '';
     }
 
     getGong(): string {
-        let v = LunarUtil.GONG[this.getXiu()];
+        const v = LunarUtil.GONG[this.getXiu()];
         return v ? v : '';
     }
 
     getShou(): string {
-        let v = LunarUtil.SHOU[this.getGong()];
+        const v = LunarUtil.SHOU[this.getGong()];
         return v ? v : '';
     }
 
@@ -1404,8 +1404,8 @@ export class Lunar {
 
     private getNearJieQi(forward: boolean, conditions: string[], wholeDay: boolean): JieQi {
         let name: string = '';
-        let near: any = null;
-        let filters: { [key: string]: boolean } = {};
+        let near: null | Solar = null;
+        const filters: { [key: string]: boolean } = {};
         let filter = false;
         if (conditions) {
             for (let i = 0, j = conditions.length; i < j; i++) {
@@ -1414,7 +1414,7 @@ export class Lunar {
             }
         }
         const today = wholeDay ? this._solar.toYmd() : this._solar.toYmdHms();
-        for (let key in this._jieQi) {
+        for (const key in this._jieQi) {
             const solar = this._jieQi[key];
             const jq = Lunar._convertJieQi(key);
             if (filter) {
@@ -1453,12 +1453,12 @@ export class Lunar {
                 }
             }
         }
-        return new JieQi(name, near);
+        return new JieQi(name, near as Solar);
     }
 
     getCurrentJieQi(): JieQi | null {
         let jq = null;
-        for (let k in this._jieQi) {
+        for (const k in this._jieQi) {
             const d = this._jieQi[k];
             if (d.getYear() == this._solar.getYear() && d.getMonth() == this._solar.getMonth() && d.getDay() == this._solar.getDay()) {
                 jq = new JieQi(Lunar._convertJieQi(k), d);

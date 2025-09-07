@@ -49,7 +49,7 @@ export class Yun {
                 hourDiff += 12;
                 dayDiff--;
             }
-            let monthDiff = Math.floor(hourDiff * 10 / 30);
+            const monthDiff = Math.floor(hourDiff * 10 / 30);
             month = dayDiff * 4 + monthDiff;
             day = hourDiff * 10 - monthDiff * 30;
             year = Math.floor(month / 12);

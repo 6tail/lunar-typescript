@@ -1426,7 +1426,7 @@ export class LunarUtil {
                 }
             }
             if (matched) {
-                let js = left.substring(left.indexOf(',') + 1);
+                const js = left.substring(left.indexOf(',') + 1);
                 for (i = 0, j = js.length; i < j; i += 2) {
                     l.push(LunarUtil.YI_JI[parseInt(js.substring(i, i + 2), 16)]);
                 }
@@ -1450,7 +1450,7 @@ export class LunarUtil {
             if (left.indexOf('=') > -1) {
                 left = left.substring(0, left.indexOf('=') - 3);
             }
-            let js = left.substring(0, left.indexOf(','));
+            const js = left.substring(0, left.indexOf(','));
             for (let i = 0, j = js.length; i < j; i += 2) {
                 l.push(LunarUtil.SHEN_SHA[parseInt(js.substring(i, i + 2), 16)]);
             }
@@ -1492,7 +1492,7 @@ export class LunarUtil {
             if (left.indexOf('=') > -1) {
                 left = left.substring(0, left.indexOf('=') - 4);
             }
-            let ys = left.substring(0, left.indexOf(','));
+            const ys = left.substring(0, left.indexOf(','));
             for (let i = 0, j = ys.length; i < j; i += 2) {
                 l.push(LunarUtil.YI_JI[parseInt(ys.substring(i, i + 2), 16)]);
             }
@@ -1513,7 +1513,7 @@ export class LunarUtil {
             if (left.indexOf('=') > -1) {
                 left = left.substring(0, left.indexOf('=') - 4);
             }
-            let js = left.substring(left.indexOf(',') + 1);
+            const js = left.substring(left.indexOf(',') + 1);
             for (let i = 0, j = js.length; i < j; i += 2) {
                 l.push(LunarUtil.YI_JI[parseInt(js.substring(i, i + 2), 16)]);
             }

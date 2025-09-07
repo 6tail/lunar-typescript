@@ -1,4 +1,4 @@
-import {Solar, Lunar, LunarYear, LunarUtil} from '../lib';
+import {Solar, Lunar, LunarYear} from '../lib';
 import * as assert from 'assert';
 
 describe('Lunar', () => {
