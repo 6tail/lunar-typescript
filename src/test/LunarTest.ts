@@ -666,4 +666,10 @@ describe('Lunar', () => {
         assert.deepStrictEqual(solar.getLunar().getDayYi(), ['造车器', '纳采', '订盟', '祭祀', '祈福', '求嗣', '移徙', '出行', '开市', '出火', '入宅', '立券', '交易', '安门', '安床', '安葬', '谢土']);
     });
 
+    it('test100', () => {
+        const lunar = Solar.fromYmd(2025, 9, 16).getLunar();
+        assert.deepStrictEqual(lunar.getDayJiShen().toString(), '时德,阳德,民日,玉宇,司命');
+        assert.deepStrictEqual(lunar.getDayXiongSha().toString(), '河魁,死神,天吏,致死,往亡');
+    });
+
 });

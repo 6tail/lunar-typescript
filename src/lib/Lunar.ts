@@ -1214,11 +1214,11 @@ export class Lunar {
     }
 
     getDayJiShen(): string[] {
-        return LunarUtil.getDayJiShen(this.getMonth(), this.getDayInGanZhi());
+        return LunarUtil.getDayJiShen(this.getMonthZhiIndex(), this.getDayInGanZhi());
     }
 
     getDayXiongSha(): string[] {
-        return LunarUtil.getDayXiongSha(this.getMonth(), this.getDayInGanZhi());
+        return LunarUtil.getDayXiongSha(this.getMonthZhiIndex(), this.getDayInGanZhi());
     }
 
     getTimeYi(): string[] {
