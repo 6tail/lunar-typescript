@@ -8,8 +8,8 @@ export class JieQi {
     private readonly _qi: boolean;
 
     constructor(name: string, solar: Solar) {
-        let jie = false, qi = false, i, j;
-        for (i = 0, j = LunarUtil.JIE_QI.length; i < j; i++) {
+        let jie = false, qi = false;
+        for (let i = 0, j = LunarUtil.JIE_QI.length; i < j; i++) {
             if(LunarUtil.JIE_QI[i]===name){
                 if(i%2==0){
                     qi = true;

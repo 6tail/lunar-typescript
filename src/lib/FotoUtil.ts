@@ -50,7 +50,7 @@ export class FotoUtil {
     static _M = new FotoFestival('司命奏事', FotoUtil._JS, true, '如月小，即戒廿九');
     static _HH = new FotoFestival('月晦', FotoUtil._JS, true, '如月小，即戒廿九');
 
-    static FESTIVAL: { [key: string]: FotoFestival[] } = {
+    static FESTIVAL: Record<string, FotoFestival[]> = {
         '1-1': [new FotoFestival('天腊，玉帝校世人神气禄命', FotoUtil._XL), FotoUtil._S],
         '1-3': [new FotoFestival('万神都会', FotoUtil._DJ), FotoUtil._D],
         '1-5': [new FotoFestival('五虚忌')],
@@ -272,7 +272,7 @@ export class FotoUtil {
         '12-30': [new FotoFestival('诸神下降，察访善恶', '犯者男女俱亡')]
     };
 
-    static OTHER_FESTIVAL: { [key: string]: string[] } = {
+    static OTHER_FESTIVAL: Record<string, string[]> = {
         '1-1': ['弥勒菩萨圣诞'],
         '1-6': ['定光佛圣诞'],
         '2-8': ['释迦牟尼佛出家'],

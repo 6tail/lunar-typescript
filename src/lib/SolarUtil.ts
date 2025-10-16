@@ -4,7 +4,7 @@ export class SolarUtil {
     static WEEK: string[] = ['{w.sun}', '{w.mon}', '{w.tues}', '{w.wed}', '{w.thur}', '{w.fri}', '{w.sat}'];
     static DAYS_OF_MONTH: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     static XINGZUO: string[] = ['{xz.aries}', '{xz.taurus}', '{xz.gemini}', '{xz.cancer}', '{xz.leo}', '{xz.virgo}', '{xz.libra}', '{xz.scorpio}', '{xz.sagittarius}', '{xz.capricornus}', '{xz.aquarius}', '{xz.pisces}'];
-    static FESTIVAL: { [key: string]: string } = {
+    static FESTIVAL: Record<string, string> = {
         '1-1': '{jr.yuanDan}',
         '2-14': '{jr.qingRen}',
         '3-8': '{jr.fuNv}',
@@ -23,7 +23,7 @@ export class SolarUtil {
         '12-24': '{jr.pingAn}',
         '12-25': '{jr.shengDan}'
     };
-    static OTHER_FESTIVAL: { [key: string]: string[] } = {
+    static OTHER_FESTIVAL: Record<string, string[]> = {
         '1-8': ['周恩来逝世纪念日'],
         '1-10': ['中国人民警察节'],
         '1-14': ['日记情人节'],
@@ -163,7 +163,7 @@ export class SolarUtil {
         '12-26': ['毛泽东诞辰纪念日']
     };
 
-    static WEEK_FESTIVAL: { [key: string]: string } = {
+    static WEEK_FESTIVAL: Record<string, string> = {
         '3-0-1': '全国中小学生安全教育日',
         '5-2-0': '母亲节',
         '5-3-0': '全国助残日',
@@ -221,27 +221,22 @@ export class SolarUtil {
     }
 
     static getDaysBetween(ay: number, am: number, ad: number, by: number, bm: number, bd: number): number {
-        let n;
-        let days;
-        let i;
         if (ay == by) {
-            n = SolarUtil.getDaysInYear(by, bm, bd) -
-                SolarUtil.getDaysInYear(ay, am, ad);
+            return SolarUtil.getDaysInYear(by, bm, bd) - SolarUtil.getDaysInYear(ay, am, ad);
         } else if (ay > by) {
-            days = SolarUtil.getDaysOfYear(by) - SolarUtil.getDaysInYear(by, bm, bd);
-            for (i = by + 1; i < ay; i++) {
+            let days = SolarUtil.getDaysOfYear(by) - SolarUtil.getDaysInYear(by, bm, bd);
+            for (let i = by + 1; i < ay; i++) {
                 days += SolarUtil.getDaysOfYear(i);
             }
             days += SolarUtil.getDaysInYear(ay, am, ad);
-            n = -days;
+            return -days;
         } else {
-            days = SolarUtil.getDaysOfYear(ay) - SolarUtil.getDaysInYear(ay, am, ad);
-            for (i = ay + 1; i < by; i++) {
+            let days = SolarUtil.getDaysOfYear(ay) - SolarUtil.getDaysInYear(ay, am, ad);
+            for (let i = ay + 1; i < by; i++) {
                 days += SolarUtil.getDaysOfYear(i);
             }
             days += SolarUtil.getDaysInYear(by, bm, bd);
-            n = days;
+            return days;
         }
-        return n;
     }
 }

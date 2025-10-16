@@ -1,7 +1,6 @@
 import {Solar} from './Solar';
 
 export class ShouXingUtil {
-    static PI_2: number = 2 * Math.PI;
     static ONE_THIRD: number = 1.0 / 3;
     static SECOND_PER_DAY: number = 86400;
     static SECOND_PER_RAD: number = 648000 / Math.PI;
@@ -340,19 +339,16 @@ export class ShouXingUtil {
     static eLon(t: number, n: number): number {
         t /= 10;
         let v = 0, tn = 1;
-        let n1, n2;
-        let m;
-        let c;
         const pn = 1;
-        let n0;
         const m0 = ShouXingUtil.XL0[pn + 1] - ShouXingUtil.XL0[pn];
         for (let i = 0; i < 6; i++, tn *= t) {
-            n1 = Math.floor(ShouXingUtil.XL0[pn + i]);
-            n2 = Math.floor(ShouXingUtil.XL0[pn + 1 + i]);
-            n0 = n2 - n1;
+            const n1 = Math.floor(ShouXingUtil.XL0[pn + i]);
+            const n2 = Math.floor(ShouXingUtil.XL0[pn + 1 + i]);
+            const n0 = n2 - n1;
             if (n0 == 0) {
                 continue;
             }
+            let m = 0;
             if (n < 0) {
                 m = n2;
             } else {
@@ -364,7 +360,7 @@ export class ShouXingUtil {
                     m = n2;
                 }
             }
-            c = 0;
+            let c = 0;
             for (let j = n1; j < m; j += 3) {
                 c += ShouXingUtil.XL0[j] * Math.cos(ShouXingUtil.XL0[j + 1] + t * ShouXingUtil.XL0[j + 2]);
             }
@@ -381,8 +377,6 @@ export class ShouXingUtil {
         const obl = ob[0].length;
         let tn = 1;
         let v = 0;
-        let j;
-        let c;
         let t2 = t * t,
             t3 = t2 * t,
             t4 = t3 * t;
@@ -411,7 +405,8 @@ export class ShouXingUtil {
             if (m >= l) {
                 m = l;
             }
-            for (j = 0, c = 0; j < m; j += 6) {
+            let c = 0;
+            for (let j = 0; j < m; j += 6) {
                 c += f[j] * Math.cos(f[j + 1] + t * f[j + 2] + t2 * f[j + 3] + t3 * f[j + 4] + t4 * f[j + 5]);
             }
             v += c * tn;
@@ -452,8 +447,8 @@ export class ShouXingUtil {
             }
             return ShouXingUtil.dtExt(y, jsd) - (ShouXingUtil.dtExt(y0, jsd) - t0) * (y0 + 100 - y) / 100;
         }
-        let i;
-        for (i = 0; i < size; i += 5) {
+        let i = 0;
+        for (; i < size; i += 5) {
             if (y < ShouXingUtil.DT_AT[i + 5]) {
                 break;
             }
@@ -475,8 +470,8 @@ export class ShouXingUtil {
     }
 
     static saLonT(w: number): number {
-        let t, v = 628.3319653318;
-        t = (w - 1.75347 - Math.PI) / v;
+        let v = 628.3319653318;
+        let t = (w - 1.75347 - Math.PI) / v;
         v = ShouXingUtil.ev(t);
         t += (w - ShouXingUtil.saLon(t, 10)) / v;
         v = ShouXingUtil.ev(t);
@@ -489,8 +484,8 @@ export class ShouXingUtil {
     }
 
     static msaLonT(w: number): number {
-        let t, v = 7771.37714500204;
-        t = (w + 1.08472) / v;
+        let v = 7771.37714500204;
+        let t = (w + 1.08472) / v;
         t += (w - ShouXingUtil.msaLon(t, 3, 3)) / v;
         v = ShouXingUtil.mv(t) - ShouXingUtil.ev(t);
         t += (w - ShouXingUtil.msaLon(t, 20, 10)) / v;
@@ -507,8 +502,8 @@ export class ShouXingUtil {
     }
 
     static msaLonT2(w: number): number {
-        let t, v = 7771.37714500204;
-        t = (w + 1.08472) / v;
+        let v = 7771.37714500204;
+        let t = (w + 1.08472) / v;
         let t2 = t * t;
         t -= (-0.00003309 * t2 + 0.10976 * Math.cos(0.784758 + 8328.6914246 * t + 0.000152292 * t2) + 0.02224 * Math.cos(0.18740 + 7214.0628654 * t - 0.00021848 * t2) - 0.03342 * Math.cos(4.669257 + 628.307585 * t)) / v;
         t2 = t * t;
@@ -557,7 +552,6 @@ export class ShouXingUtil {
     static calcShuo(jd: number): number {
         const size = ShouXingUtil.SHUO_KB.length;
         let d = 0;
-        let i;
         const pc = 14;
         jd += Solar.J2000;
         const f1 = ShouXingUtil.SHUO_KB[0] - pc;
@@ -566,7 +560,8 @@ export class ShouXingUtil {
         if (jd < f1 || jd >= f3) {
             d = Math.floor(ShouXingUtil.shuoHigh(Math.floor((jd + pc - 2451551) / 29.5306) * Math.PI * 2) + 0.5);
         } else if (jd >= f1 && jd < f2) {
-            for (i = 0; i < size; i += 2) {
+            let i = 0;
+            for (; i < size; i += 2) {
                 if (jd + pc < ShouXingUtil.SHUO_KB[i + 2]) {
                     break;
                 }
@@ -593,7 +588,6 @@ export class ShouXingUtil {
     static calcQi(jd: number): number {
         const size = ShouXingUtil.QI_KB.length;
         let d = 0;
-        let i;
         const pc = 7;
         jd += Solar.J2000;
         const f1 = ShouXingUtil.QI_KB[0] - pc;
@@ -602,7 +596,8 @@ export class ShouXingUtil {
         if (jd < f1 || jd >= f3) {
             d = Math.floor(ShouXingUtil.qiHigh(Math.floor((jd + pc - 2451259) / 365.2422 * 24) * Math.PI / 12) + 0.5);
         } else if (jd >= f1 && jd < f2) {
-            for (i = 0; i < size; i += 2) {
+            let i = 0;
+            for (; i < size; i += 2) {
                 if (jd + pc < ShouXingUtil.QI_KB[i + 2]) {
                     break;
                 }

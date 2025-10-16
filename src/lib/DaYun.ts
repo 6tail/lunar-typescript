@@ -17,13 +17,11 @@ export class DaYun {
         const lunar = yun.getLunar();
         const birthYear = lunar.getSolar().getYear();
         const year = yun.getStartSolar().getYear();
-        let startYear, startAge, endYear, endAge;
-        if (index < 1) {
-            startYear = birthYear;
-            startAge = 1;
-            endYear = year - 1;
-            endAge = year - birthYear;
-        } else {
+        let startYear = birthYear;
+        let startAge = 1;
+        let endYear = year - 1;
+        let endAge = year - birthYear;
+        if (index >= 1) {
             startYear = year + (index - 1) * 10;
             startAge = startYear - birthYear + 1;
             endYear = startYear + 9;

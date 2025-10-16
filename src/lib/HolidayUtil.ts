@@ -97,12 +97,7 @@ export class HolidayUtil {
     }
 
     static getHoliday(yearOrYmd: number|string, month: number = 0, day: number = 0): Holiday | null {
-        let l;
-        if (month == 0 || day == 0) {
-            l = HolidayUtil._findHolidaysForward((yearOrYmd+'').replace(/-/g, ''));
-        } else {
-            l = HolidayUtil._findHolidaysForward(yearOrYmd + HolidayUtil._padding(month) + HolidayUtil._padding(day));
-        }
+        const l: Holiday[] = (month == 0 || day == 0) ? HolidayUtil._findHolidaysForward((yearOrYmd+'').replace(/-/g, '')) : HolidayUtil._findHolidaysForward(yearOrYmd + HolidayUtil._padding(month) + HolidayUtil._padding(day));
         return l.length < 1 ? null : l[0];
     }
 
@@ -130,7 +125,7 @@ export class HolidayUtil {
         if (!data) {
             return;
         }
-        const append = [];
+        const append: string[] = [];
         while (data.length >= HolidayUtil._SIZE) {
             const segment = data.substring(0, HolidayUtil._SIZE);
             const day = segment.substring(0, 8);

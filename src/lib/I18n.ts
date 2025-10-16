@@ -9,7 +9,7 @@ export class I18n {
     private static _LANG: string;
     private static _INIT: boolean = false;
 
-    private static _MESSAGES: {[key: string]: {[key: string]: string}} = {
+    private static _MESSAGES: Record<string, Record<string, string>> = {
         'chs': {
             'tg.jia': '甲',
             'tg.yi': '乙',
@@ -1315,15 +1315,36 @@ export class I18n {
         }
     };
 
-    private static _OBJS: {[key: string]: LunarUtil | SolarUtil | TaoUtil | FotoUtil | NineStarUtil} = {
-        'LunarUtil': LunarUtil,
-        'SolarUtil': SolarUtil,
-        'TaoUtil': TaoUtil,
-        'FotoUtil': FotoUtil,
-        'NineStarUtil': NineStarUtil
+    private static _OBJ_STRING: Record<string, Record<string, Record<string, string>>> = {
+        'LunarUtil': {
+            'TIAN_SHEN_TYPE': LunarUtil.TIAN_SHEN_TYPE,
+            'TIAN_SHEN_TYPE_LUCK': LunarUtil.TIAN_SHEN_TYPE_LUCK,
+            'XIU_LUCK': LunarUtil.XIU_LUCK,
+            'LU': LunarUtil.LU,
+            'XIU': LunarUtil.XIU,
+            'SHA': LunarUtil.SHA,
+            'POSITION_DESC': LunarUtil.POSITION_DESC,
+            'NAYIN': LunarUtil.NAYIN,
+            'WU_XING_GAN': LunarUtil.WU_XING_GAN,
+            'WU_XING_ZHI': LunarUtil.WU_XING_ZHI,
+            'SHOU': LunarUtil.SHOU,
+            'GONG': LunarUtil.GONG,
+            'FESTIVAL': LunarUtil.FESTIVAL,
+            'ZHENG': LunarUtil.ZHENG,
+            'ANIMAL': LunarUtil.ANIMAL,
+            'SHI_SHEN': LunarUtil.SHI_SHEN,
+            'XIU_SONG': LunarUtil.XIU_SONG,
+        },
+        'SolarUtil': {
+            'FESTIVAL': SolarUtil.FESTIVAL
+        },
+        'TaoUtil': {
+            'BA_HUI': TaoUtil.BA_HUI,
+            'BA_JIE': TaoUtil.BA_JIE
+        }
     };
 
-    private static _DICT_STRING: {[key: string]: {[key: string]: {[key: string]: string}}} = {
+    private static _DICT_STRING: Record<string, Record<string, Record<string, string>>> = {
         'LunarUtil': {
             'TIAN_SHEN_TYPE': {},
             'TIAN_SHEN_TYPE_LUCK': {},
@@ -1352,20 +1373,33 @@ export class I18n {
         }
     };
 
-    private static _DICT_NUMBER: {[key: string]: {[key: string]: {[key: string]: number}}} = {
+    private static _DICT_NUMBER: Record<string, Record<string, Record<string, number>>> = {
         'LunarUtil': {
             'ZHI_TIAN_SHEN_OFFSET': {},
             'CHANG_SHENG_OFFSET': {}
         }
     };
 
-    private static _DICT_ARRAY: {[key: string]: {[key: string]: {[key: string]: string[]}}} = {
+    private static _OBJ_NUMBER: Record<string, Record<string, Record<string, number>>> = {
+        'LunarUtil': {
+            'ZHI_TIAN_SHEN_OFFSET': LunarUtil.ZHI_TIAN_SHEN_OFFSET,
+            'CHANG_SHENG_OFFSET': LunarUtil.CHANG_SHENG_OFFSET
+        }
+    };
+
+    private static _DICT_ARRAY: Record<string, Record<string, Record<string, string[]>>> = {
         'LunarUtil': {
             'ZHI_HIDE_GAN': {}
         }
     };
 
-    private static _ARRAYS: {[key: string]: {[key: string]: Array<string>}} = {
+    private static _OBJ_ARRAY: Record<string, Record<string, Record<string, string[]>>> = {
+        'LunarUtil': {
+            'ZHI_HIDE_GAN': LunarUtil.ZHI_HIDE_GAN
+        }
+    };
+
+    private static _ARRAYS: Record<string, Record<string, string[]>> = {
         'LunarUtil': {
             'GAN': [],
             'ZHI': [],
@@ -1428,13 +1462,78 @@ export class I18n {
         }
     };
 
+    private static _OBJ_ARRAYS: Record<string, Record<string, string[]>> = {
+        'LunarUtil': {
+            'GAN': LunarUtil.GAN,
+            'ZHI': LunarUtil.ZHI,
+            'JIA_ZI': LunarUtil.JIA_ZI,
+            'ZHI_XING': LunarUtil.ZHI_XING,
+            'XUN': LunarUtil.XUN,
+            'XUN_KONG': LunarUtil.XUN_KONG,
+            'CHONG': LunarUtil.CHONG,
+            'CHONG_GAN': LunarUtil.CHONG_GAN,
+            'CHONG_GAN_TIE': LunarUtil.CHONG_GAN_TIE,
+            'HE_GAN_5': LunarUtil.HE_GAN_5,
+            'HE_ZHI_6': LunarUtil.HE_ZHI_6,
+            'SHENGXIAO': LunarUtil.SHENGXIAO,
+            'NUMBER': LunarUtil.NUMBER,
+            'POSITION_XI': LunarUtil.POSITION_XI,
+            'POSITION_YANG_GUI': LunarUtil.POSITION_YANG_GUI,
+            'POSITION_YIN_GUI': LunarUtil.POSITION_YIN_GUI,
+            'POSITION_FU': LunarUtil.POSITION_FU,
+            'POSITION_FU_2': LunarUtil.POSITION_FU_2,
+            'POSITION_CAI': LunarUtil.POSITION_CAI,
+            'POSITION_TAI_SUI_YEAR': LunarUtil.POSITION_TAI_SUI_YEAR,
+            'POSITION_GAN': LunarUtil.POSITION_GAN,
+            'POSITION_ZHI': LunarUtil.POSITION_ZHI,
+            'JIE_QI': LunarUtil.JIE_QI,
+            'JIE_QI_IN_USE': LunarUtil.JIE_QI_IN_USE,
+            'TIAN_SHEN': LunarUtil.TIAN_SHEN,
+            'SHEN_SHA': LunarUtil.SHEN_SHA,
+            'PENGZU_GAN': LunarUtil.PENGZU_GAN,
+            'PENGZU_ZHI': LunarUtil.PENGZU_ZHI,
+            'MONTH_ZHI': LunarUtil.MONTH_ZHI,
+            'CHANG_SHENG': LunarUtil.CHANG_SHENG,
+            'HOU': LunarUtil.HOU,
+            'WU_HOU': LunarUtil.WU_HOU,
+            'POSITION_TAI_DAY': LunarUtil.POSITION_TAI_DAY,
+            'POSITION_TAI_MONTH': LunarUtil.POSITION_TAI_MONTH,
+            'YI_JI': LunarUtil.YI_JI,
+            'LIU_YAO': LunarUtil.LIU_YAO,
+            'MONTH': LunarUtil.MONTH,
+            'SEASON': LunarUtil.SEASON,
+            'DAY': LunarUtil.DAY,
+            'YUE_XIANG': LunarUtil.YUE_XIANG
+        },
+        'SolarUtil': {
+            'WEEK': SolarUtil.WEEK,
+            'XINGZUO': SolarUtil.XINGZUO
+        },
+        'TaoUtil': {
+            'AN_WU': TaoUtil.AN_WU
+        },
+        'FotoUtil': {
+            'XIU_27': FotoUtil.XIU_27
+        },
+        'NineStarUtil': {
+            'NUMBER': NineStarUtil.NUMBER,
+            'WU_XING': NineStarUtil.WU_XING,
+            'POSITION': NineStarUtil.POSITION,
+            'LUCK_XUAN_KONG': NineStarUtil.LUCK_XUAN_KONG,
+            'YIN_YANG_QI_MEN': NineStarUtil.YIN_YANG_QI_MEN,
+            'COLOR': NineStarUtil.COLOR
+        }
+    };
+
     private static updateArray(c: string) {
         const v = I18n._ARRAYS[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
+        const o = I18n._OBJ_ARRAYS[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
             const arr = v[k];
             for (let i = 0, j = arr.length; i < j; i++) {
-                o[k][i] = arr[i].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+                o[k][i] = arr[i].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
             }
@@ -1443,14 +1542,18 @@ export class I18n {
 
     private static updateStringDictionary(c: string) {
         const v = I18n._DICT_STRING[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: {[key: string]: string} = v[k];
-            for (const key in dict) {
-                const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+        const o = I18n._OBJ_STRING[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, string> = v[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
+                const i = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
-                o[k][i] = dict[key].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+                o[k][i] = dict[key].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
             }
@@ -1459,11 +1562,15 @@ export class I18n {
 
     private static updateNumberDictionary(c: string) {
         const v = I18n._DICT_NUMBER[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: {[key: string]: number} = v[k];
-            for (const key in dict) {
-                const i = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+        const o = I18n._OBJ_NUMBER[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, number> = v[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
+                const i = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
                 o[k][i] = dict[key];
@@ -1473,16 +1580,20 @@ export class I18n {
 
     private static updateArrayDictionary(c: string) {
         const v = I18n._DICT_ARRAY[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: {[key: string]: string[]} = v[k];
-            for (const key in dict) {
-                const x = key.replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+        const o = I18n._OBJ_ARRAY[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, string[]> = v[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
+                const x = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                     return I18n.getMessage($1);
                 });
                 const arr = dict[key];
                 for (let i = 0, j = arr.length; i < j; i++) {
-                    arr[i] = arr[i].replace(/{(.[^}]*)}/g, ($0: string, $1: string) => {
+                    arr[i] = arr[i].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
                         return I18n.getMessage($1);
                     });
                 }
@@ -1492,28 +1603,34 @@ export class I18n {
     }
 
     private static update() {
-        for (const c in I18n._ARRAYS) {
-            I18n.updateArray(c);
+        let keys = Object.keys(I18n._ARRAYS);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.updateArray(keys[x]);
         }
-        for (const c in I18n._DICT_STRING) {
-            I18n.updateStringDictionary(c);
+        keys = Object.keys(I18n._DICT_STRING);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.updateStringDictionary(keys[x]);
         }
-        for (const c in I18n._DICT_NUMBER) {
-            I18n.updateNumberDictionary(c);
+        keys = Object.keys(I18n._DICT_NUMBER);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.updateNumberDictionary(keys[x]);
         }
-        for (const c in I18n._DICT_ARRAY) {
-            I18n.updateArrayDictionary(c);
+        keys = Object.keys(I18n._DICT_ARRAY);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.updateArrayDictionary(keys[x]);
         }
     }
 
-    static setMessages(lang: string, messages: {[key: string]: string}) {
+    static setMessages(lang: string, messages: Record<string, string>) {
         if (!messages) {
             return;
         }
         if (!I18n._MESSAGES[lang]) {
             I18n._MESSAGES[lang] = {};
         }
-        for (const key in messages) {
+        const keys = Object.keys(messages);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const key = keys[x];
             I18n._MESSAGES[lang][key] = messages[key];
         }
         I18n.update();
@@ -1543,10 +1660,12 @@ export class I18n {
 
     private static initArray(c: string) {
         const v = I18n._ARRAYS[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
+        const o = I18n._OBJ_ARRAYS[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
             v[k].length = 0;
-            const arr = o[k];
+            const arr: string[] = o[k];
             for (let i = 0, j = arr.length; i < j; i++) {
                 v[k].push(arr[i]);
             }
@@ -1555,10 +1674,14 @@ export class I18n {
 
     private static initArrayDictionary(c: string) {
         const v = I18n._DICT_ARRAY[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: {[key: string]: string[]} = o[k];
-            for (const key in dict) {
+        const o = I18n._OBJ_ARRAY[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, string[]> = o[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
                 v[k][key] = dict[key];
             }
         }
@@ -1566,10 +1689,14 @@ export class I18n {
 
     private static initStringDictionary(c: string) {
         const v = I18n._DICT_STRING[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: {[key: string]: string} = o[k];
-            for (const key in dict) {
+        const o = I18n._OBJ_STRING[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, string> = o[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
                 v[k][key] = dict[key];
             }
         }
@@ -1577,10 +1704,14 @@ export class I18n {
 
     private static initNumberDictionary(c: string) {
         const v = I18n._DICT_NUMBER[c];
-        const o = I18n._OBJS[c];
-        for (const k in v) {
-            const dict: { [key: string]: number } = o[k];
-            for (const key in dict) {
+        const o = I18n._OBJ_NUMBER[c];
+        const keys = Object.keys(v);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            const k = keys[x];
+            const dict: Record<string, number> = o[k];
+            const subKeys = Object.keys(dict);
+            for (let m = 0, n = subKeys.length; m < n; m++) {
+                const key = subKeys[m];
                 v[k][key] = dict[key];
             }
         }
@@ -1591,17 +1722,21 @@ export class I18n {
             return;
         }
         I18n._INIT = true;
-        for (const c in I18n._ARRAYS) {
-            I18n.initArray(c);
+        let keys = Object.keys(I18n._ARRAYS);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.initArray(keys[x]);
         }
-        for (const c in I18n._DICT_STRING) {
-            I18n.initStringDictionary(c);
+        keys = Object.keys(I18n._DICT_STRING);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.initStringDictionary(keys[x]);
         }
-        for (const c in I18n._DICT_NUMBER) {
-            I18n.initNumberDictionary(c);
+        keys = Object.keys(I18n._DICT_NUMBER);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.initNumberDictionary(keys[x]);
         }
-        for (const c in I18n._DICT_ARRAY) {
-            I18n.initArrayDictionary(c);
+        keys = Object.keys(I18n._DICT_ARRAY);
+        for (let x = 0, y = keys.length; x < y; x++) {
+            I18n.initArrayDictionary(keys[x]);
         }
         I18n.setLanguage(I18n._DEFAULT_LANG);
     }

@@ -25,19 +25,19 @@ export class Yun {
         const start = forward ? current : prev.getSolar();
         const end = forward ? next.getSolar() : current;
 
-        let year;
-        let month;
-        let day;
         let hour = 0;
         if (2 === sect) {
             let minutes = end.subtractMinute(start);
-            year = Math.floor(minutes / 4320);
+            const year = Math.floor(minutes / 4320);
             minutes -= year * 4320;
-            month = Math.floor(minutes / 360);
+            const month = Math.floor(minutes / 360);
             minutes -= month * 360;
-            day = Math.floor(minutes / 12);
+            const day = Math.floor(minutes / 12);
             minutes -= day * 12;
             hour = minutes * 2;
+            this._startYear = year;
+            this._startMonth = month;
+            this._startDay = day;
         } else {
             const endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substring(11, 16));
             const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substring(11, 16));
@@ -50,14 +50,12 @@ export class Yun {
                 dayDiff--;
             }
             const monthDiff = Math.floor(hourDiff * 10 / 30);
-            month = dayDiff * 4 + monthDiff;
-            day = hourDiff * 10 - monthDiff * 30;
-            year = Math.floor(month / 12);
-            month = month - year * 12;
+            const month = dayDiff * 4 + monthDiff;
+            this._startDay = hourDiff * 10 - monthDiff * 30;
+            const year = Math.floor(month / 12);
+            this._startMonth = month - year * 12;
+            this._startYear = year;
         }
-        this._startYear = year;
-        this._startMonth = month;
-        this._startDay = day;
         this._startHour = hour;
     }
 

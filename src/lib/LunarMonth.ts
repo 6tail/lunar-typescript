@@ -111,28 +111,22 @@ export class LunarMonth {
     }
 
     getPositionTaiSui(): string {
-        let p;
         const m = Math.abs(this._month);
         switch (m) {
             case 1:
             case 5:
             case 9:
-                p = '艮';
-                break;
+                return '艮';
             case 3:
             case 7:
             case 11:
-                p = '坤';
-                break;
+                return '坤';
             case 4:
             case 8:
             case 12:
-                p = '巽';
-                break;
-            default:
-                p = LunarUtil.POSITION_GAN[Solar.fromJulianDay(this.getFirstJulianDay()).getLunar().getMonthGanIndex()];
+                return '巽';
         }
-        return p;
+        return LunarUtil.POSITION_GAN[Solar.fromJulianDay(this.getFirstJulianDay()).getLunar().getMonthGanIndex()];
     }
 
     getPositionTaiSuiDesc(): string {
@@ -165,14 +159,11 @@ export class LunarMonth {
             let im = this._month;
             let index = 0;
             let months = LunarYear.fromYear(ny).getMonths();
-            let i;
-            let m;
-            let size;
             if (n > 0) {
                 while (true) {
-                    size = months.length;
-                    for (i = 0; i < size; i++) {
-                        m = months[i];
+                    const size = months.length;
+                    for (let i = 0; i < size; i++) {
+                        const m = months[i];
                         if (m.getYear() === iy && m.getMonth() === im) {
                             index = i;
                             break;
@@ -192,9 +183,9 @@ export class LunarMonth {
                 return months[index + rest];
             } else {
                 while (true) {
-                    size = months.length;
-                    for (i = 0; i < size; i++) {
-                        m = months[i];
+                    const size = months.length;
+                    for (let i = 0; i < size; i++) {
+                        const m = months[i];
                         if (m.getYear() === iy && m.getMonth() === im) {
                             index = i;
                             break;

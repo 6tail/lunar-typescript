@@ -30,10 +30,9 @@ export class Solar {
     static fromJulianDay(julianDay: number): Solar {
         let d = Math.floor(julianDay + 0.5);
         let f = julianDay + 0.5 - d;
-        let c;
 
         if (d >= 2299161) {
-            c = Math.floor((d - 1867216.25) / 36524.25);
+            const c = Math.floor((d - 1867216.25) / 36524.25);
             d += 1 + c - Math.floor(c / 4);
         }
         d += 1524;

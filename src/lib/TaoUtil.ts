@@ -6,7 +6,7 @@ export class TaoUtil {
     static WU_LA: string[] = ['1-1', '5-5', '7-7', '10-1', '12-8'];
     static AN_WU: string[] = ['{dz.wei}', '{dz.xu}', '{dz.chen}', '{dz.yin}', '{dz.wu}', '{dz.zi}', '{dz.you}', '{dz.shen}', '{dz.si}', '{dz.hai}', '{dz.mao}', '{dz.chou}'];
 
-    static BA_HUI: { [key: string]: string } = {
+    static BA_HUI: Record<string, string> = {
         '{jz.bingWu}': '天会',
         '{jz.renWu}': '地会',
         '{jz.renZi}': '人会',
@@ -17,7 +17,7 @@ export class TaoUtil {
         '{jz.jiaXu}': '四时会'
     };
 
-    static BA_JIE: { [key: string]: string } = {
+    static BA_JIE: Record<string, string> = {
         '{jq.liChun}': '东北方度仙上圣天尊同梵炁始青天君下降',
         '{jq.chunFen}': '东方玉宝星上天尊同青帝九炁天君下降',
         '{jq.liXia}': '东南方好生度命天尊同梵炁始丹天君下降',
@@ -28,7 +28,7 @@ export class TaoUtil {
         '{jq.dongZhi}': '北方玄上玉宸天尊同黑帝五炁天君下降'
     };
 
-    static FESTIVAL: { [key: string]: TaoFestival[] } = {
+    static FESTIVAL: Record<string, TaoFestival[]> = {
         '1-1': [new TaoFestival('天腊之辰', '天腊，此日五帝会于东方九炁青天')],
         '1-3': [new TaoFestival('郝真人圣诞'), new TaoFestival('孙真人圣诞')],
         '1-5': [new TaoFestival('孙祖清静元君诞')],
