@@ -1464,7 +1464,7 @@ export class LunarUtil {
         const l: string[] = [];
         let m: number = monthZhiIndex - 2;
         if (m < 0) {
-            m += 10;
+            m += 12;
         }
         let index: string = LunarUtil.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
         if (index.length < 2) {
@@ -1490,7 +1490,7 @@ export class LunarUtil {
         const l: string[] = [];
         let m: number = monthZhiIndex - 2;
         if (m < 0) {
-            m += 10;
+            m += 12;
         }
         let index: string = LunarUtil.getJiaZiIndex(dayGanZhi).toString(16).toUpperCase();
         if (index.length < 2) {

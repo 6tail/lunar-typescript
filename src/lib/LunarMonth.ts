@@ -22,7 +22,7 @@ export class LunarMonth {
         this._dayCount = dayCount;
         this._firstJulianDay = firstJulianDay;
         this._index = index;
-        this._zhiIndex = (index - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
+        this._zhiIndex = (Math.abs(lunarMonth) - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
     }
 
     getYear(): number {
@@ -39,7 +39,7 @@ export class LunarMonth {
 
     getGanIndex(): number {
         const offset = (LunarYear.fromYear(this._year).getGanIndex() + 1) % 5 * 2;
-        return (this._index - 1 + offset) % 10;
+        return (Math.abs(this._month) - 1 + offset) % 10;
     }
 
     getZhiIndex(): number {

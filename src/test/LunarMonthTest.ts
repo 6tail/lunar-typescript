@@ -12,13 +12,13 @@ describe('LunarMonth', () => {
     it('test2', () => {
         const month = LunarMonth.fromYm(2023, -2)!;
         assert.strictEqual(month.getIndex(), 3);
-        assert.strictEqual(month.getGanZhi(), '丙辰');
+        assert.strictEqual(month.getGanZhi(), '乙卯');
     });
 
     it('test3', () => {
         const month = LunarMonth.fromYm(2023, 3)!;
         assert.strictEqual(month.getIndex(), 4);
-        assert.strictEqual(month.getGanZhi(), '丁巳');
+        assert.strictEqual(month.getGanZhi(), '丙辰');
     });
 
     it('test4', () => {
@@ -30,7 +30,7 @@ describe('LunarMonth', () => {
     it('test5', () => {
         const month = LunarMonth.fromYm(2023, 12)!;
         assert.strictEqual(month.getIndex(), 13);
-        assert.strictEqual(month.getGanZhi(), '丙寅');
+        assert.strictEqual(month.getGanZhi(), '乙丑');
     });
 
     it('test6', () => {
