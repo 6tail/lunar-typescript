@@ -449,7 +449,7 @@ export class I18n {
             'jr.chuXi': '除夕',
             'jr.chunJie': '春节',
             'jr.yuanXiao': '元宵节',
-            'jr.longTou': '龙头节',
+            'jr.longTou': '龙抬头',
             'jr.duanWu': '端午节',
             'jr.qiXi': '七夕节',
             'jr.zhongQiu': '中秋节',
