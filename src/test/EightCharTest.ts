@@ -1,4 +1,4 @@
-import {Solar, Lunar} from '../lib';
+import {Solar, Lunar, I18n} from '../lib';
 import * as assert from 'assert';
 
 describe('EightChar', () => {
@@ -91,6 +91,9 @@ describe('EightChar', () => {
         assert.strictEqual(eightChar.getMonthShiShenGan(), '正印');
         assert.strictEqual(eightChar.getDayShiShenGan(), '日主');
         assert.strictEqual(eightChar.getTimeShiShenGan(), '伤官');
+        I18n.setLanguage('en');
+        assert.strictEqual(eightChar.getDayShiShenGan(), 'Self');
+        I18n.setLanguage('chs');
     });
 
     it('地支十神', () => {
@@ -121,6 +124,10 @@ describe('EightChar', () => {
         assert.strictEqual(eightChar.getMonthNaYin(), '霹雳火');
         assert.strictEqual(eightChar.getDayNaYin(), '白蜡金');
         assert.strictEqual(eightChar.getTimeNaYin(), '长流水');
+
+        I18n.setLanguage('en');
+        assert.strictEqual(eightChar.getTimeNaYin(), 'Flows');
+        I18n.setLanguage('chs');
     });
 
     it('胎元', () => {

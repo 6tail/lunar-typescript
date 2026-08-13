@@ -422,6 +422,7 @@ export class I18n {
             'sn.yinShen': '阴神',
             'sn.jieChu': '解除',
             'sn.yangPoYinChong': '阳破阴冲',
+            'ss.riZhu': '日主',
             'ss.biJian': '比肩',
             'ss.jieCai': '劫财',
             'ss.shiShen': '食神',
@@ -1223,6 +1224,7 @@ export class I18n {
             'sn.yinShen': 'Yin Spirit',
             'sn.jieChu': 'Removal',
             'sn.yangPoYinChong': 'Yang Break Yin Clash',
+            'ss.riZhu': 'Self',
             'ss.biJian': 'Friend',
             'ss.jieCai': 'Rob Wealth',
             'ss.shiShen': 'Eating God',
@@ -1610,7 +1612,8 @@ export class I18n {
             'ny.tianShang': 'Sky',
             'ny.songBo': 'Coniferin',
             'ny.shiLiu': 'Pomegranate',
-            'ny.changLiu': 'Flows'
+            'ny.changLiu': 'Flows',
+            '{ny.changLiu}{wx.shui}': 'Flows'
         }
     };
 
@@ -1824,6 +1827,13 @@ export class I18n {
         }
     };
 
+    private static convertMessage(s: string) {
+        const v = I18n.getMessage(s);
+        return v !== s ? v : s.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
+            return I18n.getMessage($1);
+        });
+    }
+
     private static updateArray(c: string) {
         const v = I18n._ARRAYS[c];
         const o = I18n._OBJ_ARRAYS[c];
@@ -1832,9 +1842,7 @@ export class I18n {
             const k = keys[x];
             const arr = v[k];
             for (let i = 0, j = arr.length; i < j; i++) {
-                o[k][i] = arr[i].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                    return I18n.getMessage($1);
-                });
+                o[k][i] = I18n.convertMessage(arr[i]);
             }
         }
     }
@@ -1849,12 +1857,7 @@ export class I18n {
             const subKeys = Object.keys(dict);
             for (let m = 0, n = subKeys.length; m < n; m++) {
                 const key = subKeys[m];
-                const i = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                    return I18n.getMessage($1);
-                });
-                o[k][i] = dict[key].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                    return I18n.getMessage($1);
-                });
+                o[k][I18n.convertMessage(key)] = I18n.convertMessage(dict[key]);
             }
         }
     }
@@ -1869,10 +1872,7 @@ export class I18n {
             const subKeys = Object.keys(dict);
             for (let m = 0, n = subKeys.length; m < n; m++) {
                 const key = subKeys[m];
-                const i = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                    return I18n.getMessage($1);
-                });
-                o[k][i] = dict[key];
+                o[k][I18n.convertMessage(key)] = dict[key];
             }
         }
     }
@@ -1887,16 +1887,11 @@ export class I18n {
             const subKeys = Object.keys(dict);
             for (let m = 0, n = subKeys.length; m < n; m++) {
                 const key = subKeys[m];
-                const x = key.replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                    return I18n.getMessage($1);
-                });
                 const arr = dict[key];
                 for (let i = 0, j = arr.length; i < j; i++) {
-                    arr[i] = arr[i].replace(/{(.[^}]*)}/g, (_$0: string, $1: string) => {
-                        return I18n.getMessage($1);
-                    });
+                    arr[i] = I18n.convertMessage(arr[i]);
                 }
-                o[k][x] = arr;
+                o[k][I18n.convertMessage(key)] = arr;
             }
         }
     }

@@ -1,6 +1,7 @@
 import {Lunar} from './Lunar';
 import {LunarUtil} from './LunarUtil';
 import {Yun} from './Yun';
+import {I18n} from "./I18n";
 
 export class EightChar {
     private _sect: number = 2;
@@ -194,7 +195,7 @@ export class EightChar {
     }
 
     getDayShiShenGan(): string {
-        return '日主';
+        return I18n.getMessage('ss.riZhu');
     }
 
     getDayShiShenZhi(): string[] {
