@@ -34,4 +34,4 @@ lunar是一款无第三方依赖的公历(阳历)、农历(阴历、老黄历)�
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=6tail/lunar-typescript&type=Date)](https://star-history.com/#6tail/lunar-typescript&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=6tail/lunar-typescript&type=Date)](https://star-history.dera.page/#6tail/lunar-typescript&Date)
