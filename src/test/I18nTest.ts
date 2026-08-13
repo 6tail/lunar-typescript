@@ -29,6 +29,15 @@ describe('i18n', () => {
         I18n.setLanguage('chs');
     });
 
+    it('test5', () => {
+        I18n.setLanguage('en');
+        assert.strictEqual(I18n.getMessage('ny.jianXia'), 'Valley');
+        assert.strictEqual(I18n.getMessage('ds.diWang'), 'Emperor');
+        assert.strictEqual(I18n.getMessage('ss.zhengGuan'), 'Direct Officer');
+
+        I18n.setLanguage('chs');
+    });
+
     it('test4', () => {
         const lunar = Lunar.fromDate(new Date());
 
