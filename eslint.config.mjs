@@ -3,10 +3,10 @@ import ts from "typescript-eslint";
 
 export default [
     {
-        files: ["lib/*.ts"]
+        files: ["src/lib/*.ts"]
     },
     {
-        ignores: ["test/*.ts"],
+        ignores: ["src/test/*.ts", "dist/*", "build-js.js"],
     },
     {
         languageOptions: {

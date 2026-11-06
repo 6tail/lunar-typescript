@@ -5,10 +5,10 @@
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./dist",
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true
+    "experimentalDecorators": true
   },
   "exclude": [
     "./.idea",

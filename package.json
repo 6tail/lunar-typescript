@@ -1,23 +1,24 @@
 {
   "name": "lunar-typescript",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "description": "lunar是一款无第三方依赖的公历(阳历)、农历(阴历、老黄历)、佛历和道历工具，支持星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋、凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。lunar is a calendar library for Solar and Chinese Lunar.",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/lib/index.cjs",
+  "module": "./dist/lib/index.mjs",
+  "types": "./dist/lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "types": "./dist/lib/index.d.ts",
+      "require": "./dist/lib/index.cjs",
+      "import": "./dist/lib/index.mjs"
     }
   },
   "scripts": {
     "lint": "eslint",
     "build": "unbuild",
-    "test": "npm run build && mocha ./dist/test/*.mjs",
+    "test": "mocha -r ts-node/register --config=.mocharc.json",
     "release": "npm run test && npm publish"
   },
+  "homepage": "https://github.com/6tail/lunar-typescript",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/6tail/lunar-typescript.git"
@@ -59,18 +60,18 @@
   "bugs": {
     "url": "https://github.com/6tail/lunar-typescript/issues"
   },
-  "homepage": "https://github.com/6tail/lunar-typescript",
   "devDependencies": {
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^14.14.9",
-    "mocha": "^10.2.0",
-    "mocha-typescript": "^1.1.14",
-    "typescript": "^4.1.2",
-    "unbuild": "^1.1.2",
-    "@typescript-eslint/eslint-plugin": "^8.21.0",
-    "@typescript-eslint/parser": "^8.21.0",
-    "typescript-eslint": "^8.21.0",
-    "eslint": "^9.19.0",
+    "@testdeck/mocha": "^0.3.3",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.10",
+    "@typescript-eslint/eslint-plugin": "^8.72.1",
+    "@typescript-eslint/parser": "^8.72.1",
+    "typescript-eslint": "^8.72.1",
+    "eslint": "^9.26.0",
+    "mocha": "^11.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "unbuild": "^3.3.1",
     "globals": "^15.14.0"
   }
 }

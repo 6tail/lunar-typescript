@@ -1,9 +1,13 @@
 .git/
 .idea/
-dist/test/
+*.iml
 node_modules/
 src/
 .gitignore
-*.iml
+.mocharc.json
+.npmignore
+build.config.ts
+eslint.config.mjs
+package-lock.json
 tsconfig.json
 .DS_Store
